@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
              x:Class="AppClient.Views.LoginPage"
-             Title="LoginPage">
+             Title="LoginPage"
+             x:DataType="viewmodel:LoginPageViewModel">
+   
     <VerticalStackLayout Padding="10" BackgroundColor="Pink">
         <Label
             HorizontalOptions="Center"
@@ -56,7 +59,7 @@
                 Text="הרשם כאן"
                 TextColor="Blue">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToRegisterCommand}" />
+                    <TapGestureRecognizer Command="{Binding GoToSignUpCommand}" />
                 </Label.GestureRecognizers>
             </Label>
         </StackLayout>
