@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppClient.Views.SignUpPage"
+             Title="SignUpPage"
+             FlowDirection="RightToLeft">
+    <StackLayout VerticalOptions="FillAndExpand">
+
+        <Image Source="imagepage.jpeg" WidthRequest="100" />
+
+        <ScrollView
+            HorizontalScrollBarVisibility="Always"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Always">
+
+            <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*">
+
+                <Label
+                        Grid.ColumnSpan="2"
+                  HorizontalOptions="Center"
+                  Padding="5"
+                  FontAttributes="Bold"
+                  FontFamily="Consolas"
+                  FontSize="30"
+                  Text="SignUp"
+                  TextColor="Purple" />
+
+
+                <Label
+                    Grid.Row="1"
+                    x:Name="profileName_lbl"
+                    Grid.Column="0"
+                    Margin="15"
+                    Text="שם פרופיל" />
+
+                <Entry
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Placeholder="הקלד שם פרופיל"
+                    Text="{Binding ProfileName}" /> 
+                
+                <Label
+                    Grid.Row="2"
+                    x:Name="userName_lbl"
+                    Grid.Column="0"
+                    Margin="15"
+                    Text="שם משתמש" />
+
+                <Entry
+                    Grid.Column="1"
+                     Grid.Row="2"
+                    Placeholder="הקלד שם משתמש"
+                    Text="{Binding UserName}" />
+
+                <Label
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Margin="15"
+                    HorizontalOptions="Center"
+                    Text="{Binding User_Error}"
+                    TextColor="Red" />
+
+
+                <Label
+                    x:Name="mail_lbl"
+                    Grid.Row="3"
+                    Margin="15"
+                    Text="מייל" />
+
+                <Entry
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Keyboard="Email"
+                    Placeholder="הקלד מייל"
+                    Text="{Binding Mail}" />
+
+                <Label
+                    x:Name="password_lbl"
+                    Grid.Row="4"
+                    Margin="15"
+                    FlowDirection="RightToLeft"
+                    Text="סיסמא" />
+                <Entry
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Keyboard="Chat"
+                    Placeholder="הקלד סיסמא"
+                    Text="{Binding Password}" />
+
+                <Label
+                    Grid.Row="5"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Center"
+                    Text="{Binding Password_Error}"
+                    TextColor="red" />
+
+                <!--  בחירת סוג משתמש  -->
+                <Label
+                    Grid.Row="6"
+                    Margin="15"
+                    Text="בחר את סוג המשתמש:" />
+
+                <StackLayout
+                    Grid.Row="7"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Center"
+                    Orientation="Horizontal">
+                    <!--  RadioButton לקונדיטור  -->
+                    <RadioButton
+                        Content="קונדיטור"
+                        GroupName="UserType"
+                        IsChecked="{Binding IsSellerChecked}" />
+
+                    <!--  RadioButton לקונה  -->
+                    <RadioButton
+                        Content="קונה"
+                        GroupName="UserType"
+                        IsChecked="{Binding IsBuyerChecked}" />
+                </StackLayout>
+
+                <Label
+    Grid.Row="8"
+    x:Name="highestPrice_lbl"
+    Grid.Column="0"
+    Margin="15"
+    Text="המחיר הגבוה ביותר" />
+
+                <Entry
+    Grid.Column="1"
+     Grid.Row="8"
+    Placeholder="הקלד את מחירך הגבוה ביותר"
+    Text="{Binding UserName}" />
+
+                <Label
+    Grid.Row="2"
+    Grid.ColumnSpan="2"
+    Margin="15"
+    HorizontalOptions="Center"
+    Text="{Binding User_Error}"
+    TextColor="Red" />
+
+
+
+                <Button
+                    Grid.Row="15"
+                    Grid.ColumnSpan="2"
+                    Command="{Binding RegistrationCommand}"
+                    IsEnabled="{Binding CanRegister}"
+                    Text="המשך" />
+
+            </Grid>
+
+        </ScrollView>
+    </StackLayout>
+
+</ContentPage>

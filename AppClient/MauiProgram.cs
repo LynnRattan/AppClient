@@ -19,6 +19,8 @@ namespace AppClient
 
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<LoginPageViewModel>();
+            builder.Services.AddSingleton<SignUpPage>();
+            builder.Services.AddSingleton<SignUpPageViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

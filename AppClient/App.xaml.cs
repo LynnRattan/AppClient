@@ -5,13 +5,16 @@ namespace AppClient
 {
     public partial class App : Application
     {
-        public App(LoginPageViewModel loginPageViewModel)
+        public App()
+            //LoginPageViewModel loginPageViewModel
         {
             InitializeComponent();
 
             //MainPage = new AppShell();
 
-            MainPage = new LoginPage(loginPageViewModel);
+            //MainPage = new LoginPage(loginPageViewModel);
+
+            MainPage = new SignUpPage();
 
 
         }
