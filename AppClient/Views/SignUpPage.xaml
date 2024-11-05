@@ -6,7 +6,7 @@
              FlowDirection="RightToLeft">
     <StackLayout VerticalOptions="FillAndExpand">
 
-        <Image Source="imagepage.jpeg" WidthRequest="100" />
+       
 
         <ScrollView
             HorizontalScrollBarVisibility="Always"
@@ -94,14 +94,44 @@
                     Text="{Binding Password_Error}"
                     TextColor="red" />
 
+                <Label
+    Grid.Row="6"
+    x:Name="profileImage_lbl"
+    Grid.Column="0"
+    Margin="15"
+    Text="תמונת פרופיל" />
+
+                <!-- Image to preview selected profile image -->
+                <Image
+    Grid.Row="6"
+    Grid.Column="1"
+    x:Name="profileImage_preview"
+    HeightRequest="50"
+    WidthRequest="100"
+    Aspect="AspectFill"
+    IsVisible="{Binding IsImageSelected}">
+                    <Image.Source>
+                        <FileImageSource File="{Binding ProfileImage}" />
+                    </Image.Source>
+                </Image>
+
+                <!-- Button to select profile image -->
+                <Button
+    Grid.Row="6"
+    Grid.ColumnSpan="2"
+    HorizontalOptions="Center"
+    Text="בחר תמונה"
+    Command="{Binding SelectImageCommand}" />
+
+
                 <!--  בחירת סוג משתמש  -->
                 <Label
-                    Grid.Row="6"
+                    Grid.Row="7"
                     Margin="15"
                     Text="בחר את סוג המשתמש:" />
 
                 <StackLayout
-                    Grid.Row="7"
+                    Grid.Row="8"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Center"
                     Orientation="Horizontal">
@@ -109,44 +139,87 @@
                     <RadioButton
                         Content="קונדיטור"
                         GroupName="UserType"
-                        IsChecked="{Binding IsSellerChecked}" />
+                        IsChecked="{Binding IsConfectionerChecked}" />
 
                     <!--  RadioButton לקונה  -->
                     <RadioButton
                         Content="קונה"
                         GroupName="UserType"
-                        IsChecked="{Binding IsBuyerChecked}" />
+                        IsChecked="{Binding IsUserChecked}" />
                 </StackLayout>
 
                 <Label
-    Grid.Row="8"
+    Grid.Row="9"
     x:Name="highestPrice_lbl"
     Grid.Column="0"
     Margin="15"
-    Text="המחיר הגבוה ביותר" />
+    Text="המחיר הגבוה ביותר" 
+    IsVisible="{Binding IsHighestPriceVisible}" />
 
                 <Entry
     Grid.Column="1"
-     Grid.Row="8"
+     Grid.Row="9"
     Placeholder="הקלד את מחירך הגבוה ביותר"
-    Text="{Binding UserName}" />
+    Text="{Binding HighestPrice}" 
+    IsVisible="{Binding IsHighestPriceVisible}"/>
 
                 <Label
-    Grid.Row="2"
+    Grid.Row="10"
     Grid.ColumnSpan="2"
     Margin="15"
     HorizontalOptions="Center"
-    Text="{Binding User_Error}"
-    TextColor="Red" />
+    Text="{Binding HighestPrice_Error}"
+    TextColor="Red"
+    IsVisible="{Binding IsHighestPriceVisible}"/>
+
+                <Label
+     Grid.Row="10"
+     Margin="15"
+     Text="בחר את סוג הקונדיטוריה:" 
+     IsVisible="{Binding IsConfectioneryTypeVisible}"/>
+
+                <StackLayout
+     Grid.Row="11"
+     Grid.ColumnSpan="2"
+     HorizontalOptions="Center"
+     Orientation="Horizontal"
+     IsVisible="{Binding IsConfectioneryTypeVisible}">
+                    <!--  RadioButton למאפייה  -->
+                    <RadioButton
+         Content="מאפייה"
+         GroupName="ConfectioneryType"
+         IsChecked="{Binding IsBakeryChecked}" />
+
+                    <!--  RadioButton לפטיסרי  -->
+                    <RadioButton
+         Content="פטיסרי"
+         GroupName="ConfectioneryType"
+         IsChecked="{Binding IsPatisserieChecked}" />
+                    
+                    <!--  RadioButton לביתית  -->
+                    <RadioButton
+         Content="ביתית"
+         GroupName="ConfectioneryType"
+         IsChecked="{Binding IsHomemadeChecked}" />
+                    
+                    <!--  RadioButton להכל  -->
+                    <RadioButton
+         Content="הכל"
+         GroupName="ConfectioneryType"
+         IsChecked="{Binding IsEverythingChecked}" />
+                </StackLayout>
 
 
 
                 <Button
-                    Grid.Row="15"
+                    Grid.Row="12"
                     Grid.ColumnSpan="2"
-                    Command="{Binding RegistrationCommand}"
-                    IsEnabled="{Binding CanRegister}"
+                     HorizontalOptions="Center"
+                    Command="{Binding SignUpCommand}"
+                    IsEnabled="{Binding CanSignUp}"
                     Text="המשך" />
+
+                
 
             </Grid>
 
