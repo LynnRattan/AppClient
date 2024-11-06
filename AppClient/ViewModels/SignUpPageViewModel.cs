@@ -34,6 +34,8 @@ namespace AppClient.ViewModels
         private bool isEverythingChecked;
         private string confectioneryType;
         private Image profileImage;
+        private bool isHighestPriceVisible;
+        private bool isConfectioneryTypeVisible;
 
         //// הוספת אובייקט ממחלקת השירותים שיוכל להפעיל את הפונקציות במחלקה
         //private WebApi api_service;
@@ -226,9 +228,47 @@ namespace AppClient.ViewModels
                         IsUserChecked = false; // Uncheck the User radio button
                     }
                     OnPropertyChanged(nameof(IsConfectionerChecked));
+                    UpdateVisibilityBasedOnUserType();
                 }
             }
         }
+
+        // Property to control visibility of "Highest Price" field
+        public bool IsHighestPriceVisible
+        {
+            get => isHighestPriceVisible;
+            private set
+            {
+                if (isHighestPriceVisible != value)
+                {
+                    isHighestPriceVisible = value;
+                    OnPropertyChanged(nameof(IsHighestPriceVisible));
+                }
+            }
+        }
+
+        // Property to control visibility of "Confectionery Type" field
+        public bool IsConfectioneryTypeVisible
+        {
+            get => isConfectioneryTypeVisible;
+            private set
+            {
+                if (isConfectioneryTypeVisible != value)
+                {
+                    isConfectioneryTypeVisible = value;
+                    OnPropertyChanged(nameof(IsConfectioneryTypeVisible));
+                }
+            }
+        }
+
+        // Method to update visibility of related fields based on user selection
+        private void UpdateVisibilityBasedOnUserType()
+        {
+            // Only show "Highest Price" and "Confectionery Type" if the user is a Confectioner
+            IsHighestPriceVisible = IsConfectionerChecked;
+            IsConfectioneryTypeVisible = IsConfectionerChecked;
+        }
+
 
         public string ConfectioneryType
         {
