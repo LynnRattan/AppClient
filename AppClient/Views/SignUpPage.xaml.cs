@@ -1,9 +1,12 @@
+using AppClient.ViewModels;
+
 namespace AppClient.Views;
 
 public partial class SignUpPage : ContentPage
 {
-	public SignUpPage()
+	public SignUpPage(SignUpPageViewModel vm)
 	{
+		this.BindingContext = vm;
 		InitializeComponent();
 	}
 }

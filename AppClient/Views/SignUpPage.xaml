@@ -140,74 +140,67 @@
                     <RadioButton
                         Content="קונדיטור"
                         GroupName="UserType"
-                        IsChecked="{Binding IsConfectionerChecked}" />
+                        IsChecked="{Binding IsConChecked}" />
 
                     <!--  RadioButton לקונה  -->
                     <RadioButton
                         Content="קונה"
-                        GroupName="UserType"
-                        IsChecked="{Binding IsUserChecked}" />
+                        GroupName="UserType"/>
                 </StackLayout>
-
                 <Label
-    Grid.Row="9"
+                    IsVisible="{Binding IsConChecked}"
+                    Grid.Row="9"
+                    Grid.Column="0"
     x:Name="highestPrice_lbl"
-    Grid.Column="0"
     Margin="15"
-    Text="המחיר הגבוה ביותר" 
-    IsVisible="{Binding IsHighestPriceVisible}" />
+    Text="המחיר הגבוה ביותר" />
 
                 <Entry
-    Grid.Column="1"
-     Grid.Row="9"
+                    IsVisible="{Binding IsConChecked}"
+                    Grid.Row="9"
+Grid.Column="1"
     Placeholder="הקלד את מחירך הגבוה ביותר"
-    Text="{Binding HighestPrice}" 
-    IsVisible="{Binding IsHighestPriceVisible}"/>
+    Text="{Binding HighestPrice}" />
 
                 <Label
-    Grid.Row="10"
-    Grid.ColumnSpan="2"
+                    IsVisible="{Binding IsConChecked}"
     Margin="15"
     HorizontalOptions="Center"
     Text="{Binding HighestPrice_Error}"
-    TextColor="Red"
-    IsVisible="{Binding IsHighestPriceVisible}"/>
+    TextColor="Red"/>
 
                 <Label
-     Grid.Row="10"
+                    IsVisible="{Binding IsConChecked}"
+                    Grid.Row="10"
+Grid.Column="0"
      Margin="15"
-     Text="בחר את סוג הקונדיטוריה:" 
-     IsVisible="{Binding IsConfectioneryTypeVisible}"/>
+     Text="בחר את סוג הקונדיטוריה:" />
 
                 <StackLayout
-     Grid.Row="11"
-     Grid.ColumnSpan="2"
+                    IsVisible="{Binding IsConChecked}"
+                    Grid.Row="11"
+Grid.ColumnSpan="2"
      HorizontalOptions="Center"
-     Orientation="Horizontal"
-     IsVisible="{Binding IsConfectioneryTypeVisible}">
+     Orientation="Horizontal">
                     <!--  RadioButton למאפייה  -->
                     <RadioButton
          Content="מאפייה"
-         GroupName="ConfectioneryType"
-         IsChecked="{Binding IsBakeryChecked}" />
+         GroupName="ConfectioneryType"/>
 
                     <!--  RadioButton לפטיסרי  -->
                     <RadioButton
          Content="פטיסרי"
-         GroupName="ConfectioneryType"
-         IsChecked="{Binding IsPatisserieChecked}" />
+         GroupName="ConfectioneryType"/>
                     
                     <!--  RadioButton לביתית  -->
                     <RadioButton
          Content="ביתית"
-         GroupName="ConfectioneryType"
-         IsChecked="{Binding IsHomemadeChecked}" />
+         GroupName="ConfectioneryType"/>
                     
                     <!--  RadioButton להכל  -->
                     <RadioButton
          Content="הכל"
-         GroupName="ConfectioneryType"
-         IsChecked="{Binding IsEverythingChecked}" />
+         GroupName="ConfectioneryType"/>
                 </StackLayout>
 
 

@@ -10,11 +10,7 @@ namespace AppClient
         {
             InitializeComponent();
 
-            //MainPage = new AppShell();
-
-            //MainPage = new LoginPage(loginPageViewModel);
-
-            MainPage = new SignUpPage();
+            MainPage = new AppShell();
 
 
         }

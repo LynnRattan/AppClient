@@ -23,19 +23,12 @@ namespace AppClient.ViewModels
         private string password;
         private string? password_error;
         private string userType;
-        private bool isConfectionerChecked;
-        private bool isUserChecked;
+        private bool isConChecked;
         private readonly IServiceProvider serviceProvider;
         private string profileName;
         private double highestPrice;
-        private bool isBakeryChecked;
-        private bool isPatisserieChecked;
-        private bool isHomemadeChecked;
-        private bool isEverythingChecked;
         private string confectioneryType;
         private Image profileImage;
-        private bool isHighestPriceVisible;
-        private bool isConfectioneryTypeVisible;
 
         //// הוספת אובייקט ממחלקת השירותים שיוכל להפעיל את הפונקציות במחלקה
         //private WebApi api_service;
@@ -46,8 +39,6 @@ namespace AppClient.ViewModels
             //this.api_service = api_service;
             //SignUpCommand = new Command(SignUp);
             this.serviceProvider = serviceProvider;
-
-
         }
 
         public string ProfileName
@@ -194,82 +185,20 @@ namespace AppClient.ViewModels
             }
         }
 
-        // מאפיין לבחירת "משתמש קונה"
-        public bool IsUserChecked
-        {
-            get { return isConfectionerChecked; }
-            set
-            {
-                if (isUserChecked != value)
-                {
-                    isUserChecked = value;
-                    if (isUserChecked)
-                    {
-                        UserType = "1"; // עדכון ל-1 עבור משתמש קונה
-                        IsConfectionerChecked = false; // Uncheck the Confectioner radio button
-                    }
-                    OnPropertyChanged(nameof(IsUserChecked));
-                }
-            }
-        }
 
         // מאפיין לבחירת "קונדיטור"
-        public bool IsConfectionerChecked
+        public bool IsConChecked
         {
-            get { return isConfectionerChecked; }
+            get { return isConChecked; }
             set
             {
-                if (isConfectionerChecked != value)
+                if (isConChecked != value)
                 {
-                    isConfectionerChecked = value;
-                    if (isConfectionerChecked)
-                    {
-                        UserType = "2"; // עדכון ל-2 עבור קונדיטור
-                        IsUserChecked = false; // Uncheck the User radio button
-                    }
-                    OnPropertyChanged(nameof(IsConfectionerChecked));
-                    UpdateVisibilityBasedOnUserType();
+                    isConChecked = value;
+                    OnPropertyChanged(nameof(IsConChecked));
                 }
             }
         }
-
-        // Property to control visibility of "Highest Price" field
-        public bool IsHighestPriceVisible
-        {
-            get => isHighestPriceVisible;
-            private set
-            {
-                if (isHighestPriceVisible != value)
-                {
-                    isHighestPriceVisible = value;
-                    OnPropertyChanged(nameof(IsHighestPriceVisible));
-                }
-            }
-        }
-
-        // Property to control visibility of "Confectionery Type" field
-        public bool IsConfectioneryTypeVisible
-        {
-            get => isConfectioneryTypeVisible;
-            private set
-            {
-                if (isConfectioneryTypeVisible != value)
-                {
-                    isConfectioneryTypeVisible = value;
-                    OnPropertyChanged(nameof(IsConfectioneryTypeVisible));
-                }
-            }
-        }
-
-        // Method to update visibility of related fields based on user selection
-        private void UpdateVisibilityBasedOnUserType()
-        {
-            // Only show "Highest Price" and "Confectionery Type" if the user is a Confectioner
-            IsHighestPriceVisible = IsConfectionerChecked;
-            IsConfectioneryTypeVisible = IsConfectionerChecked;
-        }
-
-
         public string ConfectioneryType
         {
             get
@@ -283,85 +212,7 @@ namespace AppClient.ViewModels
             }
         }
 
-        public bool IsBakeryChecked
-        {
-            get { return isBakeryChecked; }
-            set
-            {
-                if (isBakeryChecked != value)
-                {
-                    isBakeryChecked = value;
-                    if (isBakeryChecked)
-                    {
-                        ConfectioneryType = "1"; // עדכון ל-1 עבור מאפייה
-                        IsPatisserieChecked = false; // Uncheck the Patisserie radio button
-                        IsHomemadeChecked = false; // Uncheck the Homemade radio button
-                        IsEverythingChecked = false; // Uncheck the Everything radio button
-                    }
-                    OnPropertyChanged(nameof(IsBakeryChecked));
-                }
-            }
-        }
-
-        public bool IsPatisserieChecked
-        {
-            get { return isPatisserieChecked; }
-            set
-            {
-                if (isPatisserieChecked != value)
-                {
-                    isPatisserieChecked = value;
-                    if (isPatisserieChecked)
-                    {
-                        ConfectioneryType = "2"; // עדכון ל-2 עבור פטיסרי
-                        IsBakeryChecked = false; // Uncheck the Bakery radio button
-                        IsHomemadeChecked = false; // Uncheck the Homemade radio button
-                        IsEverythingChecked = false; // Uncheck the Everything radio button
-                    }
-                    OnPropertyChanged(nameof(IsPatisserieChecked));
-                }
-            }
-        }
-
-        public bool IsHomemadeChecked
-        {
-            get { return isHomemadeChecked; }
-            set
-            {
-                if (isHomemadeChecked != value)
-                {
-                    isHomemadeChecked = value;
-                    if (isHomemadeChecked)
-                    {
-                        ConfectioneryType = "3"; // עדכון ל-3 עבור ביתית
-                        IsPatisserieChecked = false; // Uncheck the Patisserie radio button
-                        IsBakeryChecked = false; // Uncheck the Bakery radio button
-                        IsEverythingChecked = false; // Uncheck the Everything radio button
-                    }
-                    OnPropertyChanged(nameof(IsHomemadeChecked));
-                }
-            }
-        }
-
-        public bool IsEverythingChecked
-        {
-            get { return isEverythingChecked; }
-            set
-            {
-                if (isEverythingChecked != value)
-                {
-                    isEverythingChecked = value;
-                    if (isEverythingChecked)
-                    {
-                        ConfectioneryType = "4"; // עדכון ל-4 עבור הכל
-                        IsPatisserieChecked = false; // Uncheck the Patisserie radio button
-                        IsHomemadeChecked = false; // Uncheck the Homemade radio button
-                        IsBakeryChecked = false; // Uncheck the Bakery radio button
-                    }
-                    OnPropertyChanged(nameof(IsEverythingChecked));
-                }
-            }
-        }
+        
 
         public Image ProfileImage
         {
