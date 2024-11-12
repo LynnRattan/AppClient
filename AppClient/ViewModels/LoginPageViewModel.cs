@@ -10,6 +10,16 @@ public class LoginPageViewModel : ViewModelBase
     public ICommand LoginCommand { get; set; }
     public ICommand GoToSignUpCommand { get; set; }
     private string mail;
+    private string password;
+
+    //public LoginPageViewModel(SweetBoxWebApi service, IServiceProvider serviceProvider)
+    //{
+    //    this.service = service;
+    //    this.serviceProvider = serviceProvider;
+    //    this.LoginCommand = new Command(OnLogin);
+    //    this.GoToRegisterCommand = new Command(OnRegisterClicked);
+    //}
+
     public string Mail
     {
         get => mail;
@@ -24,7 +34,7 @@ public class LoginPageViewModel : ViewModelBase
             }
         }
     }
-    private string password;
+   
     public string Password
     {
         get => password;
@@ -40,8 +50,5 @@ public class LoginPageViewModel : ViewModelBase
         }
     }
 
-    public LoginPageViewModel()
-	{
-		
-	}
+    
 }

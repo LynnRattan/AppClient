@@ -4,7 +4,8 @@
              xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
              x:Class="AppClient.Views.SignUpPage"
              Title="SignUpPage"
-             FlowDirection="RightToLeft">
+             FlowDirection="RightToLeft"
+             x:DataType="viewmodel:SignUpPageViewModel">
     <StackLayout VerticalOptions="FillAndExpand">
 
        
@@ -51,7 +52,7 @@
                     Grid.Column="1"
                      Grid.Row="2"
                     Placeholder="הקלד שם משתמש"
-                    Text="{Binding UserName}" />
+                    Text="{Binding Username}" />
 
                 <Label
                     Grid.Row="2"

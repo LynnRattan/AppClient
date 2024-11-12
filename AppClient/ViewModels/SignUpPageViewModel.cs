@@ -11,10 +11,11 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using AppClient.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
+using static Java.Util.Jar.Attributes;
 
 namespace AppClient.ViewModels
 {
-    public class SignUpPageViewModel:ViewModelBase
+    public class SignUpPageViewModel : ViewModelBase
     {
         private string username;
         private int? userId { get; set; }
@@ -22,13 +23,15 @@ namespace AppClient.ViewModels
         private string mail;
         private string password;
         private string? password_error;
-        private string userType;
+        private string user_type;
         private bool isConChecked;
         private readonly IServiceProvider serviceProvider;
         private string profileName;
         private double highestPrice;
         private string confectioneryType;
         private Image profileImage;
+        private string? highestPrice_error;
+        
 
         //// הוספת אובייקט ממחלקת השירותים שיוכל להפעיל את הפונקציות במחלקה
         //private WebApi api_service;
@@ -50,9 +53,9 @@ namespace AppClient.ViewModels
             set
             {
                 profileName = value;
-               
+
                 OnPropertyChanged(nameof(ProfileName));
-              
+
             }
         }
 
@@ -172,16 +175,16 @@ namespace AppClient.ViewModels
             }
         }
 
-        public string UserType
+        public string User_Type
         {
             get
             {
-                return userType;
+                return user_type;
             }
             set
             {
-                userType = value;
-                OnPropertyChanged(nameof(UserType));
+                user_type = value;
+                OnPropertyChanged(nameof(User_Type));
             }
         }
 
@@ -212,7 +215,7 @@ namespace AppClient.ViewModels
             }
         }
 
-        
+
 
         public Image ProfileImage
         {
@@ -223,17 +226,88 @@ namespace AppClient.ViewModels
                 OnPropertyChanged(nameof(ProfileImage));
             }
         }
-        
+
         public double HighestPrice
         {
             get { return highestPrice; }
             set
             {
-                highestPrice = value;
-                OnPropertyChanged(nameof(HighestPrice));
+                try
+                {
+                    highestPrice = value;
+                    OnPropertyChanged(nameof(HighestPrice));
+                }
+                catch (Exception ex)
+                {
+                    HighestPrice_Error = "!!מחיר חייב להיות מספר!!   ";
+                    OnPropertyChanged(nameof(Username));
+                }
             }
         }
 
+        public string HighestPrice_Error
+        {
+            get
+            {
+                return HighestPrice_Error;
+            }
+            set
+            {
+                HighestPrice_Error = value;
+                OnPropertyChanged(nameof(HighestPrice_Error));
+            }
+        }
 
+        public ICommand SignUpCommand
+        {
+            get; private set;
+        }
+
+        public async void SignUp()
+        {
+            Models.User user = new Models.User
+            {
+
+                Username = username,
+                Mail = mail,
+                Password = password,
+                
+            };
+
+
+            // check
+            int? res = await this.api_service.SignUp(user);
+            // אם ההרשמה הצליחה
+            if (res != null)
+            {
+                // בדיקת סוג המשתמש
+                if (User_Type == "2") // אם המשתמש הוא קונדיטור
+                {
+
+                    // קבלת ה-SellerRegistrationPage וה-ViewModel דרך DI
+                    var ConfectionerSignUpPage = serviceProvider.GetRequiredService<ConfectionerSignUpPage>();
+                    var ConfectionerSignUpPageViewModel = serviceProvider.GetRequiredService<ConfectionerSignUpPageViewModel>();
+
+                    // אתחול ה-ViewModel עם ה-SellerId שנוצר
+                    ConfectionerSignUpPageViewModel.Initialize((int)res);
+
+                    // הגדרת ה-ViewModel כ-BindingContext של הדף
+                    ConfectionerSignUpPage.BindingContext = ConfectionerSignUpPageViewModel;
+                    await App.Current.MainPage.Navigation.PushAsync(ConfectionerSignUpPage);
+
+                }
+                else if (User_Type == "1") // אם המשתמש הוא קונה
+                {
+                    // מעבר לדף BusinessesPage
+                    var CustomerHomePage = serviceProvider.GetRequiredService<CustomerHomePage>();
+                    await App.Current.MainPage.Navigation.PushAsync(CustomerPagePage);
+                }
+            }
+            else
+            {
+                // טיפול במקרה שההרשמה נכשלה (הודעת שגיאה למשתמש, למשל)
+                await Application.Current.MainPage.DisplayAlert("שגיאה", "ההרשמה נכשלה, נסה שוב.", "אישור");
+            }
+
+        }
     }
-}
