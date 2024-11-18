@@ -11,7 +11,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using AppClient.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
-using static Java.Util.Jar.Attributes;
+//using static Java.Util.Jar.Attributes;
 
 namespace AppClient.ViewModels
 {
@@ -31,7 +31,10 @@ namespace AppClient.ViewModels
         private string confectioneryType;
         private Image profileImage;
         private string? highestPrice_error;
-        
+        private bool isImageSelected;
+
+
+        public ICommand SelectImageCommand { get; set; }
 
         //// הוספת אובייקט ממחלקת השירותים שיוכל להפעיל את הפונקציות במחלקה
         //private WebApi api_service;
@@ -258,6 +261,16 @@ namespace AppClient.ViewModels
             }
         }
 
+        public bool IsImageSelected
+        {
+            get { return isImageSelected; }
+            set
+            {
+                    isImageSelected = value;
+                    OnPropertyChanged(nameof(IsImageSelected));
+            }
+        }
+
         public ICommand SignUpCommand
         {
             get; private set;
@@ -271,43 +284,44 @@ namespace AppClient.ViewModels
                 Username = username,
                 Mail = mail,
                 Password = password,
-                
+
             };
 
 
-            // check
-            int? res = await this.api_service.SignUp(user);
-            // אם ההרשמה הצליחה
-            if (res != null)
-            {
-                // בדיקת סוג המשתמש
-                if (User_Type == "2") // אם המשתמש הוא קונדיטור
-                {
+            //// check
+            //int? res = await this.api_service.SignUp(user);
+            //// אם ההרשמה הצליחה
+            //if (res != null)
+            //{
+            //    // בדיקת סוג המשתמש
+            //    if (User_Type == "2") // אם המשתמש הוא קונדיטור
+            //    {
 
-                    // קבלת ה-SellerRegistrationPage וה-ViewModel דרך DI
-                    var ConfectionerSignUpPage = serviceProvider.GetRequiredService<ConfectionerSignUpPage>();
-                    var ConfectionerSignUpPageViewModel = serviceProvider.GetRequiredService<ConfectionerSignUpPageViewModel>();
+            //        // קבלת ה-SellerRegistrationPage וה-ViewModel דרך DI
+            //        var ConfectionerSignUpPage = serviceProvider.GetRequiredService<ConfectionerSignUpPage>();
+            //        var ConfectionerSignUpPageViewModel = serviceProvider.GetRequiredService<ConfectionerSignUpPageViewModel>();
 
-                    // אתחול ה-ViewModel עם ה-SellerId שנוצר
-                    ConfectionerSignUpPageViewModel.Initialize((int)res);
+            //        // אתחול ה-ViewModel עם ה-SellerId שנוצר
+            //        ConfectionerSignUpPageViewModel.Initialize((int)res);
 
-                    // הגדרת ה-ViewModel כ-BindingContext של הדף
-                    ConfectionerSignUpPage.BindingContext = ConfectionerSignUpPageViewModel;
-                    await App.Current.MainPage.Navigation.PushAsync(ConfectionerSignUpPage);
+            //        // הגדרת ה-ViewModel כ-BindingContext של הדף
+            //        ConfectionerSignUpPage.BindingContext = ConfectionerSignUpPageViewModel;
+            //        await App.Current.MainPage.Navigation.PushAsync(ConfectionerSignUpPage);
 
-                }
-                else if (User_Type == "1") // אם המשתמש הוא קונה
-                {
-                    // מעבר לדף BusinessesPage
-                    var CustomerHomePage = serviceProvider.GetRequiredService<CustomerHomePage>();
-                    await App.Current.MainPage.Navigation.PushAsync(CustomerPagePage);
-                }
-            }
-            else
-            {
-                // טיפול במקרה שההרשמה נכשלה (הודעת שגיאה למשתמש, למשל)
-                await Application.Current.MainPage.DisplayAlert("שגיאה", "ההרשמה נכשלה, נסה שוב.", "אישור");
-            }
+            //    }
+            //    else if (User_Type == "1") // אם המשתמש הוא קונה
+            //    {
+            //        // מעבר לדף BusinessesPage
+            //        var CustomerHomePage = serviceProvider.GetRequiredService<CustomerHomePage>();
+            //        await App.Current.MainPage.Navigation.PushAsync(CustomerPagePage);
+            //    }
+            //}
+            //else
+            //{
+            //    // טיפול במקרה שההרשמה נכשלה (הודעת שגיאה למשתמש, למשל)
+            //    await Application.Current.MainPage.DisplayAlert("שגיאה", "ההרשמה נכשלה, נסה שוב.", "אישור");
+            //}
 
         }
     }
+}
