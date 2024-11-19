@@ -59,7 +59,7 @@
                     Grid.ColumnSpan="2"
                     Margin="15"
                     HorizontalOptions="Center"
-                    Text="{Binding User_Error}"
+                    Text="{Binding ShowUsernameError}"
                     TextColor="Red" />
 
 
@@ -75,6 +75,15 @@
                     Keyboard="Email"
                     Placeholder="הקלד מייל"
                     Text="{Binding Mail}" />
+
+                <Label
+     Grid.Row="2"
+     Grid.ColumnSpan="2"
+     Margin="15"
+     HorizontalOptions="Center"
+     Text="{Binding ShowMailError}"
+     TextColor="Red" />
+
 
                 <Label
                     x:Name="password_lbl"
@@ -93,7 +102,7 @@
                     Grid.Row="5"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Center"
-                    Text="{Binding Password_Error}"
+                    Text="{Binding ShowPasswordError}"
                     TextColor="red" />
 
                 <Label
@@ -101,10 +110,10 @@
     x:Name="profileImage_lbl"
     Grid.Column="0"
     Margin="15"
-    Text="תמונת פרופיל" />
+    Text="Profile Image" />
 
                 <!-- Image to preview selected profile image -->
-                <Image
+                <!--<Image
     Grid.Row="6"
     Grid.Column="1"
     x:Name="profileImage_preview"
@@ -115,7 +124,7 @@
                     <Image.Source>
                         <FileImageSource File="{Binding ProfileImage}" />
                     </Image.Source>
-                </Image>
+                </Image>-->
 
                 <!-- Button to select profile image -->
                 <Button
@@ -123,7 +132,7 @@
     Grid.ColumnSpan="2"
     HorizontalOptions="Center"
     Text="בחר תמונה"
-    Command="{Binding SelectImageCommand}" />
+    Command="{Binding UploadImageCommand}" />
 
 
                 <!--  בחירת סוג משתמש  -->
@@ -206,13 +215,13 @@ Grid.ColumnSpan="2"
 
 
 
-                <Button
+                <!--<Button
                     Grid.Row="12"
                     Grid.ColumnSpan="2"
                      HorizontalOptions="Center"
                     Command="{Binding SignUpCommand}"
                     IsEnabled="{Binding CanSignUp}"
-                    Text="המשך" />
+                    Text="המשך" />-->
 
                 
 

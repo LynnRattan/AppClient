@@ -6,7 +6,8 @@ namespace AppClient
     {
         public AppShell()
         {
-            Routing.RegisterRoute("SignUp", typeof(SignUpPage));
+            //Routing.RegisterRoute("SignUp", typeof(SignUpPage));
+            Routing.RegisterRoute("Login", typeof(LoginPage));
             InitializeComponent();
         }
     }

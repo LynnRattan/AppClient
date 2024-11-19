@@ -16,7 +16,7 @@ namespace AppClient.Models
 
         public string Password { get; set; }
 
-        public string Name { get; set; }
+        public string ProfileName { get; set; }
 
         public int UserTypeId { get; set; }
 

@@ -25,7 +25,7 @@ namespace AppClient.Services
 
         #region with tunnel
         //Define the serevr IP address! (should be realIP address if you are using a device that is not running on the same machine as the server)
-        private static string serverIP = "xkpn4fnc-5219.euw.devtunnels.ms";
+        private static string serverIP = "6gh41sf3-5039.euw.devtunnels.ms";
         private HttpClient client;
         private string baseUrl;
         public static string BaseAddress = "https://6gh41sf3-5039.euw.devtunnels.ms/api/";
@@ -84,39 +84,43 @@ namespace AppClient.Services
                 return null;
             }
         }
-        //public async Task<User?> Register(User user)
-        //{
-        //    //Set URI to the specific function API
-        //    string url = $"{this.baseUrl}register";
-        //    try
-        //    {
-        //        //Call the server API
-        //        string json = JsonSerializer.Serialize(user);
-        //        StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-        //        HttpResponseMessage response = await client.PostAsync(url, content);
-        //        //Check status
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            //Extract the content as string
-        //            string resContent = await response.Content.ReadAsStringAsync();
-        //            //Desrialize result
-        //            JsonSerializerOptions options = new JsonSerializerOptions
-        //            {
-        //                PropertyNameCaseInsensitive = true
-        //            };
-        //            User? result = JsonSerializer.Deserialize<User>(resContent, options);
-        //            return result;
-        //        }
-        //        else
-        //        {
-        //            return null;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return null;
-        //    }
-        //}
+
+        //This methos call the Register web API on the server and return the AppUser object with the given ID
+        //or null if the call fails
+        public async Task<User?> SignUp(User user)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}signup";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(user);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    User? result = JsonSerializer.Deserialize<User>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
     }
 }
 
