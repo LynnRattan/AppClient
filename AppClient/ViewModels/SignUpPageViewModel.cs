@@ -38,8 +38,11 @@ namespace AppClient.ViewModels
         private bool isConChecked;
         private readonly IServiceProvider serviceProvider;
 
-        
-        private string confectioneryType;
+       
+        private bool isBakeryChecked;
+        private bool isPatisserieChecked;
+        private bool isHomemadeChecked;
+        private bool isEverythingChecked;
         private Image profileImage;
        
 
@@ -347,16 +350,49 @@ namespace AppClient.ViewModels
         #endregion
 
         #region ConfectioneryType
-        public string ConfectioneryType
+        public bool IsBakeryChecked
         {
-            get
-            {
-                return confectioneryType;
-            }
+            get { return isBakeryChecked; }
             set
             {
-                confectioneryType = value;
-                OnPropertyChanged(nameof(ConfectioneryType));
+                if (isBakeryChecked != value)
+                {
+                    isBakeryChecked = value;
+                    OnPropertyChanged(nameof(IsBakeryChecked));
+                }
+            }
+        }public bool IsPatisserieChecked
+        {
+            get { return isPatisserieChecked; }
+            set
+            {
+                if (isPatisserieChecked != value)
+                {
+                    isPatisserieChecked = value;
+                    OnPropertyChanged(nameof(IsPatisserieChecked));
+                }
+            }
+        }public bool IsHomemadeChecked
+        {
+            get { return isHomemadeChecked; }
+            set
+            {
+                if (isHomemadeChecked != value)
+                {
+                    isHomemadeChecked = value;
+                    OnPropertyChanged(nameof(IsHomemadeChecked));
+                }
+            }
+        }public bool IsEverythingChecked
+        {
+            get { return isEverythingChecked; }
+            set
+            {
+                if (isEverythingChecked != value)
+                {
+                    isEverythingChecked = value;
+                    OnPropertyChanged(nameof(IsEverythingChecked));
+                }
             }
         }
         #endregion
@@ -377,6 +413,7 @@ namespace AppClient.ViewModels
 
         #endregion
 
+
         //Define a command for the register button
         public Command SignUpCommand { get; }
         public Command CancelCommand { get; }
@@ -391,21 +428,44 @@ namespace AppClient.ViewModels
 
             if (!ShowUsernameError && !ShowProfileNameError && !ShowMailError && !ShowPasswordError)
             {
-                int type;
-                if (isConChecked)
-                    type = 2;
-                else type = 1;
+                int userType;
+                int conType;
+                if (IsConChecked)
+                {
+                    userType = 2;
+                    if (IsBakeryChecked)
+                        conType = 1;
+                    else if (IsPatisserieChecked)
+                        conType = 2;
+                    else if (IsHomemadeChecked)
+                        conType = 3;
+                    else conType = 4;
+                }
+                else
+                {
+                    userType = 1;
+                    conType = 0;
+                }
+
                 //Create a new AppUser object with the data from the registration form
                 var newUser = new User
                 {
-                    Username = username,
-                    ProfileName = profileName,
-                    Mail = mail,
-                    Password = password,
-                    UserTypeId = type,
-                    HighestPrice= highestPrice,
+                    username = this.Username,
+                    profileName = this.ProfileName,
+                    mail = this.Mail,
+                    password = this.Password,
+                    userTypeId = userType,
                 };
-
+                if (newUser.userTypeId == 2)
+                {
+                    var newBaker = new Baker()
+                    {
+                        BakerId = newUser.userId,
+                        HighestPrice = this.HighestPrice,
+                        ConfectioneryTypeId = conType
+                    };
+                }
+               
                 //Call the Register method on the proxy to register the new user
                 InServerCall = true;
                 newUser = await proxy.SignUp(newUser);
@@ -417,7 +477,7 @@ namespace AppClient.ViewModels
                     //UPload profile imae if needed
                     if (!string.IsNullOrEmpty(LocalPhotoPath))
                     {
-                        await proxy.LoginAsync(new LoginInfo { Mail = newUser.Mail, Password = newUser.Password });
+                        await proxy.LoginAsync(new LoginInfo { Mail = newUser.mail, Password = newUser.password });
                         User? updatedUser = await proxy.UploadProfileImage(LocalPhotoPath);
                         if (updatedUser == null)
                         {

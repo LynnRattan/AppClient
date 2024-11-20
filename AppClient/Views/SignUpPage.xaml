@@ -82,6 +82,7 @@
                     <!--  RadioButton לקונה  -->
                     <RadioButton
                         Content="regular user"
+                        IsChecked="True"
                         GroupName="UserType"/>
                 </StackLayout>
                 <Label
@@ -117,22 +118,26 @@ Grid.ColumnSpan="2"
                     <!--  RadioButton למאפייה  -->
                     <RadioButton
          Content="Bakery"
-         GroupName="ConfectioneryType"/>
+         GroupName="ConType"
+         IsChecked="{Binding IsBakeryChecked}"/>
 
                     <!--  RadioButton לפטיסרי  -->
                     <RadioButton
          Content="Patisserie"
-         GroupName="ConfectioneryType"/>
+         GroupName="ConType"
+         IsChecked="{Binding IsPatisserieChecked}"/>
                     
                     <!--  RadioButton לביתית  -->
                     <RadioButton
          Content="Homemade"
-         GroupName="ConfectioneryType"/>
+         GroupName="ConType"
+         IsChecked="{Binding IsHomemadeChecked}"/>
                     
                     <!--  RadioButton להכל  -->
                     <RadioButton
          Content="Everything"
-         GroupName="ConfectioneryType"/>
+                        IsChecked="True"
+         GroupName="ConType"/>
                 </StackLayout>
 
                 <!--כפתורי הרשמה וביטול-->
