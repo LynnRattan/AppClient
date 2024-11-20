@@ -31,16 +31,17 @@ namespace AppClient.ViewModels
             UsernameError = "Username is required";
             MailError = "Mail is required";
             PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
+           
         }
 
 
         private bool isConChecked;
         private readonly IServiceProvider serviceProvider;
 
-        private double highestPrice;
+        
         private string confectioneryType;
         private Image profileImage;
-        private string? highestPrice_error;
+       
 
 
 
@@ -329,6 +330,53 @@ namespace AppClient.ViewModels
 
         #endregion
 
+        #region IsConChecked
+        // מאפיין לבחירת "קונדיטור"
+        public bool IsConChecked
+        {
+            get { return isConChecked; }
+            set
+            {
+                if (isConChecked != value)
+                {
+                    isConChecked = value;
+                    OnPropertyChanged(nameof(IsConChecked));
+                }
+            }
+        }
+        #endregion
+
+        #region ConfectioneryType
+        public string ConfectioneryType
+        {
+            get
+            {
+                return confectioneryType;
+            }
+            set
+            {
+                confectioneryType = value;
+                OnPropertyChanged(nameof(ConfectioneryType));
+            }
+        }
+        #endregion
+
+        #region HighestPrice
+        private double highestPrice;
+
+        public double HighestPrice
+        {
+            get => highestPrice;
+            set
+            {
+                highestPrice = value;
+
+                OnPropertyChanged(nameof(HighestPrice));
+            }
+        }
+
+        #endregion
+
         //Define a command for the register button
         public Command SignUpCommand { get; }
         public Command CancelCommand { get; }
@@ -337,7 +385,7 @@ namespace AppClient.ViewModels
         public async void OnSignUp()
         {
             ValidateUsername();
-
+            ValidateProfleName();
             ValidateMail();
             ValidatePassword();
 
@@ -351,10 +399,11 @@ namespace AppClient.ViewModels
                 var newUser = new User
                 {
                     Username = username,
-                    ProfileName = ProfileName,
-                    Mail = Mail,
-                    Password = Password,
-                    UserTypeId = type
+                    ProfileName = profileName,
+                    Mail = mail,
+                    Password = password,
+                    UserTypeId = type,
+                    HighestPrice= highestPrice,
                 };
 
                 //Call the Register method on the proxy to register the new user

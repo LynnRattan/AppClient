@@ -4,7 +4,7 @@
              xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
              x:Class="AppClient.Views.SignUpPage"
              Title="SignUpPage"
-             FlowDirection="RightToLeft"
+             FlowDirection="LeftToRight"
              x:DataType="viewmodel:SignUpPageViewModel">
     <StackLayout VerticalOptions="FillAndExpand">
 
@@ -17,129 +17,56 @@
 
             <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*">
 
-                <Label
-                        Grid.ColumnSpan="2"
-                  HorizontalOptions="Center"
-                  Padding="5"
-                  FontAttributes="Bold"
-                  FontFamily="Consolas"
-                  FontSize="30"
-                  Text="SignUp"
-                  TextColor="Purple" />
+
+                <!-- תמונת פרופיל -->
+
+                <Frame Grid.ColumnSpan="2" HorizontalOptions="Center" BorderColor="Black" Padding="5" Margin="10">
+                    <!--<Image x:Name="theImageBug" Source="{Binding PhotoURL}"  HeightRequest="150"/>-->
+                    <Label 
+                        Text="Click Here To Upload Photo!"
+                        TextColor="Blue"
+                        HorizontalOptions="Center"
+                        VerticalOptions="End">
+                        <Label.GestureRecognizers HorizontalOptions="Center">
+                                <TapGestureRecognizer Command="{Binding UploadPhotoCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+               
+                </Frame>
+               
 
 
-                <Label
-                    Grid.Row="1"
-                    x:Name="profileName_lbl"
-                    Grid.Column="0"
-                    Margin="15"
-                    Text="שם פרופיל" />
+              
+                <!--בחירת שם עמוד פרופיל-->
+                <Label HorizontalOptions="Center" Grid.Row="1" Text="Profile Name" Grid.Column="0" Style="{StaticResource labelProfileNameStyle}" />
+                <Label Grid.Row="1" TextColor="Red" Text="{Binding ProfileNameError}" IsVisible="{Binding ShowProfileNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                <Entry Grid.Row="1" Grid.Column="1" Placeholder="Type Profile Name" Text="{Binding ProfileName}" Style="{StaticResource entryStyle}" />
 
-                <Entry
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Placeholder="הקלד שם פרופיל"
-                    Text="{Binding ProfileName}" /> 
-                
-                <Label
-                    Grid.Row="2"
-                    x:Name="userName_lbl"
-                    Grid.Column="0"
-                    Margin="15"
-                    Text="שם משתמש" />
-
-                <Entry
-                    Grid.Column="1"
-                     Grid.Row="2"
-                    Placeholder="הקלד שם משתמש"
-                    Text="{Binding Username}" />
-
-                <Label
-                    Grid.Row="2"
-                    Grid.ColumnSpan="2"
-                    Margin="15"
-                    HorizontalOptions="Center"
-                    Text="{Binding ShowUsernameError}"
-                    TextColor="Red" />
+                <!--בחירת שם משתמש--> 
+                <Label HorizontalOptions="Center"  Grid.Row="2" Text="Username" Grid.Column="0" Style="{StaticResource labelUsernameStyle}" />
+                <Label  Grid.Row="2" TextColor="Red" Text="{Binding UsernameError}" IsVisible="{Binding ShowUsernameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                <Entry  Grid.Row="2"  Grid.Column="1" Placeholder="Type Username" Text="{Binding Username}" Style="{StaticResource entryStyle}" />
 
 
-                <Label
-                    x:Name="mail_lbl"
-                    Grid.Row="3"
-                    Margin="15"
-                    Text="מייל" />
+               
+                <!--בחירת מייל-->
+                <Label HorizontalOptions="Center" Grid.Row="3" Text="Mail" Grid.Column="0" Style="{StaticResource labelMailStyle}" />
+                <Label Grid.Row="3" TextColor="Red" Text="{Binding MailError}" IsVisible="{Binding ShowMailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                <Entry Grid.Row="3" Grid.Column="1"  Placeholder="Type Mail" Text="{Binding Mail}" Style="{StaticResource entryStyle}" />
 
-                <Entry
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    Keyboard="Email"
-                    Placeholder="הקלד מייל"
-                    Text="{Binding Mail}" />
+                <!--בחירת סיסמה-->
+                <Label  HorizontalOptions="Center" Grid.Row="4" Text="Password" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
+                <Label Grid.Row="4" TextColor="Red" Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                <Entry Grid.Row="4" Grid.Column="1" Placeholder="Type Password" Text="{Binding Password}" Style="{StaticResource entryStyle}" />
 
-                <Label
-     Grid.Row="2"
-     Grid.ColumnSpan="2"
-     Margin="15"
-     HorizontalOptions="Center"
-     Text="{Binding ShowMailError}"
-     TextColor="Red" />
-
-
-                <Label
-                    x:Name="password_lbl"
-                    Grid.Row="4"
-                    Margin="15"
-                    FlowDirection="RightToLeft"
-                    Text="סיסמא" />
-                <Entry
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    Keyboard="Chat"
-                    Placeholder="הקלד סיסמא"
-                    Text="{Binding Password}" />
-
-                <Label
-                    Grid.Row="5"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="Center"
-                    Text="{Binding ShowPasswordError}"
-                    TextColor="red" />
-
-                <Label
-    Grid.Row="6"
-    x:Name="profileImage_lbl"
-    Grid.Column="0"
-    Margin="15"
-    Text="Profile Image" />
-
-                <!-- Image to preview selected profile image -->
-                <!--<Image
-    Grid.Row="6"
-    Grid.Column="1"
-    x:Name="profileImage_preview"
-    HeightRequest="50"
-    WidthRequest="100"
-    Aspect="AspectFill"
-    IsVisible="{Binding IsImageSelected}">
-                    <Image.Source>
-                        <FileImageSource File="{Binding ProfileImage}" />
-                    </Image.Source>
-                </Image>-->
-
-                <!-- Button to select profile image -->
-                <Button
-    Grid.Row="6"
-    Grid.ColumnSpan="2"
-    HorizontalOptions="Center"
-    Text="בחר תמונה"
-    Command="{Binding UploadImageCommand}" />
+              
 
 
                 <!--  בחירת סוג משתמש  -->
                 <Label
                     Grid.Row="7"
                     Margin="15"
-                    Text="בחר את סוג המשתמש:" />
+                    Text="Choose your user Type:" />
 
                 <StackLayout
                     Grid.Row="8"
@@ -148,13 +75,13 @@
                     Orientation="Horizontal">
                     <!--  RadioButton לקונדיטור  -->
                     <RadioButton
-                        Content="קונדיטור"
+                        Content="Confectioner"
                         GroupName="UserType"
                         IsChecked="{Binding IsConChecked}" />
 
                     <!--  RadioButton לקונה  -->
                     <RadioButton
-                        Content="קונה"
+                        Content="regular user"
                         GroupName="UserType"/>
                 </StackLayout>
                 <Label
@@ -163,28 +90,23 @@
                     Grid.Column="0"
     x:Name="highestPrice_lbl"
     Margin="15"
-    Text="המחיר הגבוה ביותר" />
+    Text="Highest Price" />
 
                 <Entry
                     IsVisible="{Binding IsConChecked}"
                     Grid.Row="9"
 Grid.Column="1"
-    Placeholder="הקלד את מחירך הגבוה ביותר"
+    Placeholder="Enter your highest price"
     Text="{Binding HighestPrice}" />
 
-                <Label
-                    IsVisible="{Binding IsConChecked}"
-    Margin="15"
-    HorizontalOptions="Center"
-    Text="{Binding HighestPrice_Error}"
-    TextColor="Red"/>
+                
 
                 <Label
                     IsVisible="{Binding IsConChecked}"
                     Grid.Row="10"
 Grid.Column="0"
      Margin="15"
-     Text="בחר את סוג הקונדיטוריה:" />
+     Text="Choose your confectionery type" />
 
                 <StackLayout
                     IsVisible="{Binding IsConChecked}"
@@ -194,34 +116,29 @@ Grid.ColumnSpan="2"
      Orientation="Horizontal">
                     <!--  RadioButton למאפייה  -->
                     <RadioButton
-         Content="מאפייה"
+         Content="Bakery"
          GroupName="ConfectioneryType"/>
 
                     <!--  RadioButton לפטיסרי  -->
                     <RadioButton
-         Content="פטיסרי"
+         Content="Patisserie"
          GroupName="ConfectioneryType"/>
                     
                     <!--  RadioButton לביתית  -->
                     <RadioButton
-         Content="ביתית"
+         Content="Homemade"
          GroupName="ConfectioneryType"/>
                     
                     <!--  RadioButton להכל  -->
                     <RadioButton
-         Content="הכל"
+         Content="Everything"
          GroupName="ConfectioneryType"/>
                 </StackLayout>
 
-
-
-                <!--<Button
-                    Grid.Row="12"
-                    Grid.ColumnSpan="2"
-                     HorizontalOptions="Center"
-                    Command="{Binding SignUpCommand}"
-                    IsEnabled="{Binding CanSignUp}"
-                    Text="המשך" />-->
+                <!--כפתורי הרשמה וביטול-->
+                <Button Text="Sign Up" Command="{Binding SignUpCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Row="12" Grid.Column="1" Style="{StaticResource buttonStyle}" />
+                <Button Text="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Row="12" Grid.Column="0" Style="{StaticResource buttonStyle}"/>
+               
 
                 
 

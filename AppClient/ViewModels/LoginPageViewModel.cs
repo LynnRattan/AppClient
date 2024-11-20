@@ -16,7 +16,7 @@ public class LoginPageViewModel : ViewModelBase
         this.serviceProvider = serviceProvider;
         this.proxy = proxy;
         LoginCommand = new Command(OnLogin);
-        GoToSignUpCommand = new Command(OnRegister);
+        GoToSignUpCommand = new Command(OnSignUp);
         mail = "";
         password = "";
         InServerCall = false;
@@ -111,7 +111,7 @@ public class LoginPageViewModel : ViewModelBase
         }
     }
 
-    private void OnRegister()
+    private void OnSignUp()
     {
         ErrorMsg = "";
         Mail = "";
