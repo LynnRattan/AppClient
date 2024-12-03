@@ -36,6 +36,9 @@ namespace AppClient
         {
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<SignUpPage>();
+            builder.Services.AddTransient<UserHomePage>();
+            builder.Services.AddTransient<ConHomePage>();
+            builder.Services.AddTransient<AdminHomePage>();
 
             return builder;
         }
@@ -49,6 +52,9 @@ namespace AppClient
         {
             builder.Services.AddTransient<SignUpPageViewModel>();
             builder.Services.AddTransient<LoginPageViewModel>();
+            builder.Services.AddTransient<UserHomePageViewModel>();
+            builder.Services.AddTransient<ConHomePageViewModel>();
+            builder.Services.AddTransient<AdminHomePageViewModel>();
 
             return builder;
         }

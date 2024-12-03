@@ -43,6 +43,7 @@
                 Placeholder="Password"
                 Text="{Binding Password}" />
         </Frame>
+        <Label Text="{Binding ErrorMsg}" TextColor="Red" HorizontalOptions="Center"></Label>
         <Button
             x:Name="LoginButton"
             Margin="0,20,0,0"
@@ -63,6 +64,8 @@
                 </Label.GestureRecognizers>
             </Label>
         </StackLayout>
-        
+        <ActivityIndicator IsRunning="{Binding InServerCall}" Color="Red"></ActivityIndicator>
+
+
     </VerticalStackLayout>
 </ContentPage>

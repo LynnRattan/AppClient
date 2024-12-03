@@ -18,8 +18,9 @@ namespace AppClient.ViewModels
     public class SignUpPageViewModel : ViewModelBase
     {
         private LMBWebApi proxy;
-        public SignUpPageViewModel(LMBWebApi proxy)
+        public SignUpPageViewModel(LMBWebApi proxy, IServiceProvider serviceProvider)
         {
+            this.serviceProvider = serviceProvider;
             this.proxy = proxy;
             SignUpCommand = new Command(OnSignUp);
             CancelCommand = new Command(OnCancel);
@@ -487,7 +488,11 @@ namespace AppClient.ViewModels
                     }
                     InServerCall = false;
 
-                    ((App)(Application.Current)).MainPage.Navigation.PopAsync();
+                    if(userType==1)
+                    ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserHomePage>()); 
+                    else
+                    ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<ConHomePage>()); 
+                    
                 }
                 else
                 {
