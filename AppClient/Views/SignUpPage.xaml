@@ -21,22 +21,30 @@
                 <!-- תמונת פרופיל -->
 
                 <Frame Grid.ColumnSpan="2" HorizontalOptions="Center" BorderColor="Black" Padding="5" Margin="10">
-                    <!--<Image x:Name="theImageBug" Source="{Binding PhotoURL}"  HeightRequest="150"/>-->
-                    <Label 
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="proliepic" Source="profilepicture.png"  HeightRequest="150"/>
+                        <Label Grid.Row="1"
                         Text="Click Here To Upload Photo!"
                         TextColor="Blue"
                         HorizontalOptions="Center"
                         VerticalOptions="End">
-                        <Label.GestureRecognizers HorizontalOptions="Center">
+                            <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding UploadPhotoCommand}"/>
                             </Label.GestureRecognizers>
                         </Label>
-               
+                    </Grid>
                 </Frame>
-               
 
 
-              
+
+
                 <!--בחירת שם עמוד פרופיל-->
                 <Label HorizontalOptions="Center" Grid.Row="1" Text="Profile Name" Grid.Column="0" Style="{StaticResource labelProfileNameStyle}" />
                 <Label Grid.Row="1" TextColor="Red" Text="{Binding ProfileNameError}" IsVisible="{Binding ShowProfileNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />

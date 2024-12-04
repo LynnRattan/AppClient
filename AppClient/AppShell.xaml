@@ -3,13 +3,17 @@
     x:Class="AppClient.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:AppClient.Views"
-    Shell.FlyoutBehavior="Disabled"
+    xmlns:local="clr-namespace:AppClient"
+    xmlns:views="clr-namespace:AppClient.Views"
+    Shell.FlyoutBehavior="Flyout"
     Title="AppClient">
 
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs">
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:SignUpPage}"
-        Route="SignUp" />
-
+        Title="Logout"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="Login" />
+        
+    </FlyoutItem>
+    <MenuItem Text="Logout" Command="{Binding LogoutCommand}" />
 </Shell>
