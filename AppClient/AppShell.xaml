@@ -4,16 +4,19 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:AppClient"
-    xmlns:views="clr-namespace:AppClient.Views"
+    xmlns:Views="clr-namespace:AppClient.Views"
+    xmlns:ViewModel="clr-namespace:AppClient.ViewModels"
     Shell.FlyoutBehavior="Flyout"
+    Shell.FlyoutIcon="hamburger"
     Title="AppClient">
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs">
-    <ShellContent
+      <Tab>
+      <ShellContent
         Title="Logout"
-        ContentTemplate="{DataTemplate views:LoginPage}"
+        ContentTemplate="{DataTemplate Views:LoginPage}"
         Route="Login" />
-        
+      </Tab>
     </FlyoutItem>
     <MenuItem Text="Logout" Command="{Binding LogoutCommand}" />
 </Shell>
