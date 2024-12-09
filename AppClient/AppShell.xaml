@@ -4,19 +4,90 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:AppClient"
-    xmlns:Views="clr-namespace:AppClient.Views"
-    xmlns:ViewModel="clr-namespace:AppClient.ViewModels"
+    xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+    xmlns:views="clr-namespace:AppClient.Views"
+    Title="AppClient"
+    x:DataType="viewmodel:AppShellViewModel"
     Shell.FlyoutBehavior="Flyout"
-    Shell.FlyoutIcon="hamburger"
-    Title="AppClient">
+    Shell.FlyoutIcon="hamburger">
 
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs">
-      <Tab>
-      <ShellContent
-        Title="Logout"
-        ContentTemplate="{DataTemplate Views:LoginPage}"
-        Route="Login" />
-      </Tab>
+
+    <FlyoutItem
+        x:Name="AdminItems"
+        Title="AdminItems"
+        FlyoutDisplayOptions="AsMultipleItems"
+        IsVisible="{Binding IsAdmin}"
+        Route="tabs">
+        <!--  Not Sure about the icon  -->
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate views:AdminProfilePage}"
+            Route="AdminProfile" />
+        <ShellContent
+            Title="New Confectioneries"
+            ContentTemplate="{DataTemplate views:NewConfectioneriesPage}"
+            Route="NewConfectioneries" />
+        <ShellContent
+            Title="New Pastries"
+            ContentTemplate="{DataTemplate views:NewPastriesPage}"
+            Route="NewPastries" />
     </FlyoutItem>
-    <MenuItem Text="Logout" Command="{Binding LogoutCommand}" />
+
+    <FlyoutItem
+        x:Name="UserItems"
+        Title="UserItems"
+        FlyoutDisplayOptions="AsMultipleItems"
+        IsVisible="{Binding IsUser}"
+        Route="tabs">
+        <!--  Not Sure about the icon  -->
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate views:UserProfilePage}"
+            Route="UserProfile" />
+        <ShellContent
+            Title="Confectioneries"
+            ContentTemplate="{DataTemplate views:ConfectioneriesPage}"
+            Route="Confectioneries" />
+        <ShellContent
+            Title="Previous Purchases"
+            ContentTemplate="{DataTemplate views:PreviousPurchasesPage}"
+            Route="PreviousPurchases" />
+        <ShellContent
+            Title="Cart"
+            ContentTemplate="{DataTemplate views:CartPage}"
+            Route="Cart" />
+    </FlyoutItem>
+
+    <FlyoutItem
+        x:Name="ConfectionerItems"
+        Title="X=ConfectionerItems"
+        FlyoutDisplayOptions="AsMultipleItems"
+        IsVisible="{Binding IsConfectioner}"
+        Route="tabs">
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate views:ConProfilePage}"
+            Route="ConProfile" />
+        <ShellContent
+            Title="New Orders"
+            ContentTemplate="{DataTemplate views:NewOrdersPage}"
+            Route="NewOrders" />
+        <ShellContent
+            Title="Previous Orders"
+            ContentTemplate="{DataTemplate views:PreviousOrdersPage}"
+            Route="PreviousOrders" />
+
+    </FlyoutItem>
+
+    <!--<FlyoutItem x:Name="MasterItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="MasterItems"  IsVisible="{Binding IsMaster}">
+    -->
+    <!--  normally no icon but if locked a locked icon  -->
+    <!--
+        <ShellContent
+          Title="Check Pending Questions" Icon="pending.png"
+          ContentTemplate="{DataTemplate views:CheckPendingQuestionView}"
+          Route="CheckPendingQuestions" />
+    </FlyoutItem>-->
+
+    <MenuItem Command="{Binding LogoutCommand}" Text="Logout" />
 </Shell>

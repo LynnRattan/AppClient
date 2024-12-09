@@ -105,15 +105,13 @@ public class LoginPageViewModel : ViewModelBase
             ErrorMsg = "";
             //Navigate to the main page
             AppShell shell = serviceProvider.GetService<AppShell>();
-            // ((App)Application.Current).MainPage = shell;
-            //close the flyout
-            //await Application.Current.MainPage.DisplayAlert("Login", "Login successful", "ok");
             if (u.userTypeId == 1)
-                ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserHomePage>());
+                ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserProfilePage>());
             else if (u.userTypeId == 2)
-                ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<ConHomePage>());
+                ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<ConProfilePage>());
             else if (u.userTypeId == 3)
-                ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<AdminHomePage>());
+                ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<AdminProfilePage>());
+            ((App)Application.Current).MainPage = shell;
         }
     }
 

@@ -488,11 +488,14 @@ namespace AppClient.ViewModels
                     }
                     InServerCall = false;
 
-                    if(userType==1)
-                    ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserHomePage>()); 
-                    else
-                    ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<ConHomePage>()); 
-                    
+                    ((App)Application.Current).LoggedInUser = newUser;
+                    AppShell shell = serviceProvider.GetService<AppShell>();
+                    if (newUser.userTypeId == 1)
+                        ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserProfilePage>());
+                    else if (newUser.userTypeId == 2)
+                        ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<ConProfilePage>());
+                    ((App)Application.Current).MainPage = shell;
+
                 }
                 else
                 {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppClient.ViewModels
 {
-    internal class ConHomePageViewModel
+    public class PreviousPurchasesPageViewModel:ViewModelBase
     {
     }
 }

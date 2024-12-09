@@ -36,9 +36,17 @@ namespace AppClient
         {
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<SignUpPage>();
-            builder.Services.AddTransient<UserHomePage>();
-            builder.Services.AddTransient<ConHomePage>();
-            builder.Services.AddTransient<AdminHomePage>();
+            builder.Services.AddTransient<UserProfilePage>();
+            builder.Services.AddTransient<ConProfilePage>();
+            builder.Services.AddTransient<AdminProfilePage>();
+            builder.Services.AddTransient<AppShell>();
+            builder.Services.AddTransient<NewConfectioneriesPage>();
+            builder.Services.AddTransient<NewPastriesPage>();
+            builder.Services.AddTransient<NewConfectioneriesPage>();
+            builder.Services.AddTransient<PreviousOrdersPage>();
+            builder.Services.AddTransient<CartPage>();
+            builder.Services.AddTransient<PreviousPurchasesPage>();
+            builder.Services.AddTransient<NewOrdersPage>();
 
             return builder;
         }
@@ -52,9 +60,19 @@ namespace AppClient
         {
             builder.Services.AddTransient<SignUpPageViewModel>();
             builder.Services.AddTransient<LoginPageViewModel>();
-            builder.Services.AddTransient<UserHomePageViewModel>();
-            builder.Services.AddTransient<ConHomePageViewModel>();
-            builder.Services.AddTransient<AdminHomePageViewModel>();
+            builder.Services.AddTransient<UserProfilePageViewModel>();
+            builder.Services.AddTransient<ConProfilePageViewModel>();
+            builder.Services.AddTransient<AdminProfilePageViewModel>();
+            builder.Services.AddTransient<AppShellViewModel>();
+            builder.Services.AddTransient<NewConfectioneriesPageViewModel>();
+            builder.Services.AddTransient<NewPastriesPageViewModel>();
+            builder.Services.AddTransient<NewConfectioneriesPageViewModel>();
+            builder.Services.AddTransient<PreviousOrdersPageViewModel>();
+            builder.Services.AddTransient<CartPageViewModel>();
+            builder.Services.AddTransient<PreviousPurchasesPageViewModel>();
+            builder.Services.AddTransient<NewOrdersPageViewModel>();
+
+
 
             return builder;
         }
