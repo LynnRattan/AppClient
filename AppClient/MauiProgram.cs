@@ -47,6 +47,7 @@ namespace AppClient
             builder.Services.AddTransient<CartPage>();
             builder.Services.AddTransient<PreviousPurchasesPage>();
             builder.Services.AddTransient<NewOrdersPage>();
+            builder.Services.AddTransient<AddDessertPage>();
 
             return builder;
         }
@@ -71,6 +72,7 @@ namespace AppClient
             builder.Services.AddTransient<CartPageViewModel>();
             builder.Services.AddTransient<PreviousPurchasesPageViewModel>();
             builder.Services.AddTransient<NewOrdersPageViewModel>();
+            builder.Services.AddTransient<AddDessertPageViewModel>();
 
 
 

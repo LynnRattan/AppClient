@@ -463,7 +463,8 @@ namespace AppClient.ViewModels
                     {
                         BakerId = newUser.userId,
                         HighestPrice = this.HighestPrice,
-                        ConfectioneryTypeId = conType
+                        ConfectioneryTypeId = conType,
+                        ConStatusCode = 1
                     };
                 }
                

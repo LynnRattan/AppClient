@@ -12,5 +12,7 @@ namespace AppClient.Models
         public double? HighestPrice { get; set; }
 
         public int? ConfectioneryTypeId { get; set; }
+
+        public int ConStatusCode { get; set; }
     }
 }

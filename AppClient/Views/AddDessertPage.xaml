@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppClient.Views.AddDessertPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="AddDessertPage">
+    <VerticalStackLayout>
+        <ScrollView
+            HorizontalScrollBarVisibility="Always"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Always">
+
+            <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*">
+
+
+                <!--  תמונה של הקינוח  -->
+                <!--
+
+                <Frame Grid.ColumnSpan="2" HorizontalOptions="Center" BorderColor="Black" Padding="5" Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="proliepic" Source="profilepicture.png"  HeightRequest="150"/>
+                        <Label Grid.Row="1"
+                        Text="Click Here To Upload Photo!"
+                        TextColor="Blue"
+                        HorizontalOptions="Center"
+                        VerticalOptions="End">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding UploadPhotoCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Frame>-->
+
+
+
+
+                <!--  בחירת שם קינוח  -->
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    Text="Dessert Name" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    IsVisible="{Binding ShowDessertNameError}"
+                    Style="{StaticResource labelErrorStyle}"
+                    Text="{Binding DessertNameError}"
+                    TextColor="Red" />
+                <Entry
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Placeholder="Type Dessert Name"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding DessertName}" />
+
+
+                <Label
+                    x:Name="dessertPrice_lbl"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="15"
+                    Text="Dessert Price" />
+
+                <Entry
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Placeholder="Enter your dessert price"
+                    Text="{Binding DessertPrice}" />
+
+
+
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Margin="15"
+                    Text="Choose your dessert type" />
+
+                <StackLayout
+                    Grid.Row="5"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Center"
+                    Orientation="Horizontal">
+                    <!--  RadioButton לעוגה !  -->
+                    <RadioButton
+                        Content="Cake"
+                        GroupName="DessertType"
+                        IsChecked="{Binding IsCakeChecked}" />
+
+                    <!--  RadioButton לקאפקייק  -->
+                    <RadioButton
+                        Content="Cupcake"
+                        GroupName="DessertType"
+                        IsChecked="{Binding IsCupcakeChecked}" />
+
+                    <!--  RadioButton לעוגייה  -->
+                    <RadioButton
+                        Content="Cookie"
+                        GroupName="DessertType"
+                        IsChecked="{Binding IsCookieChecked}" />
+                    <!--  RadioButton למאפה  -->
+                    <RadioButton
+                        Content="pastry"
+                        GroupName="DessertType"
+                        IsChecked="{Binding IsPastryChecked}" />
+
+                </StackLayout>
+                <!--  כפתורי הוספה וביטול  -->
+                <Button
+                    Grid.Row="12"
+                    Grid.Column="1"
+                    Command="{Binding AddDessertCommand}"
+                    IsEnabled="{Binding NotInServerCall}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Add Dessert" />
+                
+                <Button Text="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Row="12" Grid.Column="0" Style="{StaticResource buttonStyle}"/>
+                
+
+
+
+
+
+            </Grid>
+
+
+        </ScrollView>
+    </VerticalStackLayout>
+</ContentPage>

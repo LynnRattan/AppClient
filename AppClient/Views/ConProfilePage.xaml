@@ -8,5 +8,17 @@
             Text="Welcome to .NET MAUI!"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <StackLayout Margin="0,20,0,0" HorizontalOptions="Center">
+            <Label
+         FontAttributes="Bold"
+         HorizontalOptions="Center"
+         Text="הוספת קינוח"
+         TextColor="Blue">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToAddDessertCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
     </VerticalStackLayout>
 </ContentPage>
