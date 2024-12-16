@@ -17,6 +17,7 @@ namespace AppClient
         {
         Routing.RegisterRoute("SignUp", typeof(SignUpPage));
         Routing.RegisterRoute("Login", typeof(LoginPage));
+        Routing.RegisterRoute("AddDessert", typeof(AddDessertPage));
         }
         
     }

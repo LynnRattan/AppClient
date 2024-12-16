@@ -76,6 +76,10 @@
             Title="Previous Orders"
             ContentTemplate="{DataTemplate views:PreviousOrdersPage}"
             Route="PreviousOrders" />
+        <ShellContent
+            Title="Add Dessert"
+            ContentTemplate="{DataTemplate views:AddDessertPage}"
+            Route="AddDessert" />
 
     </FlyoutItem>
 
