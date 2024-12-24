@@ -8,6 +8,7 @@ namespace AppClient.Models
 {
     public class Dessert
     {
+        public int DessertId { get; set; }
         public string DessertName { get; set; }
 
         public int DessertTypeId { get; set; }
@@ -15,5 +16,7 @@ namespace AppClient.Models
         public double Price { get; set; }
 
         public byte[] DessertImage { get; set; }
+
+        public int StatusCode { get; set; }
     }
 }

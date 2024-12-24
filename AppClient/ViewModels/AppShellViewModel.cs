@@ -33,7 +33,7 @@ namespace AppClient.ViewModels
                 {
                     if ((App)Application.Current == null)
                         return true;
-                    else if (((App)Application.Current).LoggedInUser.userTypeId==1)
+                    else if (((App)Application.Current).LoggedInUser.UserTypeId==1)
                         return true;
                     else
                         return false;
@@ -46,7 +46,7 @@ namespace AppClient.ViewModels
                 {
                     if ((App)Application.Current == null)
                         return true;
-                    else if (((App)Application.Current).LoggedInUser.userTypeId == 2)
+                    else if (((App)Application.Current).LoggedInUser.UserTypeId == 2)
                         return true;
                     else
                         return false;
@@ -59,7 +59,7 @@ namespace AppClient.ViewModels
                 {
                     if ((App)Application.Current == null)
                         return true;
-                    else if (((App)Application.Current).LoggedInUser.userTypeId == 3)
+                    else if (((App)Application.Current).LoggedInUser.UserTypeId == 3)
                         return true;
                     else
                         return false;

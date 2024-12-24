@@ -11,6 +11,7 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-        
+        <Button Text="Add Dessert" VerticalOptions="Center" HorizontalOptions="Center" Command="{Binding GoToAddDessertCommand}" IsEnabled="{Binding NotInServerCall}"/>
+
     </VerticalStackLayout>
 </ContentPage>

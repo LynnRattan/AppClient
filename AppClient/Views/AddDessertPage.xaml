@@ -3,6 +3,8 @@
     x:Class="AppClient.Views.AddDessertPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+     x:DataType="viewmodel:AddDessertPageViewModel"
     Title="AddDessertPage">
     <VerticalStackLayout>
         <ScrollView
@@ -73,7 +75,7 @@
                     Grid.Row="3"
                     Grid.Column="1"
                     Placeholder="Enter your dessert price"
-                    Text="{Binding DessertPrice}" />
+                    Text="{Binding Price}" />
 
 
 

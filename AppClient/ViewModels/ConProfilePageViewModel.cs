@@ -27,8 +27,8 @@ namespace AppClient.ViewModels
             private void OnAddDessert()
         {
             // Navigate to the AddDessert View page
-            AppShell.Current.GoToAsync("AddDessert");
-            //((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<AddDessertPage>());
+            //AppShell.Current.GoToAsync("AddDessert");
+            ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<AddDessertPage>());
         }
     }
 }

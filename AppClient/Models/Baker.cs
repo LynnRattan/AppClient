@@ -13,6 +13,6 @@ namespace AppClient.Models
 
         public int? ConfectioneryTypeId { get; set; }
 
-        public int ConStatusCode { get; set; }
+        public int StatusCode { get; set; }
     }
 }

@@ -105,11 +105,11 @@ public class LoginPageViewModel : ViewModelBase
             ErrorMsg = "";
             //Navigate to the main page
             AppShell shell = serviceProvider.GetService<AppShell>();
-            if (u.userTypeId == 1)
+            if (u.UserTypeId == 1)
                 ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserProfilePage>());
-            else if (u.userTypeId == 2)
+            else if (u.UserTypeId == 2)
                 ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<ConProfilePage>());
-            else if (u.userTypeId == 3)
+            else if (u.UserTypeId == 3)
                 ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<AdminProfilePage>());
             ((App)Application.Current).MainPage = shell;
         }

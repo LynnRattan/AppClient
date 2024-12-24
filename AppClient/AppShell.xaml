@@ -76,10 +76,10 @@
             Title="Previous Orders"
             ContentTemplate="{DataTemplate views:PreviousOrdersPage}"
             Route="PreviousOrders" />
-        <ShellContent
+        <!--<ShellContent
             Title="Add Dessert"
             ContentTemplate="{DataTemplate views:AddDessertPage}"
-            Route="AddDessert" />
+            Route="AddDessert" />-->
 
     </FlyoutItem>
 

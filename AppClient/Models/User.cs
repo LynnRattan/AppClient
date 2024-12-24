@@ -8,17 +8,18 @@ namespace AppClient.Models
 {
     public class User
     {
-        public int userId { get; set; }
+        public int UserId { get; set; }
+        public string Mail { get; set; }
 
-        public string mail { get; set; }
+        public string Username { get; set; }
 
-        public string username { get; set; }
+        public string Password { get; set; }
 
-        public string password { get; set; }
+        public string ProfileName { get; set; }
 
-        public string profileName { get; set; }
+        public int UserTypeId { get; set; }
 
-        public int userTypeId { get; set; }
+        public string ProfileImagePath { get; set; } = "";
 
     }
 }

@@ -451,20 +451,20 @@ namespace AppClient.ViewModels
                 //Create a new AppUser object with the data from the registration form
                 var newUser = new User
                 {
-                    username = this.Username,
-                    profileName = this.ProfileName,
-                    mail = this.Mail,
-                    password = this.Password,
-                    userTypeId = userType,
+                    Username = this.Username,
+                    ProfileName = this.ProfileName,
+                    Mail = this.Mail,
+                    Password = this.Password,
+                    UserTypeId = userType,
                 };
-                if (newUser.userTypeId == 2)
+                if (newUser.UserTypeId == 2)
                 {
                     var newBaker = new Baker()
                     {
-                        BakerId = newUser.userId,
+                        BakerId = newUser.UserId,
                         HighestPrice = this.HighestPrice,
                         ConfectioneryTypeId = conType,
-                        ConStatusCode = 1
+                        StatusCode = 1
                     };
                 }
                
@@ -479,7 +479,7 @@ namespace AppClient.ViewModels
                     //UPload profile imae if needed
                     if (!string.IsNullOrEmpty(LocalPhotoPath))
                     {
-                        await proxy.LoginAsync(new LoginInfo { Mail = newUser.mail, Password = newUser.password });
+                        await proxy.LoginAsync(new LoginInfo { Mail = newUser.Mail, Password = newUser.Password });
                         User? updatedUser = await proxy.UploadProfileImage(LocalPhotoPath);
                         if (updatedUser == null)
                         {
@@ -491,9 +491,9 @@ namespace AppClient.ViewModels
 
                     ((App)Application.Current).LoggedInUser = newUser;
                     AppShell shell = serviceProvider.GetService<AppShell>();
-                    if (newUser.userTypeId == 1)
+                    if (newUser.UserTypeId == 1)
                         ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserProfilePage>());
-                    else if (newUser.userTypeId == 2)
+                    else if (newUser.UserTypeId == 2)
                         ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<ConProfilePage>());
                     ((App)Application.Current).MainPage = shell;
 

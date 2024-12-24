@@ -18,7 +18,7 @@ namespace AppClient.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
-            //AddDessertCommand = new Command(OnAddDessert);
+            AddDessertCommand = new Command(OnAddDessert);
             CancelCommand = new Command(OnCancel);
             UploadPhotoCommand = new Command(OnUploadPhoto);
             PhotoURL = proxy.GetDefaultProfilePhotoUrl();
@@ -66,7 +66,7 @@ namespace AppClient.ViewModels
 
         public string DessertNameError
         {
-            get => DessertNameError;
+            get => dessertNameError;
             set
             {
                 dessertNameError = value;
@@ -203,74 +203,69 @@ namespace AppClient.ViewModels
 
 
 
-        //public async void OnAddDessert()
-        //    {
+        public async void OnAddDessert()
+        {
 
-        //        if (!ShowDessertNameError)
-        //        {
-        //            int dessertType;
-                       
-        //                if (IsCakeChecked)
-        //                    dessertType = 1;
-        //                else if (IsCupcakeChecked)
-        //                    dessertType = 2;
-        //                else if (IsCookieChecked)
-        //                    dessertType = 3;
-        //                else dessertType = 4;
-                    
-                    
+            if (!ShowDessertNameError)
+            {
+                int dessertType;
 
-        //            //Create a new AppUser object with the data from the registration form
-        //            var newDessert = new Dessert
-        //            {
-        //                DessertName = this.DessertName
-        //            };
-                    
+                if (IsCakeChecked)
+                    dessertType = 1;
+                else if (IsCupcakeChecked)
+                    dessertType = 2;
+                else if (IsCookieChecked)
+                    dessertType = 3;
+                else dessertType = 4;
 
-        //            //Call the Register method on the proxy to register the new user
-        //            InServerCall = true;
-        //            newUser = await proxy.SignUp(newUser);
-        //            InServerCall = false;
 
-        //            //If the registration was successful, navigate to the login page
-        //            if (newUser != null)
-        //            {
-        //                //UPload profile imae if needed
-        //                if (!string.IsNullOrEmpty(LocalPhotoPath))
-        //                {
-        //                    await proxy.LoginAsync(new LoginInfo { Mail = newUser.mail, Password = newUser.password });
-        //                    User? updatedUser = await proxy.UploadProfileImage(LocalPhotoPath);
-        //                    if (updatedUser == null)
-        //                    {
-        //                        InServerCall = false;
-        //                        await Application.Current.MainPage.DisplayAlert("Sign Up", "User Data Was Saved BUT Profile image upload failed", "ok");
-        //                    }
-        //                }
-        //                InServerCall = false;
 
-        //                ((App)Application.Current).LoggedInUser = newUser;
-        //                AppShell shell = serviceProvider.GetService<AppShell>();
-        //                if (newUser.userTypeId == 1)
-        //                    ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserProfilePage>());
-        //                else if (newUser.userTypeId == 2)
-        //                    ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<ConProfilePage>());
-        //                ((App)Application.Current).MainPage = shell;
+                //Create a new AppUser object with the data from the registration form
+                var newDessert = new Dessert
+                {
+                    DessertName = this.DessertName,
+                    DessertTypeId = dessertType,
+                    Price=this.Price,
+                    StatusCode=1
 
-        //            }
-        //            else
-        //            {
+                };
 
-        //                //If the registration failed, display an error message
-        //                string errorMsg = "Adding a dessert failed. Please try again.";
-        //                await Application.Current.MainPage.DisplayAlert("Adding a dessert", errorMsg, "ok");
-        //            }
-        //        }
-        //    }
-        
+
+                //Call the Register method on the proxy to register the new user
+                InServerCall = true;
+                newDessert = await proxy.AddDessert(newDessert);
+                InServerCall = false;
+
+                //If the registration was successful, navigate to the login page
+                if (newDessert != null)
+                {
+                    //UPload profile imae if needed
+                    //if (!string.IsNullOrEmpty(LocalPhotoPath))
+                    //{
+                    //    Dessert? updatedDessert = await proxy.UploadDessertImage(LocalPhotoPath);
+                    //    if (updatedDessert == null)
+                    //    {
+                    //        InServerCall = false;
+                    //    }
+                    //}
+                    InServerCall = false;
+
+                }
+                else
+                {
+
+                    //If the registration failed, display an error message
+                    string errorMsg = "Adding a dessert failed. Please try again.";
+                    await Application.Current.MainPage.DisplayAlert("Adding a dessert", errorMsg, "ok");
+                }
+            }
+        }
+
         public void OnCancel()
         {
             // Navigate to the Baker profile View page
-            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<ConProfilePage>());
+            ((App)Application.Current).MainPage.Navigation.PopAsync();
+
         }
 
     }
