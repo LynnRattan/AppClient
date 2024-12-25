@@ -121,6 +121,43 @@ namespace AppClient.Services
             }
         }
 
+        //This methos call the Register web API on the server and return the AppUser object with the given ID
+        //or null if the call fails
+        public async Task<Baker?> SignUp(Baker baker)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}bakersignup";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(baker);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Baker? result = JsonSerializer.Deserialize<Baker>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
         //This method call the UploadProfileImage web API on the server and return the AppUser object with the given URL
         //of the profile image or null if the call fails
         //when registering a user it is better first to call the register command and right after that call this function

@@ -3,9 +3,9 @@
     x:Class="AppClient.Views.AddDessertPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-     x:DataType="viewmodel:AddDessertPageViewModel"
-    Title="AddDessertPage">
+    xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+    Title="AddDessertPage"
+    x:DataType="viewmodel:AddDessertPageViewModel">
     <VerticalStackLayout>
         <ScrollView
             HorizontalScrollBarVisibility="Always"
@@ -90,6 +90,7 @@
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Center"
                     Orientation="Horizontal">
+
                     <!--  RadioButton לעוגה !  -->
                     <RadioButton
                         Content="Cake"
@@ -107,11 +108,12 @@
                         Content="Cookie"
                         GroupName="DessertType"
                         IsChecked="{Binding IsCookieChecked}" />
+
                     <!--  RadioButton למאפה  -->
                     <RadioButton
                         Content="pastry"
                         GroupName="DessertType"
-                        IsChecked="{Binding IsPastryChecked}" />
+                        IsChecked="True" />
 
                 </StackLayout>
                 <!--  כפתורי הוספה וביטול  -->
@@ -122,9 +124,15 @@
                     IsEnabled="{Binding NotInServerCall}"
                     Style="{StaticResource buttonStyle}"
                     Text="Add Dessert" />
-                
-                <Button Text="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Row="12" Grid.Column="0" Style="{StaticResource buttonStyle}"/>
-                
+
+                <Button
+                    Grid.Row="12"
+                    Grid.Column="0"
+                    Command="{Binding CancelCommand}"
+                    IsEnabled="{Binding NotInServerCall}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Cancel" />
+
 
 
 

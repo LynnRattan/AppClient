@@ -457,6 +457,9 @@ namespace AppClient.ViewModels
                     Password = this.Password,
                     UserTypeId = userType,
                 };
+               
+                //Call the Register method on the proxy to register the new user
+                InServerCall = true;
                 if (newUser.UserTypeId == 2)
                 {
                     var newBaker = new Baker()
@@ -466,11 +469,10 @@ namespace AppClient.ViewModels
                         ConfectioneryTypeId = conType,
                         StatusCode = 1
                     };
+                    newBaker = await proxy.SignUp(newBaker);
                 }
-               
-                //Call the Register method on the proxy to register the new user
-                InServerCall = true;
                 newUser = await proxy.SignUp(newUser);
+                
                 InServerCall = false;
 
                 //If the registration was successful, navigate to the login page

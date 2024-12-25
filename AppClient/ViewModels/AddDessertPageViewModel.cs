@@ -58,6 +58,7 @@ namespace AppClient.ViewModels
             set
             {
                 dessertName = value;
+                ValidateDessertName();
                 OnPropertyChanged("DessertName");
             }
         }
@@ -72,6 +73,11 @@ namespace AppClient.ViewModels
                 dessertNameError = value;
                 OnPropertyChanged("DessertNameError");
             }
+        }
+
+        private void ValidateDessertName()
+        {
+            this.ShowDessertNameError = string.IsNullOrEmpty(DessertName);
         }
         #endregion
 
