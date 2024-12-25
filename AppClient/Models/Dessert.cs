@@ -15,7 +15,7 @@ namespace AppClient.Models
 
         public double Price { get; set; }
 
-        public byte[] DessertImage { get; set; }
+        public string? DessertImagePath { get; set; }
 
         public int StatusCode { get; set; }
     }

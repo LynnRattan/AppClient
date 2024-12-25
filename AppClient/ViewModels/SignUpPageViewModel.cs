@@ -11,6 +11,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using AppClient.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
+using AppClient.ModelsExt;
 //using static Java.Util.Jar.Attributes;
 
 namespace AppClient.ViewModels
@@ -414,6 +415,11 @@ namespace AppClient.ViewModels
 
         #endregion
 
+        #region Profits
+        private double profits;
+        public double Profits;
+        #endregion
+
 
         //Define a command for the register button
         public Command SignUpCommand { get; }
@@ -449,7 +455,7 @@ namespace AppClient.ViewModels
                 }
 
                 //Create a new AppUser object with the data from the registration form
-                var newUser = new User
+                var newUserBaker = new UserBaker
                 {
                     Username = this.Username,
                     ProfileName = this.ProfileName,
@@ -460,28 +466,24 @@ namespace AppClient.ViewModels
                
                 //Call the Register method on the proxy to register the new user
                 InServerCall = true;
-                if (newUser.UserTypeId == 2)
+                if (newUserBaker.UserTypeId == 2)
                 {
-                    var newBaker = new Baker()
-                    {
-                        BakerId = newUser.UserId,
-                        HighestPrice = this.HighestPrice,
-                        ConfectioneryTypeId = conType,
-                        StatusCode = 1
-                    };
-                    newBaker = await proxy.SignUp(newBaker);
+                    newUserBaker.HighestPrice = this.HighestPrice;
+                    newUserBaker.ConfectioneryTypeId = conType;
+                    newUserBaker.StatusCode = 1;
+                    newUserBaker.Profits = 0;
                 }
-                newUser = await proxy.SignUp(newUser);
+                newUserBaker = await proxy.SignUp(newUserBaker);
                 
                 InServerCall = false;
 
                 //If the registration was successful, navigate to the login page
-                if (newUser != null)
+                if (newUserBaker != null)
                 {
                     //UPload profile imae if needed
                     if (!string.IsNullOrEmpty(LocalPhotoPath))
                     {
-                        await proxy.LoginAsync(new LoginInfo { Mail = newUser.Mail, Password = newUser.Password });
+                        await proxy.LoginAsync(new LoginInfo { Mail = newUserBaker.Mail, Password = newUserBaker.Password });
                         User? updatedUser = await proxy.UploadProfileImage(LocalPhotoPath);
                         if (updatedUser == null)
                         {
@@ -491,14 +493,13 @@ namespace AppClient.ViewModels
                     }
                     InServerCall = false;
 
-                    ((App)Application.Current).LoggedInUser = newUser;
+                    ((App)Application.Current).LoggedInUser = newUserBaker;
                     AppShell shell = serviceProvider.GetService<AppShell>();
-                    if (newUser.UserTypeId == 1)
+                    if (newUserBaker.UserTypeId == 1)
                         ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserProfilePage>());
-                    else if (newUser.UserTypeId == 2)
+                    else if (newUserBaker.UserTypeId == 2)
                         ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<ConProfilePage>());
                     ((App)Application.Current).MainPage = shell;
-
                 }
                 else
                 {

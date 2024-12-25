@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-             x:Class="AppClient.Views.ConProfilePage"
-             Title="ConProfilePage"
-             x:DataType="viewmodel:ConProfilePageViewModel">
+<ContentPage
+    x:Class="AppClient.Views.ConProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+    Title="ConProfilePage"
+    x:DataType="viewmodel:ConProfilePageViewModel">
     <VerticalStackLayout>
-        <Label 
+        <Label
+            HorizontalOptions="Center"
             Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            VerticalOptions="Center" />
 
-        <Button Text="Add Dessert" VerticalOptions="Center" HorizontalOptions="Center" Command="{Binding GoToAddDessertCommand}" IsEnabled="{Binding NotInServerCall}"/>
+        <Button
+            Command="{Binding GoToAddDessertCommand}"
+            HorizontalOptions="Center"
+            IsEnabled="{Binding NotInServerCall}"
+            Text="Add Dessert"
+            VerticalOptions="Center" />
 
     </VerticalStackLayout>
 </ContentPage>

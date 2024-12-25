@@ -246,15 +246,19 @@ namespace AppClient.ViewModels
                 if (newDessert != null)
                 {
                     //UPload profile imae if needed
-                    //if (!string.IsNullOrEmpty(LocalPhotoPath))
-                    //{
-                    //    Dessert? updatedDessert = await proxy.UploadDessertImage(LocalPhotoPath);
-                    //    if (updatedDessert == null)
-                    //    {
-                    //        InServerCall = false;
-                    //    }
-                    //}
-                    InServerCall = false;
+                    if (!string.IsNullOrEmpty(LocalPhotoPath))
+                    {
+                        Dessert? updatedDessert = await proxy.UploadDessertImage(LocalPhotoPath);
+                        if (updatedDessert == null)
+                        {
+                            InServerCall = false;
+                        }
+                        //}
+                        InServerCall = false;
+                    }
+
+                    string successMsg = "Adding a dessert succeeded!";
+                    await Application.Current.MainPage.DisplayAlert("Adding a dessert", successMsg, "ok");
 
                 }
                 else
