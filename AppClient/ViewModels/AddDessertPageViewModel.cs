@@ -231,9 +231,9 @@ namespace AppClient.ViewModels
                 {
                     DessertName = this.DessertName,
                     DessertTypeId = dessertType,
-                    Price=this.Price,
-                    StatusCode=1
-
+                    Price = this.Price,
+                    StatusCode = 1,
+                    BakerId = ((App)Application.Current).LoggedInUser.UserId
                 };
 
 
@@ -259,7 +259,6 @@ namespace AppClient.ViewModels
 
                     string successMsg = "Adding a dessert succeeded!";
                     await Application.Current.MainPage.DisplayAlert("Adding a dessert", successMsg, "ok");
-
                 }
                 else
                 {

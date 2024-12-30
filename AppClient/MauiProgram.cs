@@ -40,9 +40,9 @@ namespace AppClient
             builder.Services.AddTransient<ConProfilePage>();
             builder.Services.AddTransient<AdminProfilePage>();
             builder.Services.AddTransient<AppShell>();
-            builder.Services.AddTransient<NewConfectioneriesPage>();
-            builder.Services.AddTransient<NewPastriesPage>();
-            builder.Services.AddTransient<NewConfectioneriesPage>();
+            builder.Services.AddTransient<PendingConfectioneriesPage>();
+            builder.Services.AddTransient<PendingDessertsPage>();
+            builder.Services.AddTransient<PendingConfectioneriesPage>();
             builder.Services.AddTransient<PreviousOrdersPage>();
             builder.Services.AddTransient<CartPage>();
             builder.Services.AddTransient<PreviousPurchasesPage>();
@@ -65,9 +65,9 @@ namespace AppClient
             builder.Services.AddTransient<ConProfilePageViewModel>();
             builder.Services.AddTransient<AdminProfilePageViewModel>();
             builder.Services.AddTransient<AppShellViewModel>();
-            builder.Services.AddTransient<NewConfectioneriesPageViewModel>();
-            builder.Services.AddTransient<NewPastriesPageViewModel>();
-            builder.Services.AddTransient<NewConfectioneriesPageViewModel>();
+            builder.Services.AddTransient<PendingConfectioneriesPageViewModel>();
+            builder.Services.AddTransient<PendingDessertsPageViewModel>();
+            builder.Services.AddTransient<PendingConfectioneriesPageViewModel>();
             builder.Services.AddTransient<PreviousOrdersPageViewModel>();
             builder.Services.AddTransient<CartPageViewModel>();
             builder.Services.AddTransient<PreviousPurchasesPageViewModel>();

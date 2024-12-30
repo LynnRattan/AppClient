@@ -69,6 +69,9 @@
     <Compile Update="Views\ConProfilePage.xaml.cs">
       <DependentUpon>ConProfilePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\PendingDessertsPage.xaml.cs">
+      <DependentUpon>PendingDessertsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\PreviousPurchasesPage.xaml.cs">
       <DependentUpon>PreviousPurchasesPage.xaml</DependentUpon>
     </Compile>
@@ -93,13 +96,13 @@
     <MauiXaml Update="Views\LoginPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\NewConfectioneriesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
     <MauiXaml Update="Views\NewOrdersPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="Views\NewPastriesPage.xaml">
+    <MauiXaml Update="Views\PendingConfectioneriesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Views\PendingDessertsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Views\PreviousOrdersPage.xaml">

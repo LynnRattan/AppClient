@@ -271,6 +271,38 @@ namespace AppClient.Services
             }
         }
 
+        public async Task<List<Baker>?> GetBakers()
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getbakers";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Baker>? result = JsonSerializer.Deserialize<List<Baker>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
     }
 }
 

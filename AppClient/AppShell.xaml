@@ -25,11 +25,11 @@
             Route="AdminProfile" />
         <ShellContent
             Title="New Confectioneries"
-            ContentTemplate="{DataTemplate views:NewConfectioneriesPage}"
+            ContentTemplate="{DataTemplate views:PendingConfectioneriesPage}"
             Route="NewConfectioneries" />
         <ShellContent
             Title="New Pastries"
-            ContentTemplate="{DataTemplate views:NewPastriesPage}"
+            ContentTemplate="{DataTemplate views:PendingDessertsPage}"
             Route="NewPastries" />
     </FlyoutItem>
 

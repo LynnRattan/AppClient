@@ -18,5 +18,7 @@ namespace AppClient.Models
         public string? DessertImagePath { get; set; }
 
         public int StatusCode { get; set; }
+
+        public int BakerId { get; set; }
     }
 }

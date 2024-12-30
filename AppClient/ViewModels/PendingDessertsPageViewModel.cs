@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppClient.ViewModels
 {
-    public class NewPastriesPageViewModel : ViewModelBase
+    public class PendingDessertsPageViewModel : ViewModelBase
     {
     }
 }
