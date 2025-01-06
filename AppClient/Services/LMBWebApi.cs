@@ -303,6 +303,69 @@ namespace AppClient.Services
             }
 
         }
+
+        public async void ApproveCon(Baker baker)
+        {
+            string url = $"{this.baseUrl}approvebaker";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(baker.BakerId);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+        public async void DeclineCon(Baker baker)
+        {
+            string url = $"{this.baseUrl}declinebaker";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(baker.BakerId);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
     }
 }
 

@@ -2,13 +2,94 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+              xmlns:Models="clr-namespace:AppClient.Models"
              x:Class="AppClient.Views.PendingConfectioneriesPage"
              x:DataType="viewmodel:PendingConfectioneriesPageViewModel"
              Title="Pending Confectioneries">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    
+        <ScrollView x:Name="scrlview" Margin="10">
+
+
+
+            <Grid ColumnDefinitions="3*,2*,*" RowDefinitions="1*,10*">
+                
+
+
+
+
+                <CollectionView
+                x:Name="collection"
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Margin="3"
+                ItemsSource="{Binding PendingConfectioneries}"
+                SelectedItem="{Binding SelectedPendingConfectionery}"
+                SelectionMode="Single">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="Models:Baker">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItem
+                                    Command="{Binding Source={x:Reference collection}, Path=BindingContext.DeclineConfectioneryCommand}"
+                                    CommandParameter="{Binding .}"
+                                    IconImageSource="decline.png" />
+                                    <SwipeItem
+                                    Command="{Binding Source={x:Reference collection}, Path=BindingContext.ApproveConfectioneryCommand}"
+                                    CommandParameter="{Binding .}"
+                                    IconImageSource="approve.png" />
+                                </SwipeView.RightItems>
+                                <Border
+                                Margin="4,5"
+                                Padding="4"
+                                HeightRequest="200">
+                                    <Grid RowDefinitions="*,*,*,*,*,*,*,*">
+                                        <Label Grid.Row="0" Margin="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Id: " />
+                                                    <Span Text="{Binding BakerId}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="1" Margin="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Confectionery Type: " />
+                                                    <Span Text="{Binding ConfectioneryTypeId}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="2" Margin="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Price range: " />
+                                                    <Span Text="{Binding HighestPrice}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        
+                                    </Grid>
+                                </Border>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <StackLayout>
+                            <Label HorizontalOptions="CenterAndExpand" Text="אין קונדיטורים חדשים" />
+                            <Image
+                            Aspect="AspectFit"
+                            HeightRequest="80"
+                            HorizontalOptions="CenterAndExpand"
+                            Source="goal.png"
+                            WidthRequest="80" />
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+
+
+            </Grid>
+        </ScrollView>
+   
 </ContentPage>

@@ -50,13 +50,21 @@ namespace AppClient.ViewModels
             }
         }
 
-        public async void OnDecline()
+        public async void OnDecline(Object obj)
         {
-
+            if (await AppShell.Current.DisplayAlert("Question", "Would you like to decline the confectionery?", "Yes", "Cancel"))
+            {
+                PendingConfectioneries.Remove(((Baker)obj));
+                proxy.DeclineCon(((Baker)obj));
+            }
         }
-        public async void OnApprove()
+        public async void OnApprove(Object obj)
         {
-
+            if (await AppShell.Current.DisplayAlert("Question", "Would you like to approve the confectionery?", "Yes", "Cancel"))
+            {
+                PendingConfectioneries.Remove(((Baker)obj));
+                proxy.ApproveCon(((Baker)obj));
+            }
         }
 
 
