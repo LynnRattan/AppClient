@@ -9,6 +9,7 @@ namespace AppClient.ModelsExt
 {
     public class UserBaker : User
     {
+        public string? ConfectioneryName { get; set; }
         public double? HighestPrice {  get; set; }
         public int? ConfectioneryTypeId { get; set; }
         public int StatusCode { get; set; }

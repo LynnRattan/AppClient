@@ -48,7 +48,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span FontAttributes="Bold" Text="Confectionery name: " />
-                                                    <!--<Span Text="{Binding ProfileName}" />-->
+                                                    <Span Text="{Binding ConfectioneryName}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>

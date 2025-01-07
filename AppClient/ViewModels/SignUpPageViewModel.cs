@@ -33,7 +33,9 @@ namespace AppClient.ViewModels
             UsernameError = "Username is required";
             MailError = "Mail is required";
             PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
-           
+            ConfectioneryNameError= "Confectionery Name is required";
+
+
         }
 
 
@@ -399,6 +401,50 @@ namespace AppClient.ViewModels
         }
         #endregion
 
+        #region ConfectioneryName
+        private string confectioneryName;
+
+        public string ConfectioneryName
+        {
+            get => confectioneryName;
+            set
+            {
+                confectioneryName = value;
+
+                OnPropertyChanged("ConfectioneryName");
+            }
+        }
+
+        private bool showConfectioneryNameError;
+
+        public bool ShowConfectioneryNameError
+        {
+            get => showProfileNameError;
+            set
+            {
+                showProfileNameError = value;
+                OnPropertyChanged("ShowConfectioneryNameError");
+            }
+        }
+
+        private void ValidateConfectioneryName()
+        {
+            this.ShowConfectioneryNameError = string.IsNullOrEmpty(ConfectioneryName);
+        }
+
+        private string confectioneryNameError;
+
+        public string ConfectioneryNameError
+        {
+            get => confectioneryNameError;
+            set
+            {
+                confectioneryNameError = value;
+                OnPropertyChanged("confectioneryNameError");
+            }
+        }
+        #endregion
+
         #region HighestPrice
         private double highestPrice;
 
@@ -468,6 +514,7 @@ namespace AppClient.ViewModels
                 InServerCall = true;
                 if (newUserBaker.UserTypeId == 2)
                 {
+                    newUserBaker.ConfectioneryName = this.ConfectioneryName;
                     newUserBaker.HighestPrice = this.HighestPrice;
                     newUserBaker.ConfectioneryTypeId = conType;
                     newUserBaker.StatusCode = 1;

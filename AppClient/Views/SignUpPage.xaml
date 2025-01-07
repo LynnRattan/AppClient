@@ -93,9 +93,15 @@
                         IsChecked="True"
                         GroupName="UserType"/>
                 </StackLayout>
+
+                <!--בחירת שם קודנטוריה-->
+                <Label IsVisible="{Binding IsConChecked}" HorizontalOptions="Center" Grid.Row="9" Text="Confectionery Name" Grid.Column="0" />
+                <Label Grid.Row="9" TextColor="Red" Text="{Binding ConfectioneryNameError}" IsVisible="{Binding ShowConfectioneryNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                <Entry IsVisible="{Binding IsConChecked}" Grid.Row="9" Grid.Column="1" Placeholder="Type Confectionery Name" Text="{Binding ConfectioneryName}" Style="{StaticResource entryStyle}" />
+
                 <Label
                     IsVisible="{Binding IsConChecked}"
-                    Grid.Row="9"
+                    Grid.Row="10"
                     Grid.Column="0"
     x:Name="highestPrice_lbl"
     Margin="15"
@@ -103,7 +109,7 @@
 
                 <Entry
                     IsVisible="{Binding IsConChecked}"
-                    Grid.Row="9"
+                    Grid.Row="10"
 Grid.Column="1"
     Placeholder="Enter your highest price"
     Text="{Binding HighestPrice}" />
@@ -112,14 +118,14 @@ Grid.Column="1"
 
                 <Label
                     IsVisible="{Binding IsConChecked}"
-                    Grid.Row="10"
+                    Grid.Row="11"
 Grid.Column="0"
      Margin="15"
      Text="Choose your confectionery type" />
 
                 <StackLayout
                     IsVisible="{Binding IsConChecked}"
-                    Grid.Row="11"
+                    Grid.Row="12"
 Grid.ColumnSpan="2"
      HorizontalOptions="Center"
      Orientation="Horizontal">
@@ -149,8 +155,8 @@ Grid.ColumnSpan="2"
                 </StackLayout>
 
                 <!--כפתורי הרשמה וביטול-->
-                <Button Text="Sign Up" Command="{Binding SignUpCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Row="12" Grid.Column="1" Style="{StaticResource buttonStyle}" />
-                <Button Text="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Row="12" Grid.Column="0" Style="{StaticResource buttonStyle}"/>
+                <Button Text="Sign Up" Command="{Binding SignUpCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Row="13" Grid.Column="1" Style="{StaticResource buttonStyle}" />
+                <Button Text="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Row="13" Grid.Column="0" Style="{StaticResource buttonStyle}"/>
                
 
                 
