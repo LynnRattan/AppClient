@@ -10,8 +10,7 @@
         <ScrollView x:Name="scrlview" Margin="10">
 
 
-
-            <Grid ColumnDefinitions="3*,2*,*" RowDefinitions="1*,10*">
+        <Grid ColumnDefinitions="3*,2*,*" RowDefinitions="1*,10*">
                 
 
 
@@ -44,8 +43,16 @@
                                 Margin="4,5"
                                 Padding="4"
                                 HeightRequest="200">
-                                    <Grid RowDefinitions="*,*,*,*,*,*,*,*">
+                                    <Grid RowDefinitions="*,*,*,*">
                                         <Label Grid.Row="0" Margin="3">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Confectionery name: " />
+                                                    <!--<Span Text="{Binding ProfileName}" />-->
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="1" Margin="3">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span FontAttributes="Bold" Text="Id: " />
@@ -53,7 +60,7 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <Label Grid.Row="1" Margin="3">
+                                        <Label Grid.Row="2" Margin="3">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span FontAttributes="Bold" Text="Confectionery Type: " />
@@ -61,11 +68,12 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
-                                        <Label Grid.Row="2" Margin="3">
+                                        <Label Grid.Row="3" Margin="3">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span FontAttributes="Bold" Text="Price range: " />
-                                                    <Span Text="{Binding HighestPrice}" />
+                                                <Span Text="0-"/>
+                                                <Span Text="{Binding HighestPrice}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
@@ -77,12 +85,12 @@
                     </CollectionView.ItemTemplate>
                     <CollectionView.EmptyView>
                         <StackLayout>
-                            <Label HorizontalOptions="CenterAndExpand" Text="אין קונדיטורים חדשים" />
+                            <Label HorizontalOptions="CenterAndExpand" Text="No pending confectioneries." />
                             <Image
                             Aspect="AspectFit"
                             HeightRequest="80"
                             HorizontalOptions="CenterAndExpand"
-                            Source="goal.png"
+                            Source="sad.png"
                             WidthRequest="80" />
                         </StackLayout>
                     </CollectionView.EmptyView>

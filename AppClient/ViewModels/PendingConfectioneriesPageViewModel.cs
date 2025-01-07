@@ -31,22 +31,26 @@ namespace AppClient.ViewModels
             this.proxy = proxy;
             pendingConfectioneriesKeeper = new();
             PendingConfectioneries = new();
-            GetBakers();
+            //GetBakers();
             FillPendingConfectioneries();
             DeclineConfectioneryCommand = new Command(OnDecline);
             ApproveConfectioneryCommand = new Command(OnApprove);
 
         }
+
+        
         private async void GetBakers()
         {
             pendingConfectioneriesKeeper = await proxy.GetBakers();
         }
-        private void FillPendingConfectioneries()
+        private async void FillPendingConfectioneries()
         {
+            pendingConfectioneriesKeeper = await proxy.GetBakers();
+
             foreach (Baker b in pendingConfectioneriesKeeper)
             {
                 if (b.StatusCode == 1)
-                    PendingConfectioneries.Add(b);
+                    pendingConfectioneries.Add(b);
             }
         }
 
