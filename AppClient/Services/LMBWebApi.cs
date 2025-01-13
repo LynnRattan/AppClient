@@ -304,13 +304,13 @@ namespace AppClient.Services
 
         }
 
-        public async void ApproveCon(Baker baker)
+        public async void ApproveCon(int bakerId)
         {
             string url = $"{this.baseUrl}approvebaker";
             try
             {
                 //Call the server API
-                string json = JsonSerializer.Serialize(baker.BakerId);
+                string json = JsonSerializer.Serialize(bakerId);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 //Extract the content as string
@@ -335,13 +335,13 @@ namespace AppClient.Services
                 return;
             }
         }
-        public async void DeclineCon(Baker baker)
+        public async void DeclineCon(int bakerId)
         {
             string url = $"{this.baseUrl}declinebaker";
             try
             {
                 //Call the server API
-                string json = JsonSerializer.Serialize(baker.BakerId);
+                string json = JsonSerializer.Serialize(bakerId);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync(url, content);
                 //Extract the content as string
@@ -366,6 +366,105 @@ namespace AppClient.Services
                 return;
             }
         }
+
+        public async Task<List<Dessert>?> GetDesserts()
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getdesserts";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Dessert>? result = JsonSerializer.Deserialize<List<Dessert>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+
+        public async void ApproveDes(int dessertId)
+        {
+            string url = $"{this.baseUrl}approvedessert";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(dessertId);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+        public async void DeclineDes(int dessertId)
+        {
+            string url = $"{this.baseUrl}declinedessert";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(dessertId);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+
+
+
     }
 }
 

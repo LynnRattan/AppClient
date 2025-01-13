@@ -24,13 +24,13 @@
             ContentTemplate="{DataTemplate views:AdminProfilePage}"
             Route="AdminProfile" />
         <ShellContent
-            Title="New Confectioneries"
+            Title="Pending Confectioneries"
             ContentTemplate="{DataTemplate views:PendingConfectioneriesPage}"
-            Route="NewConfectioneries" />
+            Route="PendingConfectioneries" />
         <ShellContent
-            Title="New Pastries"
+            Title="Pending Desserts"
             ContentTemplate="{DataTemplate views:PendingDessertsPage}"
-            Route="NewPastries" />
+            Route="PendingPastries" />
     </FlyoutItem>
 
     <FlyoutItem

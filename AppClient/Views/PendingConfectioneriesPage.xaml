@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-              xmlns:Models="clr-namespace:AppClient.Models"
-             x:Class="AppClient.Views.PendingConfectioneriesPage"
-             x:DataType="viewmodel:PendingConfectioneriesPageViewModel"
-             Title="Pending Confectioneries">
-    
-        <ScrollView x:Name="scrlview" Margin="10">
+<ContentPage
+    x:Class="AppClient.Views.PendingConfectioneriesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Models="clr-namespace:AppClient.Models"
+    xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+    Title="Pending Confectioneries"
+    x:DataType="viewmodel:PendingConfectioneriesPageViewModel">
+
+    <ScrollView x:Name="scrlview" Margin="10">
 
 
         <Grid ColumnDefinitions="3*,2*,*" RowDefinitions="1*,10*">
-                
 
 
 
 
-                <CollectionView
+
+            <CollectionView
                 x:Name="collection"
                 Grid.Row="1"
                 Grid.Column="0"
@@ -26,78 +27,78 @@
                 SelectedItem="{Binding SelectedPendingConfectionery}"
                 SelectionMode="Single">
 
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="Models:Baker">
-                            <SwipeView>
-                                <SwipeView.RightItems>
-                                    <SwipeItem
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="Models:Baker">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItem
                                     Command="{Binding Source={x:Reference collection}, Path=BindingContext.DeclineConfectioneryCommand}"
                                     CommandParameter="{Binding .}"
-                                    IconImageSource="decline.png" />
-                                    <SwipeItem
+                                    IconImageSource="ex.png" />
+                                <SwipeItem
                                     Command="{Binding Source={x:Reference collection}, Path=BindingContext.ApproveConfectioneryCommand}"
                                     CommandParameter="{Binding .}"
-                                    IconImageSource="approve.png" />
-                                </SwipeView.RightItems>
-                                <Border
+                                    IconImageSource="check.png" />
+                            </SwipeView.RightItems>
+                            <Border
                                 Margin="4,5"
                                 Padding="4"
                                 HeightRequest="200">
-                                    <Grid RowDefinitions="*,*,*,*">
-                                        <Label Grid.Row="0" Margin="3">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span FontAttributes="Bold" Text="Confectionery name: " />
-                                                    <Span Text="{Binding ConfectioneryName}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Grid.Row="1" Margin="3">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span FontAttributes="Bold" Text="Id: " />
-                                                    <Span Text="{Binding BakerId}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Grid.Row="2" Margin="3">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span FontAttributes="Bold" Text="Confectionery Type: " />
-                                                    <Span Text="{Binding ConfectioneryTypeId}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Grid.Row="3" Margin="3">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span FontAttributes="Bold" Text="Price range: " />
-                                                <Span Text="0-"/>
+                                <Grid RowDefinitions="*,*,*,*">
+                                    <Label Grid.Row="0" Margin="3">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="Confectionery name: " />
+                                                <Span Text="{Binding ConfectioneryName}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="1" Margin="3">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="Id: " />
+                                                <Span Text="{Binding BakerId}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="2" Margin="3">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="Confectionery Type: " />
+                                                <Span Text="{Binding ConfectioneryTypeId}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="3" Margin="3">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="Price range: " />
+                                                <Span Text="0-" />
                                                 <Span Text="{Binding HighestPrice}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        
-                                    </Grid>
-                                </Border>
-                            </SwipeView>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                    <CollectionView.EmptyView>
-                        <StackLayout>
-                            <Label HorizontalOptions="CenterAndExpand" Text="No pending confectioneries." />
-                            <Image
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                </Grid>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label HorizontalOptions="CenterAndExpand" Text="No pending confectioneries." />
+                        <Image
                             Aspect="AspectFit"
                             HeightRequest="80"
                             HorizontalOptions="CenterAndExpand"
                             Source="sad.png"
                             WidthRequest="80" />
-                        </StackLayout>
-                    </CollectionView.EmptyView>
-                </CollectionView>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
 
 
-            </Grid>
-        </ScrollView>
-   
+        </Grid>
+    </ScrollView>
+
 </ContentPage>
