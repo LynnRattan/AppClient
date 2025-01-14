@@ -17,7 +17,7 @@
 
 
 
-            <!--<CollectionView
+            <CollectionView
                 x:Name="collection"
                 Grid.Row="1"
                 Grid.Column="0"
@@ -99,7 +99,7 @@
                             WidthRequest="80" />
                     </StackLayout>
                 </CollectionView.EmptyView>
-            </CollectionView>-->
+            </CollectionView>
 
 
         </Grid>
