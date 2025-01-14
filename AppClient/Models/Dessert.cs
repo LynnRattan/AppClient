@@ -11,9 +11,20 @@ namespace AppClient.Models
         public int DessertId { get; set; }
         public string DessertName { get; set; }
 
-        public int DessertTypeId { get; set; }
+        public int? DessertTypeId { get; set; }
+        public string? DessertTypeName
+        {
+            get
+            {
+                List<DessertType> l = ((App)Application.Current).DessertTypes;
+                DessertType? dType = l.Where(t => t.DessertTypeId == DessertTypeId).FirstOrDefault();
+                if (dType == null)
+                    return "Unknown";
+                return dType.DessertTypeName;
+            }
+        }
 
-        public double Price { get; set; }
+    public double Price { get; set; }
 
         public string? DessertImagePath { get; set; }
 

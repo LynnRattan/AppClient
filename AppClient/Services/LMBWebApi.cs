@@ -463,6 +463,72 @@ namespace AppClient.Services
             }
         }
 
+        //This method call the getConfectioneryTypes web API and return a list of UrgencyLevel or null if it fails.
+        public async Task<List<ConfectioneryType>?> GetConfectioneryTypes()
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getconfectionerytypes";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<ConfectioneryType>? result = JsonSerializer.Deserialize<List<ConfectioneryType>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        //This method call the getDessertTypes web API and return a list of UrgencyLevel or null if it fails.
+        public async Task<List<DessertType>?> GetDessertTypes()
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getdesserttypes";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<DessertType>? result = JsonSerializer.Deserialize<List<DessertType>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
 
 
     }

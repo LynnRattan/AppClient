@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+//using static Android.App.ActivityManager;
 
 namespace AppClient.ViewModels
 {
@@ -14,8 +15,9 @@ namespace AppClient.ViewModels
     {
         private LMBWebApi proxy;
         private readonly IServiceProvider serviceProvider;
-        private ObservableCollection<Baker> pendingConfectioneries;
         private List<Baker> pendingConfectioneriesKeeper;
+        private ObservableCollection<Baker> pendingConfectioneries;
+       
         public ObservableCollection<Baker> PendingConfectioneries { get => pendingConfectioneries; set { pendingConfectioneries = value; OnPropertyChanged(); } }
         private Baker selectedPendingConfectionery;
         public Baker SelectedPendingConfectionery { get => selectedPendingConfectionery; set { selectedPendingConfectionery = value; OnPropertyChanged(); } }
@@ -38,7 +40,8 @@ namespace AppClient.ViewModels
 
         }
 
-        
+       
+
         private async void GetBakers()
         {
             pendingConfectioneriesKeeper = await proxy.GetBakers();
@@ -50,7 +53,9 @@ namespace AppClient.ViewModels
             foreach (Baker b in pendingConfectioneriesKeeper)
             {
                 if (b.StatusCode == 1)
+                {
                     pendingConfectioneries.Add(b);
+                }
             }
         }
 
@@ -72,6 +77,7 @@ namespace AppClient.ViewModels
                 proxy.ApproveCon(baker.BakerId);
             }
         }
+
 
 
     }

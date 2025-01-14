@@ -65,7 +65,7 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span FontAttributes="Bold" Text="Dessert Type: " />
-                                                <Span Text="{Binding DessertTypeId}" />
+                                                <Span Text="{Binding DessertTypeName}" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>

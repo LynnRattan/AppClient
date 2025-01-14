@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace AppClient.Models
 {
-    public class ConfectioneryType
+    public class DessertType
     {
-        public int ConfectioneryTypeId { get; set; }
-        public string ConfectioneryTypeName { get; set;}
+        public int DessertTypeId { get; set; }
+        public string DessertTypeName { get; set; }
 
         public override string ToString()
         {
-            return ConfectioneryTypeName;
+            return DessertTypeName;
         }
     }
 }
