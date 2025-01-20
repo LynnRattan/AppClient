@@ -1,23 +1,149 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<ContentPage 
     x:Class="AppClient.Views.ConProfilePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+        xmlns:Models="clr-namespace:AppClient.Models"
     Title="ConProfilePage"
     x:DataType="viewmodel:ConProfilePageViewModel">
     <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
+        <ScrollView  HorizontalOptions="Center"
+     HorizontalScrollBarVisibility="Always"
+     VerticalOptions="FillAndExpand"
+     VerticalScrollBarVisibility="Always">
 
-        <Button
+            <Grid RowDefinitions="*,*,*,*,*,*">
+
+                <Label 
+                    Text="{Binding ConfectioneryName}"
+                    
+                    FontSize="Title"/>
+                <!-- תמונת פרופיל -->
+
+                <Frame Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Center" BorderColor="Black" Padding="5" Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="proliepic" Source="profilepicture.png"  HeightRequest="150"/>
+                    </Grid>
+                </Frame>
+
+                <Label Grid.Row="2" Margin="3">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span FontAttributes="Bold" Text="Confectionery Type: " />
+                            <Span Text="{Binding ConfectioneryTypeName}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="3" Margin="3">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span FontAttributes="Bold" Text="Price range: " />
+                            <Span Text="0-" />
+                            <Span Text="{Binding HighestPrice}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label Grid.Row="4" Text="Menu" FontSize="Header"/>
+                <Grid Grid.Row="5" ColumnDefinitions="3*,2*,*" RowDefinitions="1*,10*">
+
+                    <CollectionView
+         x:Name="collection"
+         Grid.Row="1"
+         Grid.Column="0"
+         Grid.ColumnSpan="3"
+         Margin="3"
+         ItemsSource="{Binding Desserts}"
+         SelectedItem="{Binding SelectedDessert}"
+         SelectionMode="Single">
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="Models:Dessert">
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItem
+                             Command="{Binding Source={x:Reference collection}, Path=BindingContext.DeleteDessertCommand}"
+                             CommandParameter="{Binding .}"
+                             IconImageSource="ex.png" />
+                                    </SwipeView.RightItems>
+                                    <Border
+                         Margin="4,5"
+                         Padding="4"
+                         HeightRequest="200">
+                                        <Grid RowDefinitions="*,*,*,*">
+                                            <Label Grid.Row="0" Margin="3">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontAttributes="Bold" Text="Dessert name: " />
+                                                        <Span Text="{Binding DessertName}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Grid.Row="1" Margin="3">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontAttributes="Bold" Text="Status: " />
+                                                        <Span Text="{Binding StatusCode}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Grid.Row="2" Margin="3">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontAttributes="Bold" Text="Dessert Type: " />
+                                                        <Span Text="{Binding DessertTypeName}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Grid.Row="3" Margin="3">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span FontAttributes="Bold" Text="Price: " />
+                                                        <Span Text="{Binding Price}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+
+                                        </Grid>
+                                    </Border>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <StackLayout>
+                                <Label HorizontalOptions="CenterAndExpand" Text="No desserts in menu." />
+                                <Image
+                     Aspect="AspectFit"
+                     HeightRequest="80"
+                     HorizontalOptions="CenterAndExpand"
+                     Source="sad.png"
+                     WidthRequest="80" />
+                            </StackLayout>
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+
+
+                </Grid>
+
+
+
+                <Button Grid.Row="6"
             Command="{Binding GoToAddDessertCommand}"
             HorizontalOptions="Center"
             IsEnabled="{Binding NotInServerCall}"
             Text="Add Dessert"
             VerticalOptions="Center" />
+                
+                </Grid>
+            </ScrollView>
 
     </VerticalStackLayout>
 </ContentPage>
