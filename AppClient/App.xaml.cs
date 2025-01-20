@@ -44,7 +44,7 @@ namespace AppClient
                 DessertTypes.Clear();
                 foreach (DessertType type in dessertTypes)
                 {
-                    dessertTypes.Add(type);
+                    DessertTypes.Add(type);
                 }
             }
         }
