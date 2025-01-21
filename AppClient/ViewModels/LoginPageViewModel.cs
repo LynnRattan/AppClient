@@ -108,7 +108,10 @@ public class LoginPageViewModel : ViewModelBase
             if (u.UserTypeId == 1)
                 ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserProfilePage>());
             else if (u.UserTypeId == 2)
+            {
+                ((App)Application.Current).LoggedInBaker = await proxy.GetBaker(u.UserId);
                 ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<ConProfilePage>());
+            }
             else if (u.UserTypeId == 3)
                 ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<AdminProfilePage>());
             ((App)Application.Current).MainPage = shell;

@@ -9,6 +9,7 @@ namespace AppClient
     {
         //Application level variables
         public User? LoggedInUser { get; set; }
+        public Baker? LoggedInBaker { get; set; }
         public List<ConfectioneryType> ConfectioneryTypes { get; set; } = new List<ConfectioneryType>();
         public List<DessertType> DessertTypes { get; set; } = new List<DessertType>();
 
@@ -20,6 +21,7 @@ namespace AppClient
             this.proxy = proxy;
             InitializeComponent();
             LoggedInUser = null;
+            LoggedInBaker = null;
             LoadBasicDataFromServer();
             //Start with the Login View
             MainPage = new NavigationPage(serviceProvider.GetService<LoginPage>());

@@ -545,7 +545,10 @@ namespace AppClient.ViewModels
                     if (newUserBaker.UserTypeId == 1)
                         ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserProfilePage>());
                     else if (newUserBaker.UserTypeId == 2)
+                    {
+                        ((App)Application.Current).LoggedInBaker = await proxy.GetBaker(newUserBaker.UserId);
                         ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<ConProfilePage>());
+                    }
                     ((App)Application.Current).MainPage = shell;
                 }
                 else

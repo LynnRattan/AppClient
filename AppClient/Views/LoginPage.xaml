@@ -53,11 +53,11 @@
             VerticalOptions="CenterAndExpand" />
 
         <StackLayout Margin="0,20,0,0" HorizontalOptions="Center">
-            <Label Text="אין לך משתמש?" />
+            <Label Text="Don't have an account yet?" />
             <Label
                 FontAttributes="Bold"
                 HorizontalOptions="Center"
-                Text="הרשם כאן"
+                Text="Sign up here"
                 TextColor="Blue">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding GoToSignUpCommand}" />

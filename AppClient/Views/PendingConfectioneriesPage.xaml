@@ -7,8 +7,8 @@
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
     Title="Pending Confectioneries"
     x:DataType="viewmodel:PendingConfectioneriesPageViewModel">
-
-    <ScrollView x:Name="scrlview" Margin="10">
+    <RefreshView Command="{Binding LoadPendingConfectioneriesCommand}" IsRefreshing="{Binding IsRefreshing}">
+        <ScrollView x:Name="scrlview" Margin="10">
 
 
         <Grid ColumnDefinitions="3*,2*,*" RowDefinitions="1*,10*">
@@ -104,5 +104,5 @@
 
         </Grid>
     </ScrollView>
-
+</RefreshView>
 </ContentPage>

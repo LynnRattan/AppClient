@@ -7,17 +7,20 @@
         xmlns:Models="clr-namespace:AppClient.Models"
     Title="ConProfilePage"
     x:DataType="viewmodel:ConProfilePageViewModel">
-    <VerticalStackLayout>
+    
+        <RefreshView Command="{Binding LoadBakerDessertsCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView  HorizontalOptions="Center"
-     HorizontalScrollBarVisibility="Always"
-     VerticalOptions="FillAndExpand"
-     VerticalScrollBarVisibility="Always">
+HorizontalScrollBarVisibility="Always"
+VerticalOptions="FillAndExpand"
+VerticalScrollBarVisibility="Always">
+            <VerticalStackLayout>
+        
 
-            <Grid RowDefinitions="*,*,*,*,*,*">
+            <Grid RowDefinitions="*,*,*,*,*,*,*,*,*,*,*" HorizontalOptions="Center">
 
                 <Label 
-                    Text="{Binding ConfectioneryName}"
-                    
+                    Text="{Binding LoggedInBaker.ConfectioneryName}"
+                    HorizontalOptions="Center"
                     FontSize="Title"/>
                 <!-- תמונת פרופיל -->
 
@@ -38,22 +41,31 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <Span FontAttributes="Bold" Text="Confectionery Type: " />
-                            <Span Text="{Binding ConfectioneryTypeName}" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                <Label Grid.Row="3" Margin="3">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span FontAttributes="Bold" Text="Price range: " />
-                            <Span Text="0-" />
-                            <Span Text="{Binding HighestPrice}" />
+                            <Span Text="{Binding LoggedInBaker.ConfectioneryTypeName}" />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
 
-                <Label Grid.Row="4" Text="Menu" FontSize="Header"/>
-                <Grid Grid.Row="5" ColumnDefinitions="3*,2*,*" RowDefinitions="1*,10*">
+                <Label Grid.Row="3" Margin="3">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span FontAttributes="Bold" Text="Status: " />
+                            <Span Text="{Binding LoggedInBaker.StatusCode}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="4" Margin="3">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span FontAttributes="Bold" Text="Price range: " />
+                            <Span Text="0-" />
+                            <Span Text="{Binding LoggedInBaker.HighestPrice}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label HorizontalOptions="Center" Grid.Row="5" Text="Menu" FontSize="Title"/>
+                <Grid Grid.Row="6" ColumnDefinitions="3*,2*,*" RowDefinitions="1*,10*">
 
                     <CollectionView
          x:Name="collection"
@@ -61,8 +73,8 @@
          Grid.Column="0"
          Grid.ColumnSpan="3"
          Margin="3"
-         ItemsSource="{Binding Desserts}"
-         SelectedItem="{Binding SelectedDessert}"
+         ItemsSource="{Binding BakerDesserts}"
+         SelectedItem="{Binding SelectedBakerDessert}"
          SelectionMode="Single">
 
                         <CollectionView.ItemTemplate>
@@ -103,39 +115,65 @@
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
-                                            <Label Grid.Row="3" Margin="3">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span FontAttributes="Bold" Text="Price: " />
-                                                        <Span Text="{Binding Price}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
+                                                <Label Grid.Row="3" Margin="3">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span FontAttributes="Bold" Text="Price: " />
+                                                            <Span Text="{Binding Price}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
 
-                                        </Grid>
+                                            </Grid>
                                     </Border>
-                                </SwipeView>
+                                         
+                                    </SwipeView>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
-                        <CollectionView.EmptyView>
-                            <StackLayout>
-                                <Label HorizontalOptions="CenterAndExpand" Text="No desserts in menu." />
-                                <Image
+                        <!--<CollectionView.EmptyView>
+                                <ContentView>
+                                    <StackLayout>
+                                        <Label HorizontalOptions="Center" Text="No desserts in menu." />
+                                        <Image
                      Aspect="AspectFit"
                      HeightRequest="80"
                      HorizontalOptions="CenterAndExpand"
                      Source="sad.png"
                      WidthRequest="80" />
-                            </StackLayout>
-                        </CollectionView.EmptyView>
+                                    </StackLayout>
+                                </ContentView>
+                                
+                                --><!--<ContentView>
+                                    <StackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center">
+                                        <Label Text="No results matched your filter."
+                           Margin="10,25,10,10"
+                           FontAttributes="Bold"
+                           FontSize="18"
+                           HorizontalOptions="Fill"
+                           HorizontalTextAlignment="Center" />
+                                        <Label Text="Try a broader filter?"
+                           FontAttributes="Italic"
+                           FontSize="12"
+                           HorizontalOptions="Fill"
+                           HorizontalTextAlignment="Center" />
+                                    </StackLayout>
+                                </ContentView>--><!--
+                            </CollectionView.EmptyView>-->
                     </CollectionView>
 
 
                 </Grid>
 
+                    <Label IsVisible="{Binding IsEmpty}" Grid.Row="8" HorizontalOptions="Center" Text="No desserts in menu." />
+                    <Image IsVisible="{Binding IsEmpty}" Grid.Row="9"
+ Aspect="AspectFit"
+ HeightRequest="80"
+ HorizontalOptions="CenterAndExpand"
+ Source="sad.png"
+ WidthRequest="80" />
 
-
-                <Button Grid.Row="6"
+                    <Button Grid.Row="10"
             Command="{Binding GoToAddDessertCommand}"
             HorizontalOptions="Center"
             IsEnabled="{Binding NotInServerCall}"
@@ -143,7 +181,10 @@
             VerticalOptions="Center" />
                 
                 </Grid>
-            </ScrollView>
+           
 
     </VerticalStackLayout>
+    </ScrollView>
+    </RefreshView>
+    
 </ContentPage>

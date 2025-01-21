@@ -2,6 +2,7 @@
 using AppClient.Services;
 using AppClient.Views;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -267,6 +268,9 @@ namespace AppClient.ViewModels
                     string errorMsg = "Adding a dessert failed. Please try again.";
                     await Application.Current.MainPage.DisplayAlert("Adding a dessert", errorMsg, "ok");
                 }
+                // Navigate to the Baker profile View page
+                ConProfilePage cp = serviceProvider.GetService<ConProfilePage>();
+                ((App)Application.Current).MainPage.Navigation.PopAsync();
             }
         }
 

@@ -22,8 +22,13 @@ namespace AppClient.ViewModels
         private bool isRefreshing;
         public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
 
+        private bool isEmpty;
+        public bool IsEmpty { get => isEmpty; set { isEmpty = value; OnPropertyChanged(); } }
+
         public ICommand DeclineDessertCommand { get; private set; }
         public ICommand ApproveDessertCommand { get; private set; }
+
+        public ICommand LoadPendingDessertsCommand { get; private set; }
 
         public PendingDessertsPageViewModel(LMBWebApi proxy, IServiceProvider serviceProvider)
         {
@@ -31,10 +36,12 @@ namespace AppClient.ViewModels
             this.proxy = proxy;
             pendingDessertsKeeper = new();
             PendingDesserts = new();
+            isEmpty = true;
             //GetBakers();
             FillPendingDesserts();
             DeclineDessertCommand = new Command(OnDecline);
             ApproveDessertCommand = new Command(OnApprove);
+            LoadPendingDessertsCommand = new Command(LoadPendingDesserts);
 
         }
 
@@ -52,6 +59,11 @@ namespace AppClient.ViewModels
                 if (d.StatusCode == 1)
                     pendingDesserts.Add(d);
             }
+            if(pendingDesserts!=null)
+            {
+                isEmpty = false;
+            }
+            else isEmpty = true;
         }
 
         public async void OnDecline(Object obj)
@@ -71,6 +83,15 @@ namespace AppClient.ViewModels
                 PendingDesserts.Remove(((Dessert)obj));
                 proxy.ApproveDes(d.DessertId);
             }
+        }
+
+        private async void LoadPendingDesserts()
+        {
+            IsRefreshing = true;
+            PendingDesserts.Clear();
+            FillPendingDesserts();
+            IsRefreshing = false;
+
         }
 
 

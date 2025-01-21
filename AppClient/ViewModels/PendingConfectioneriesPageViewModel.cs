@@ -24,8 +24,12 @@ namespace AppClient.ViewModels
         private bool isRefreshing;
         public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
 
+        private bool isEmpty;
+        public bool IsEmpty { get => isEmpty; set { isEmpty = value; OnPropertyChanged(); } }
+
         public ICommand DeclineConfectioneryCommand { get; private set; }
         public ICommand ApproveConfectioneryCommand { get; private set; }
+        public ICommand LoadPendingConfectioneriesCommand { get; private set; }
 
         public PendingConfectioneriesPageViewModel(LMBWebApi proxy, IServiceProvider serviceProvider)
         {
@@ -33,11 +37,12 @@ namespace AppClient.ViewModels
             this.proxy = proxy;
             pendingConfectioneriesKeeper = new();
             PendingConfectioneries = new();
+            isEmpty = true;
             //GetBakers();
             FillPendingConfectioneries();
             DeclineConfectioneryCommand = new Command(OnDecline);
             ApproveConfectioneryCommand = new Command(OnApprove);
-
+            LoadPendingConfectioneriesCommand = new Command(LoadPendingConfectioneries);
         }
 
        
@@ -57,6 +62,13 @@ namespace AppClient.ViewModels
                     pendingConfectioneries.Add(b);
                 }
             }
+
+            if(pendingConfectioneries!=null)
+                isEmpty = false;
+            else isEmpty = true;
+
+
+
         }
 
         public async void OnDecline(Object obj)
@@ -66,6 +78,8 @@ namespace AppClient.ViewModels
                 Baker baker = (Baker)obj;
                 PendingConfectioneries.Remove(((Baker)obj));
                 proxy.DeclineCon(baker.BakerId);
+                if (pendingConfectioneries == null)
+                    isEmpty = true;
             }
         }
         public async void OnApprove(Object obj)
@@ -75,7 +89,17 @@ namespace AppClient.ViewModels
                 Baker baker = (Baker)obj;
                 PendingConfectioneries.Remove(((Baker)obj));
                 proxy.ApproveCon(baker.BakerId);
+                if (pendingConfectioneries == null)
+                    isEmpty = true;
             }
+        }
+
+        private async void LoadPendingConfectioneries()
+        {
+            IsRefreshing = true;
+            PendingConfectioneries.Clear();
+            FillPendingConfectioneries();
+             IsRefreshing = false;
         }
 
 
