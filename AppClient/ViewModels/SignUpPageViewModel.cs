@@ -197,7 +197,7 @@ namespace AppClient.ViewModels
             }
             if (exists)
             {
-               Mail = "Mail already exists.";
+               MailError = "Mail already exists.";
                 this.ShowMailError = true;
             }
             else if (string.IsNullOrEmpty(Mail))
@@ -205,26 +205,16 @@ namespace AppClient.ViewModels
                 this.ShowMailError = true;
                 MailError = "Mail is required.";
             }
-
-            else
-                this.ShowMailError = false;
-            if (!ShowMailError)
-            {
                 //check if Mail is in the correct format using regular expression
-                if (!System.Text.RegularExpressions.Regex.IsMatch(Mail, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
-                {
-                    MailError = "Mail is not valid";
-                    ShowMailError = true;
-                }
-                else
-                {
-                    MailError = "";
-                    ShowMailError = false;
-                }
+            else  if (!System.Text.RegularExpressions.Regex.IsMatch(Mail, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+            {
+                MailError = "Mail is not valid";
+                ShowMailError = true;
             }
             else
             {
-                MailError = "Mail is required";
+                MailError = "";
+                ShowMailError = false;
             }
         }
         #endregion
