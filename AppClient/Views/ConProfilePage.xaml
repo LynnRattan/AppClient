@@ -50,7 +50,7 @@ VerticalScrollBarVisibility="Always">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span FontAttributes="Bold" Text="Status: " />
-                            <Span Text="{Binding LoggedInBaker.StatusCode}" />
+                            <Span Text="{Binding LoggedInBaker.StatusName}" />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
@@ -103,7 +103,7 @@ VerticalScrollBarVisibility="Always">
                                                 <Label.FormattedText>
                                                     <FormattedString>
                                                         <Span FontAttributes="Bold" Text="Status: " />
-                                                        <Span Text="{Binding StatusCode}" />
+                                                        <Span Text="{Binding StatusName}" />
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>

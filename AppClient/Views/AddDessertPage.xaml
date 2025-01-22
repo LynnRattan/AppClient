@@ -68,6 +68,17 @@
                     Grid.Column="0"
                     Margin="15"
                     Text="Dessert Price" />
+                <Label
+    Grid.Row="3"
+    Grid.Column="1"
+    IsVisible="{Binding ShowPriceError}"
+    Text="{Binding PriceError}"
+    TextColor="Red" />
+                <Entry
+    Grid.Row="2"
+    Grid.Column="1"
+    Placeholder="Type Dessert Name"
+    Text="{Binding DessertName}" />
 
                 <Entry
                     Grid.Row="3"

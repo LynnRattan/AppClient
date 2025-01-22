@@ -529,10 +529,10 @@ namespace AppClient.Services
             }
         }
 
-        public async Task<List<Dessert>?> GetBakerDesserts()
+        public async Task<List<Status>?> GetStatuses()
         {
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}getbakerdesserts";
+            string url = $"{this.baseUrl}getstatusestypes";
             try
             {
                 //Call the server API
@@ -542,6 +542,40 @@ namespace AppClient.Services
                 //Check status
                 if (response.IsSuccessStatusCode)
                 {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Status>? result = JsonSerializer.Deserialize<List<Status>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<Dessert>?> GetBakerDesserts(int bakerId)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getbakerdesserts";
+            try
+            {
+                string json = JsonSerializer.Serialize(bakerId);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                //Call the server API
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
                     //Desrialize result
                     JsonSerializerOptions options = new JsonSerializerOptions
                     {
@@ -582,6 +616,70 @@ namespace AppClient.Services
                         PropertyNameCaseInsensitive = true
                     };
                     Baker? result = JsonSerializer.Deserialize<Baker>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async void UpdateHighestPrice(Baker baker)
+        {
+            string url = $"{this.baseUrl}updateHighestPrice";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(baker);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+
+        public async Task<List<User>?> GetUsers()
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getusers";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<User>? result = JsonSerializer.Deserialize<List<User>>(resContent, options);
                     return result;
                 }
                 else

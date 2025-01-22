@@ -1,6 +1,7 @@
 ﻿using AppClient.Models;
 using AppClient.Services;
 using AppClient.Views;
+//using Javax.Security.Auth;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AppClient.ViewModels
 {
-    public class AddDessertPageViewModel: ViewModelBase
+    public class AddDessertPageViewModel : ViewModelBase
     {
         private IServiceProvider serviceProvider;
         private LMBWebApi proxy;
@@ -19,21 +20,28 @@ namespace AppClient.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
+            LoggedInBaker = ((App)Application.Current).LoggedInBaker;
+            bakerDesserts = new List<Dessert>();
+            FillBakerDesserts();
             AddDessertCommand = new Command(OnAddDessert);
             CancelCommand = new Command(OnCancel);
             UploadPhotoCommand = new Command(OnUploadPhoto);
             PhotoURL = proxy.GetDefaultProfilePhotoUrl();
             LocalPhotoPath = "";
-            DessertNameError = "Dessert Name is required";
+            DessertNameError = "";
+            PriceError = "Price must be a number.";
 
         }
 
+        private List<Dessert> bakerDesserts;
 
         private bool isCakeChecked;
         private bool isCupcakeChecked;
         private bool isCookieChecked;
         private bool isPastryChecked;
         private Image DessertImage;
+
+        public Baker? LoggedInBaker { get; set; }
 
         public Command AddDessertCommand { get; }
         public Command CancelCommand { get; }
@@ -78,7 +86,25 @@ namespace AppClient.ViewModels
 
         private void ValidateDessertName()
         {
-            this.ShowDessertNameError = string.IsNullOrEmpty(DessertName);
+            bool exists=false;            
+            foreach (Dessert d in bakerDesserts)
+            {
+                if (d.DessertName == this.DessertName)
+                    exists = true;
+            }
+            if (exists)
+            {
+                DessertNameError = "Dessert name already exists.";
+                this.ShowDessertNameError = true;
+            }
+            else if (string.IsNullOrEmpty(DessertName))
+            {
+                this.ShowDessertNameError = true;
+                DessertNameError = "Dessert name required.";
+            }
+
+            else
+                this.ShowDessertNameError = false;
         }
         #endregion
 
@@ -134,16 +160,52 @@ namespace AppClient.ViewModels
         #endregion
 
         #region DessertPrice
-        private double price;
+        private string price;
 
-        public double Price
+        public string Price
         {
             get => price;
             set
             {
                 price = value;
-
+                ValidatePrice();
                 OnPropertyChanged(nameof(Price));
+            }
+        }
+
+        private bool showPriceError;
+
+        public bool ShowPriceError
+        {
+            get => showPriceError;
+            set
+            {
+                showPriceError = value;
+                OnPropertyChanged("ShowPriceError");
+            }
+        }
+
+        private void ValidatePrice()
+        {
+            double d = 0;
+            if ((string.IsNullOrEmpty(Price) || !double.TryParse(this.price, out d)))
+            {
+                this.ShowPriceError = true;
+            }
+            else
+                this.ShowPriceError = false;
+
+        }
+
+        private string priceError;
+
+        public string PriceError
+        {
+            get => priceError;
+            set
+            {
+                priceError = value;
+                OnPropertyChanged("PriceError");
             }
         }
 
@@ -210,10 +272,16 @@ namespace AppClient.ViewModels
 
 
 
+        public async void FillBakerDesserts()
+        {
+            bakerDesserts = await proxy.GetBakerDesserts(LoggedInBaker.BakerId);
+        }
+
         public async void OnAddDessert()
         {
-
-            if (!ShowDessertNameError)
+            ValidateDessertName();
+            ValidatePrice();
+            if (!ShowDessertNameError && !ShowPriceError)
             {
                 int dessertType;
 
@@ -232,7 +300,7 @@ namespace AppClient.ViewModels
                 {
                     DessertName = this.DessertName,
                     DessertTypeId = dessertType,
-                    Price = this.Price,
+                    Price = double.Parse(this.Price),
                     StatusCode = 1,
                     BakerId = ((App)Application.Current).LoggedInUser.UserId
                 };
@@ -240,46 +308,57 @@ namespace AppClient.ViewModels
 
                 //Call the Register method on the proxy to register the new user
                 InServerCall = true;
-                newDessert = await proxy.AddDessert(newDessert);
-                InServerCall = false;
-
-                //If the registration was successful, navigate to the login page
-                if (newDessert != null)
+                if (double.Parse(this.Price) > LoggedInBaker.HighestPrice)
                 {
-                    //UPload profile imae if needed
-                    if (!string.IsNullOrEmpty(LocalPhotoPath))
+                    if (await AppShell.Current.DisplayAlert("Dessert price is higher than your highest price.", "Would you like to change you highest price?", "Yes", "Cancel"))
                     {
-                        Dessert? updatedDessert = await proxy.UploadDessertImage(LocalPhotoPath);
-                        if (updatedDessert == null)
+                        LoggedInBaker.HighestPrice = double.Parse(this.price);
+                        proxy.UpdateHighestPrice(LoggedInBaker);
+                        newDessert = await proxy.AddDessert(newDessert);
+                    }
+                    else
+                        OnCancel();
+                    InServerCall = false;
+
+                    //If the registration was successful, navigate to the login page
+                    if (newDessert != null)
+                    {
+                        //UPload profile imae if needed
+                        if (!string.IsNullOrEmpty(LocalPhotoPath))
                         {
+                            Dessert? updatedDessert = await proxy.UploadDessertImage(LocalPhotoPath);
+                            if (updatedDessert == null)
+                            {
+                                InServerCall = false;
+                            }
+                            //}
                             InServerCall = false;
                         }
-                        //}
-                        InServerCall = false;
+
+                        string successMsg = "Adding a dessert succeeded!";
+                        await Application.Current.MainPage.DisplayAlert("Adding a dessert", successMsg, "ok");
                     }
+                    else
+                    {
 
-                    string successMsg = "Adding a dessert succeeded!";
-                    await Application.Current.MainPage.DisplayAlert("Adding a dessert", successMsg, "ok");
+                        //If the registration failed, display an error message
+                        string errorMsg = "Adding a dessert failed. Please try again.";
+                        await Application.Current.MainPage.DisplayAlert("Adding a dessert", errorMsg, "ok");
+                    }
+                    // Navigate to the Baker profile View page
+                    ConProfilePage cp = serviceProvider.GetService<ConProfilePage>();
+                    ((App)Application.Current).MainPage.Navigation.PopAsync();
                 }
-                else
-                {
-
-                    //If the registration failed, display an error message
-                    string errorMsg = "Adding a dessert failed. Please try again.";
-                    await Application.Current.MainPage.DisplayAlert("Adding a dessert", errorMsg, "ok");
-                }
-                // Navigate to the Baker profile View page
-                ConProfilePage cp = serviceProvider.GetService<ConProfilePage>();
-                ((App)Application.Current).MainPage.Navigation.PopAsync();
             }
-        }
 
+
+        }
+        
         public void OnCancel()
         {
             // Navigate to the Baker profile View page
             ((App)Application.Current).MainPage.Navigation.PopAsync();
 
         }
-
     }
 }

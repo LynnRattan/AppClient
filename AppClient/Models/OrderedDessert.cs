@@ -13,6 +13,18 @@ namespace AppClient.Models
         public int Quantity { get; set; }
         public int StatusCode { get; set; }
 
+        public string? StatusName
+        {
+            get
+            {
+                List<Status> l = ((App)Application.Current).Statuses;
+                Status? sType = l.Where(t => t.StatusCode == StatusCode).FirstOrDefault();
+                if (sType == null)
+                    return "Unknown";
+                return sType.StatusName;
+            }
+        }
+
         public double Price { get; set; }
     }
 }

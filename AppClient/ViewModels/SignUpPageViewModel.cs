@@ -12,6 +12,7 @@ using AppClient.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
 using AppClient.ModelsExt;
+using Microsoft.Maui.Graphics.Text;
 //using static Java.Util.Jar.Attributes;
 
 namespace AppClient.ViewModels
@@ -23,6 +24,8 @@ namespace AppClient.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
+            users = new();
+            FillUsers();
             SignUpCommand = new Command(OnSignUp);
             CancelCommand = new Command(OnCancel);
             UploadPhotoCommand = new Command(OnUploadPhoto);
@@ -31,9 +34,10 @@ namespace AppClient.ViewModels
             IsPassword = true;
             ProfileNameError = "Profile Name is required";
             UsernameError = "Username is required";
-            MailError = "Mail is required";
+            MailError = "";
             PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
             ConfectioneryNameError= "Confectionery Name is required";
+            HighestPriceError = "Highest price must be a number.";
 
 
         }
@@ -41,6 +45,8 @@ namespace AppClient.ViewModels
 
         private bool isConChecked;
         private readonly IServiceProvider serviceProvider;
+
+        private List<User> users;
 
        
         private bool isBakeryChecked;
@@ -106,7 +112,7 @@ namespace AppClient.ViewModels
             set
             {
                 profileName = value;
-
+                ValidateProfileName();
                 OnPropertyChanged("ProfileName");
             }
         }
@@ -123,7 +129,7 @@ namespace AppClient.ViewModels
             }
         }
 
-        private void ValidateProfleName()
+        private void ValidateProfileName()
         {
             this.ShowProfileNameError = string.IsNullOrEmpty(ProfileName);
         }
@@ -183,7 +189,25 @@ namespace AppClient.ViewModels
 
         private void ValidateMail()
         {
-            this.ShowMailError = string.IsNullOrEmpty(Mail);
+            bool exists = false;
+            foreach (User u in users)
+            {
+                if (u.Mail == this.Mail)
+                    exists = true;
+            }
+            if (exists)
+            {
+               Mail = "Mail already exists.";
+                this.ShowMailError = true;
+            }
+            else if (string.IsNullOrEmpty(Mail))
+            {
+                this.ShowMailError = true;
+                MailError = "Mail is required.";
+            }
+
+            else
+                this.ShowMailError = false;
             if (!ShowMailError)
             {
                 //check if Mail is in the correct format using regular expression
@@ -410,7 +434,7 @@ namespace AppClient.ViewModels
             set
             {
                 confectioneryName = value;
-
+                ValidateConfectioneryName();
                 OnPropertyChanged("ConfectioneryName");
             }
         }
@@ -419,10 +443,10 @@ namespace AppClient.ViewModels
 
         public bool ShowConfectioneryNameError
         {
-            get => showProfileNameError;
+            get => showConfectioneryNameError;
             set
             {
-                showProfileNameError = value;
+                showConfectioneryNameError = value;
                 OnPropertyChanged("ShowConfectioneryNameError");
             }
         }
@@ -446,19 +470,54 @@ namespace AppClient.ViewModels
         #endregion
 
         #region HighestPrice
-        private double highestPrice;
+        private string highestPrice;
 
-        public double HighestPrice
+        public string HighestPrice
         {
             get => highestPrice;
             set
             {
                 highestPrice = value;
-
+                ValidateHighestPrice();
                 OnPropertyChanged(nameof(HighestPrice));
             }
         }
 
+        private bool showHighestPriceError;
+
+        public bool ShowHighestPriceError
+        {
+            get => showHighestPriceError;
+            set
+            {
+                showHighestPriceError = value;
+                OnPropertyChanged("ShowHighestPriceError");
+            }
+        }
+
+        private void ValidateHighestPrice()
+        {
+            double d = 0;
+            if ((string.IsNullOrEmpty(HighestPrice) || !double.TryParse(this.highestPrice, out d)))
+            {
+                this.ShowHighestPriceError = true;
+            }
+            else
+                this.ShowHighestPriceError = false;
+            
+        }
+
+        private string highestPriceError;
+
+        public string HighestPriceError
+        {
+            get => highestPriceError;
+            set
+            {
+                highestPriceError = value;
+                OnPropertyChanged("HighestPriceError");
+            }
+        }
         #endregion
 
         #region Profits
@@ -466,6 +525,11 @@ namespace AppClient.ViewModels
         public double Profits;
         #endregion
 
+
+        public async void FillUsers()
+        {
+            users = await proxy.GetUsers();
+        }
 
         //Define a command for the register button
         public Command SignUpCommand { get; }
@@ -475,11 +539,14 @@ namespace AppClient.ViewModels
         public async void OnSignUp()
         {
             ValidateUsername();
-            ValidateProfleName();
+            ValidateProfileName();
             ValidateMail();
             ValidatePassword();
+            ValidateConfectioneryName();
+            ValidateHighestPrice();
 
-            if (!ShowUsernameError && !ShowProfileNameError && !ShowMailError && !ShowPasswordError)
+
+            if (!ShowUsernameError && !ShowProfileNameError && !ShowMailError && !ShowPasswordError && !ShowConfectioneryNameError && !ShowHighestPriceError)
             {
                 int userType;
                 int conType;
@@ -515,7 +582,7 @@ namespace AppClient.ViewModels
                 if (newUserBaker.UserTypeId == 2)
                 {
                     newUserBaker.ConfectioneryName = this.ConfectioneryName;
-                    newUserBaker.HighestPrice = this.HighestPrice;
+                    newUserBaker.HighestPrice = double.Parse(this.HighestPrice);
                     newUserBaker.ConfectioneryTypeId = conType;
                     newUserBaker.StatusCode = 1;
                     newUserBaker.Profits = 0;

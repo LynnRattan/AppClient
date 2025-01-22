@@ -95,6 +95,7 @@ namespace AppClient.ViewModels
                 isEmpty = false;
             else isEmpty = true;
             OnPropertyChanged("IsEmpty");
+            OnPropertyChanged("LoggedInBaker");
             IsRefreshing = false;
         }
     }

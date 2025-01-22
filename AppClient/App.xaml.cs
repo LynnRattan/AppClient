@@ -12,6 +12,7 @@ namespace AppClient
         public Baker? LoggedInBaker { get; set; }
         public List<ConfectioneryType> ConfectioneryTypes { get; set; } = new List<ConfectioneryType>();
         public List<DessertType> DessertTypes { get; set; } = new List<DessertType>();
+        public List<Status> Statuses { get; set; }=new List<Status>();
 
         private LMBWebApi proxy;
         public bool notInSession;
@@ -47,6 +48,16 @@ namespace AppClient
                 foreach (DessertType type in dessertTypes)
                 {
                     DessertTypes.Add(type);
+                }
+            }
+
+            List<Status>? statusTypes = await this.proxy.GetStatuses();
+            if (statusTypes != null)
+            {
+                Statuses.Clear();
+                foreach (Status s in statusTypes)
+                {
+                    Statuses.Add(s);
                 }
             }
         }

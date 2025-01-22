@@ -106,7 +106,7 @@
     x:Name="highestPrice_lbl"
     Margin="15"
     Text="Highest Price" />
-
+                <Label Grid.Row="10" TextColor="Red" Text="{Binding HighestPriceError}" IsVisible="{Binding ShowHighestPriceError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
                 <Entry
                     IsVisible="{Binding IsConChecked}"
                     Grid.Row="10"
