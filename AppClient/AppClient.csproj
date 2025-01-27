@@ -119,6 +119,9 @@
     <MauiXaml Update="Views\PreviousPurchasesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Views\SearchConsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\SignUpPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
