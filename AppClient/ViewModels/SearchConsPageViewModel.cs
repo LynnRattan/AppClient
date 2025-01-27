@@ -13,67 +13,82 @@ namespace AppClient.ViewModels
 {
     public class SearchConsPageViewModel:ViewModelBase
     {
-        //private LMBWebApi proxy;
-        //private readonly IServiceProvider serviceProvider;
-        //private ObservableCollection<Baker> foundConfectioneries;
-        //private List<Baker> foundConfectioneriesKeeper;
-        //public ObservableCollection<Baker> FoundConfectioneries { get => foundConfectioneries; set { foundConfectioneries = value; OnPropertyChanged(); } }
-        //private Baker selectedFoundConfectionery;
-        //public Baker SelectedPendingConfectionery { get => selectedFoundConfectionery; set { selectedFoundConfectionery = value; OnPropertyChanged(); } }
-        //private bool isRefreshing;
-        //public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
-        //private string filterEntry;
-        //public string FilterEntry { get => filterEntry; set { filterEntry = value; OnPropertyChanged(); } }
-        //public List<Subject> subjects { get; private set; }
-        //private Subject selectedSubject;
-        //public Subject SelectedSubject { get => selectedSubject; set { selectedSubject = value; OnPropertyChanged(); } }
-        //public ICommand DeclineQuestionCommand { get; private set; }
-        //public ICommand ApproveQuestionCommand { get; private set; }
-        //public ICommand FilterBySubjectCommand { get; private set; }
-        //public ICommand LoadPendingQuestionsCommand { get; private set; }
-        //public ApproveQuestionsPageViewModel(Service service_)
-        //{
-        //    //Question q in service.Questions.Where(x => x.SubjectId == SelectedSubject.SubjectId)
-        //    service = service_;
-        //    subjects = new();
-        //    pendingQuestionKeeper = service.GetPendingQuestions();
-        //    PendingQuestions = new ObservableCollection<Question>(service.GetPendingQuestions());
-        //    DeclineQuestionCommand = new Command(async (Object obj) => { await DeclineQuestion(obj); });
-        //    ApproveQuestionCommand = new Command(async (Object obj) => await ApproveQuestion(obj));
-        //    FilterBySubjectCommand = new Command(() => FilterSubject());
-        //    LoadPendingQuestionsCommand = new Command(async () => { await LoadPendingQuestions(); });
-        //    foreach (Subject s in service.Subjects)
-        //    {
-        //        subjects.Add(s);
-        //    }
-        //}
+        private LMBWebApi proxy;
+        private readonly IServiceProvider serviceProvider;
+        private ObservableCollection<Baker> foundConfectioneries;
+        private List<Baker> foundConfectioneriesKeeper;
+        public ObservableCollection<Baker> FoundConfectioneries { get => foundConfectioneries; set { foundConfectioneries = value; OnPropertyChanged(); } }
+        private Baker selectedFoundConfectionery;
+        public Baker SelectedPendingConfectionery { get => selectedFoundConfectionery; set { selectedFoundConfectionery = value; OnPropertyChanged(); } }
+        private bool isRefreshing;
+        public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
+        private string filterEntry;
+        public string FilterEntry { get => filterEntry; set { filterEntry = value; OnPropertyChanged(); } }
+        public List<ConfectioneryType> confectioneryType { get; private set; }
+        private ConfectioneryType selectedConfectioneryType;
+        public ConfectioneryType SelectedConfectioneryType { get => selectedConfectioneryType; set { selectedConfectioneryType = value; OnPropertyChanged(); } }
 
-        //private async Task ApproveQuestion(Object obj)
-        //{
-        //    if (await AppShell.Current.DisplayAlert("Question", "Would you like to approve the question?", "Yes", "Cancel"))
-        //    {
-        //        PendingQuestions.Remove(((Question)obj));
-        //        service.ApproveQuestion(((Question)obj));
-        //    }
-        //}
+        private ConfectioneryType selectedDessertType;
+        public ConfectioneryType SelectedDessertType { get => selectedConfectioneryType; set { selectedConfectioneryType = value; OnPropertyChanged(); } }
+        private string confectioneryName;
+        public string ConfectioneryName { get => confectioneryName; set { confectioneryName = value; OnPropertyChanged(); } }
+        private bool isEmpty;
+        public bool IsEmpty { get => isEmpty; set { isEmpty = value; OnPropertyChanged(); } }
 
-        //private async Task DeclineQuestion(Object obj)
-        //{
-        //    if (await AppShell.Current.DisplayAlert("Question", "Would you like to decline the question?", "Yes", "Cancel"))
-        //    {
-        //        PendingQuestions.Remove(((Question)obj));
-        //        service.DeclineQuestion(((Question)obj));
-        //    }
-        //}
+        public ICommand ViewConfectioneryCommand { get; private set; }
+        public ICommand FilterCommand { get; private set; }
+        public ICommand LoadConfectioneriesCommand { get; private set; }
+        public SearchConsPageViewModel(LMBWebApi proxy, IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+            this.proxy = proxy;
+           
+            foundConfectioneriesKeeper = new();
+            FoundConfectioneries = new();
+            isEmpty = true;
+            FillFoundConfectioneriesKepper();
+            GoToViewConfectioneryCommand = new Command(OnView);
+            FilterCommand = new Command(Fliter)
+            LoadConfectioneriesCommand = new Command(LoadFoundConfectioneries);
+        }
 
-        //private void FilterSubject()
-        //{
-        //    PendingQuestions.Clear();
-        //    foreach (Question q in service.Questions.Where(x => x.SubjectId == SelectedSubject.SubjectId && x.StatusId == 1))
-        //    {
-        //        PendingQuestions.Add(q);
-        //    }
-        //}
+       
+        private async void FillFoundConfectioneriesKepper()
+        {
+            foundConfectioneriesKeeper = await proxy.GetBakers();
+        }
+        private void FilterSubject()
+        {
+            FoundConfectioneries.Clear();
+            foreach (Baker b in foundConfectioneriesKeeper)
+            {
+                FoundConfectioneries.Add(b);
+            }
+            if(ConfectioneryName != null)
+            {
+                foreach(Baker b in foundConfectioneries)
+                {
+                    if(b.ConfectioneryName!= ConfectioneryName)
+                        FoundConfectioneries.Remove(b);
+                }
+            }
+            if(SelectedConfectioneryType!= null)
+            {
+                foreach (Baker b in foundConfectioneries)
+                {
+                    if (b.ConfectioneryTypeId != SelectedConfectioneryType.ConfectioneryTypeId)
+                        FoundConfectioneries.Remove(b);
+                }
+            }
+            if(SelectedDessertType!=null)
+            {
+                foreach (Baker b in foundConfectioneries)
+                {
+                    if (b.ConfectioneryTypeId != SelectedConfectioneryType.ConfectioneryTypeId)
+                        FoundConfectioneries.Remove(b);
+                }
+            }
+        }
 
         //private async Task LoadPendingQuestions()
         //{
