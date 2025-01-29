@@ -330,8 +330,11 @@ namespace AppClient.ViewModels
                             if (updatedDessert == null)
                             {
                                 InServerCall = false;
+                                await Application.Current.MainPage.DisplayAlert("Sign Up", "Dessert Data Was Saved BUT dessert image upload failed", "ok");
                             }
-                            //}
+                            else
+                                newDessert=updatedDessert;
+                            
                             InServerCall = false;
                         }
 

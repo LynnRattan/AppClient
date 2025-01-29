@@ -594,6 +594,8 @@ namespace AppClient.ViewModels
                             InServerCall = false;
                             await Application.Current.MainPage.DisplayAlert("Sign Up", "User Data Was Saved BUT Profile image upload failed", "ok");
                         }
+                        else
+                            newUserBaker.ProfileImagePath = updatedUser.ProfileImagePath;
                     }
                     InServerCall = false;
 

@@ -165,7 +165,7 @@ namespace AppClient.Services
         public async Task<User?> UploadProfileImage(string imagePath)
         {
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}uploadprofileimage";
+            string url = $"{this.baseUrl}UploadProfileImage";
             try
             {
                 //Create the form data

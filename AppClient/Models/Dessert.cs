@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppClient.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,15 @@ namespace AppClient.Models
 
     public double Price { get; set; }
 
-        public string? DessertImagePath { get; set; }
+        public string? DessertImagePath { get; set; } = "";
+        
+        public String FullImageURL
+        {
+            get
+            {
+                return LMBWebApi.BaseAddress + this.DessertImagePath;
+            }
+        }
 
         public int StatusCode { get; set; }
 

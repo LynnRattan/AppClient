@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppClient.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,13 @@ namespace AppClient.Models
         public int UserTypeId { get; set; }
 
         public string ProfileImagePath { get; set; } = "";
+        public String FullImageURL
+        {
+            get
+            {
+                return LMBWebApi.BaseAddress + this.ProfileImagePath;
+            }
+        }
 
     }
 }
