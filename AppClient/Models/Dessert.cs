@@ -33,7 +33,7 @@ namespace AppClient.Models
         {
             get
             {
-                return LMBWebApi.BaseAddress + this.DessertImagePath;
+                return LMBWebApi.ImageBaseAddress + this.DessertImagePath;
             }
         }
 

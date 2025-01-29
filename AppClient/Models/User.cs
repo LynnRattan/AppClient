@@ -25,7 +25,7 @@ namespace AppClient.Models
         {
             get
             {
-                return LMBWebApi.BaseAddress + this.ProfileImagePath;
+                return LMBWebApi.ImageBaseAddress + this.ProfileImagePath;
             }
         }
 

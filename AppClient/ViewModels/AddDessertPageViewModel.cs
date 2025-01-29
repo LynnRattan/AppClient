@@ -26,7 +26,7 @@ namespace AppClient.ViewModels
             AddDessertCommand = new Command(OnAddDessert);
             CancelCommand = new Command(OnCancel);
             UploadPhotoCommand = new Command(OnUploadPhoto);
-            PhotoURL = proxy.GetDefaultProfilePhotoUrl();
+            PhotoURL = proxy.GetDefaultDessertPhotoUrl();
             LocalPhotoPath = "";
             DessertNameError = "";
             PriceError = "Price must be a number.";
@@ -314,11 +314,13 @@ namespace AppClient.ViewModels
                     {
                         LoggedInBaker.HighestPrice = double.Parse(this.price);
                         proxy.UpdateHighestPrice(LoggedInBaker);
-                        newDessert = await proxy.AddDessert(newDessert);
+                        
                     }
                     else
                         OnCancel();
-                    InServerCall = false;
+                }
+                newDessert = await proxy.AddDessert(newDessert);
+                InServerCall = false;
 
                     //If the registration was successful, navigate to the login page
                     if (newDessert != null)
@@ -326,7 +328,7 @@ namespace AppClient.ViewModels
                         //UPload profile imae if needed
                         if (!string.IsNullOrEmpty(LocalPhotoPath))
                         {
-                            Dessert? updatedDessert = await proxy.UploadDessertImage(LocalPhotoPath);
+                            Dessert? updatedDessert = await proxy.UploadDessertImage(LocalPhotoPath,newDessert.DessertId,LoggedInBaker.BakerId);
                             if (updatedDessert == null)
                             {
                                 InServerCall = false;
@@ -355,7 +357,7 @@ namespace AppClient.ViewModels
             }
 
 
-        }
+        
         
         public void OnCancel()
         {

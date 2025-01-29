@@ -443,7 +443,10 @@ namespace AppClient.ViewModels
 
         private void ValidateConfectioneryName()
         {
-            this.ShowConfectioneryNameError = string.IsNullOrEmpty(ConfectioneryName);
+            if (IsConChecked)
+                this.ShowConfectioneryNameError = string.IsNullOrEmpty(ConfectioneryName);
+            else
+                this.ShowConfectioneryNameError = false;
         }
 
         private string confectioneryNameError;
@@ -488,12 +491,17 @@ namespace AppClient.ViewModels
         private void ValidateHighestPrice()
         {
             double d = 0;
-            if ((string.IsNullOrEmpty(HighestPrice) || !double.TryParse(this.highestPrice, out d)))
+            if (IsConChecked)
             {
-                this.ShowHighestPriceError = true;
+
+                if ((string.IsNullOrEmpty(HighestPrice) || !double.TryParse(this.highestPrice, out d)))
+                {
+                    this.ShowHighestPriceError = true;
+                }
+                else
+                    this.ShowHighestPriceError = false;
             }
-            else
-                this.ShowHighestPriceError = false;
+            else this.ShowHighestPriceError = false;
             
         }
 

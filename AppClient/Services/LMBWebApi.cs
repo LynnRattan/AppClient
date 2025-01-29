@@ -30,7 +30,7 @@ namespace AppClient.Services
         private HttpClient client;
         private string baseUrl;
         public static string BaseAddress = "https://6gh41sf3-5039.euw.devtunnels.ms/api/";
-        private static string ImageBaseAddress = "https://6gh41sf3-5039.euw.devtunnels.ms/";
+        public static string ImageBaseAddress = "https://6gh41sf3-5039.euw.devtunnels.ms/";
         #endregion
 
         public LMBWebApi()
@@ -51,6 +51,9 @@ namespace AppClient.Services
         public string GetDefaultProfilePhotoUrl()
         {
             return $"{LMBWebApi.ImageBaseAddress}/profileImages/default.png";
+        }public string GetDefaultDessertPhotoUrl()
+        {
+            return $"{LMBWebApi.ImageBaseAddress}/dessertImages/defaultD.png";
         }
         public async Task<User?> LoginAsync(LoginInfo userInfo)
         {
@@ -198,6 +201,44 @@ namespace AppClient.Services
             }
         }
 
+        //Same operation for dessert
+        public async Task<Dessert?> UploadDessertImage(string imagePath,int dessertId, int userId)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}UploadDessertImage?dessertId={dessertId}&userId={userId}";
+
+            try
+            {
+                //Create the form data
+                MultipartFormDataContent form = new MultipartFormDataContent();
+                var fileContent = new ByteArrayContent(File.ReadAllBytes(imagePath));
+                form.Add(fileContent, "file", imagePath);
+                //Call the server API
+                HttpResponseMessage response = await client.PostAsync(url, form);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Dessert? result = JsonSerializer.Deserialize<Dessert>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
 
         //This methos call the Register web API on the server and return the AppUser object with the given ID
         //or null if the call fails
@@ -235,41 +276,7 @@ namespace AppClient.Services
             }
         }
 
-        public async Task<Dessert?> UploadDessertImage(string imagePath)
-        {
-            //Set URI to the specific function API
-            string url = $"{this.baseUrl}uploaddessertimage";
-            try
-            {
-                //Create the form data
-                MultipartFormDataContent form = new MultipartFormDataContent();
-                var fileContent = new ByteArrayContent(File.ReadAllBytes(imagePath));
-                form.Add(fileContent, "file", imagePath);
-                //Call the server API
-                HttpResponseMessage response = await client.PostAsync(url, form);
-                //Check status
-                if (response.IsSuccessStatusCode)
-                {
-                    //Extract the content as string
-                    string resContent = await response.Content.ReadAsStringAsync();
-                    //Desrialize result
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-                    Dessert? result = JsonSerializer.Deserialize<Dessert>(resContent, options);
-                    return result;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
+        
 
         public async Task<List<Baker>?> GetBakers()
         {

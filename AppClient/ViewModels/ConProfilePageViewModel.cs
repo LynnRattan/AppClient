@@ -32,6 +32,7 @@ namespace AppClient.ViewModels
         public ICommand DeleteDessertCommand { get; private set; }
 
         public Baker? LoggedInBaker { get; set; }
+        public User? LoggedInUser { get; set; }
 
         public ICommand GoToAddDessertCommand { get; set; }
 
@@ -42,6 +43,7 @@ namespace AppClient.ViewModels
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
             LoggedInBaker = ((App)Application.Current).LoggedInBaker;
+            LoggedInUser = ((App)Application.Current).LoggedInUser;
             bakerDessertsKeeper = new();
             BakerDesserts = new();
             isEmpty = true;
