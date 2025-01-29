@@ -308,17 +308,7 @@ namespace AppClient.ViewModels
 
                 //Call the Register method on the proxy to register the new user
                 InServerCall = true;
-                if (double.Parse(this.Price) > LoggedInBaker.HighestPrice)
-                {
-                    if (await AppShell.Current.DisplayAlert("Dessert price is higher than your highest price.", "Would you like to change you highest price?", "Yes", "Cancel"))
-                    {
-                        LoggedInBaker.HighestPrice = double.Parse(this.price);
-                        proxy.UpdateHighestPrice(LoggedInBaker);
-                        
-                    }
-                    else
-                        OnCancel();
-                }
+                
                 newDessert = await proxy.AddDessert(newDessert);
                 InServerCall = false;
 
@@ -335,13 +325,27 @@ namespace AppClient.ViewModels
                                 await Application.Current.MainPage.DisplayAlert("Sign Up", "Dessert Data Was Saved BUT dessert image upload failed", "ok");
                             }
                             else
-                                newDessert=updatedDessert;
+                            {
+                                newDessert=updatedDessert;                            
+                            }
                             
                             InServerCall = false;
                         }
 
                         string successMsg = "Adding a dessert succeeded!";
                         await Application.Current.MainPage.DisplayAlert("Adding a dessert", successMsg, "ok");
+                        if (double.Parse(this.Price) > LoggedInBaker.HighestPrice)
+                        {
+                            if (await AppShell.Current.DisplayAlert("Dessert price is higher than your highest price.", "Would you like to change you highest price?", "Yes", "Cancel"))
+                            {
+                                LoggedInBaker.HighestPrice = double.Parse(this.price);
+                                proxy.UpdateHighestPrice(LoggedInBaker);
+
+                            }
+                            else
+                                OnCancel();
+                        }
+
                     }
                     else
                     {

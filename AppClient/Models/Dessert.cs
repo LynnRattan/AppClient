@@ -27,13 +27,13 @@ namespace AppClient.Models
 
     public double Price { get; set; }
 
-        public string? DessertImagePath { get; set; } = "";
+        public string? DessertImage { get; set; }
         
         public String FullImageURL
         {
             get
             {
-                return LMBWebApi.ImageBaseAddress + this.DessertImagePath;
+                return LMBWebApi.ImageBaseAddress + this.DessertImage;
             }
         }
 
