@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppClient.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,26 @@ namespace AppClient.Models
                     return "Unknown";
                 return sType.StatusName;
             }
+        }
+
+        public String FullImageURL
+        {
+            get
+            {
+                LMBWebApi service = new();
+                List<User>? l = new();
+                GetUsers(l, service);
+                foreach(User user in l)
+                {
+                    if(user.UserId==this.BakerId)
+                        return LMBWebApi.ImageBaseAddress + user.ProfileImagePath;
+                }
+                return null;
+            }
+        }
+        private async void GetUsers(List<User>? l, LMBWebApi service)
+        {
+            l = await service.GetUsers();
         }
 
         public double? Profits { get; set; }

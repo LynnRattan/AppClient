@@ -45,9 +45,9 @@
             ContentTemplate="{DataTemplate views:UserProfilePage}"
             Route="UserProfile" />
         <ShellContent
-            Title="Confectioneries"
-            ContentTemplate="{DataTemplate views:ConfectioneriesPage}"
-            Route="Confectioneries" />
+            Title="Shop"
+            ContentTemplate="{DataTemplate views:SearchConsPage}"
+            Route="Shop" />
         <ShellContent
             Title="Previous Purchases"
             ContentTemplate="{DataTemplate views:PreviousPurchasesPage}"
