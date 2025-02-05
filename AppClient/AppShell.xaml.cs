@@ -15,9 +15,10 @@ namespace AppClient
         }
         private void RegisterRoutes()
         {
-        Routing.RegisterRoute("SignUp", typeof(SignUpPage));
-        Routing.RegisterRoute("Login", typeof(LoginPage));
-        Routing.RegisterRoute("AddDessert", typeof(AddDessertPage));
+            Routing.RegisterRoute("SignUp", typeof(SignUpPage));
+            Routing.RegisterRoute("Login", typeof(LoginPage));
+            Routing.RegisterRoute("AddDessert", typeof(AddDessertPage));
+            Routing.RegisterRoute("ViewCon", typeof(ViewConfectioneryPage));
         }
         
     }

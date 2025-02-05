@@ -17,8 +17,9 @@ namespace AppClient.ViewModels
     {
         private LMBWebApi proxy;
         private readonly IServiceProvider serviceProvider;
-        private ObservableCollection<Baker> foundConfectioneries;
+        
         private List<Baker> foundConfectioneriesKeeper;
+        private ObservableCollection<Baker> foundConfectioneries;
         public ObservableCollection<Baker> FoundConfectioneries { get => foundConfectioneries; set { foundConfectioneries = value; OnPropertyChanged(); } }
         private Baker selectedFoundConfectionery;
         public Baker SelectedFoundConfectionery { get => selectedFoundConfectionery; set { selectedFoundConfectionery = value; OnPropertyChanged(); } }
@@ -56,6 +57,7 @@ namespace AppClient.ViewModels
             FoundConfectioneries = new();
             isEmpty = true;
             FillFoundConfectioneriesKeeper();
+            Filter();
             ViewConfectioneryCommand = new Command(OnView);
             FilterCommand = new Command(Filter);
             LoadConfectioneriesCommand = new Command(LoadFoundConfectioneries);
@@ -68,14 +70,16 @@ namespace AppClient.ViewModels
         }
         private async void Filter()
         {
+
             foundConfectioneries.Clear();
             foreach (Baker b in foundConfectioneriesKeeper)
             {
+                if(b.StatusCode==2)
                 foundConfectioneries.Add(b);
             }
             if (ConfectioneryName != null)
             {
-                foreach (Baker b in foundConfectioneries)
+                foreach (Baker b in foundConfectioneries.ToList())
                 {
                     if (b.ConfectioneryName != ConfectioneryName)
                         foundConfectioneries.Remove(b);
@@ -83,7 +87,7 @@ namespace AppClient.ViewModels
             }
             if (SelectedConfectioneryType != null)
             {
-                foreach (Baker b in foundConfectioneries)
+                foreach (Baker b in foundConfectioneries.ToList())
                 {
                     if (b.ConfectioneryTypeId != SelectedConfectioneryType.ConfectioneryTypeId)
                         foundConfectioneries.Remove(b);
@@ -91,7 +95,7 @@ namespace AppClient.ViewModels
             }
             if (SelectedDessertType != null)
             {
-                foreach (Baker b in foundConfectioneries)
+                foreach (Baker b in foundConfectioneries.ToList())
                 {
                     List <Dessert> l = await proxy.GetBakerDesserts(b.BakerId);
                     foreach (Dessert d in l)
@@ -103,18 +107,25 @@ namespace AppClient.ViewModels
             }
             if (HighestPrice != null)
             {
-                foreach (Baker b in foundConfectioneries)
+                foreach (Baker b in foundConfectioneries.ToList())
                 {  
                         if (b.HighestPrice > double.Parse(HighestPrice))
                             foundConfectioneries.Remove(b);  
                 }
             }
+            if (foundConfectioneries.Count > 0)
+                isEmpty = false;
+            else isEmpty = true;
+            OnPropertyChanged("IsEmpty");
         }
 
-        private void OnView()
+        private async void OnView()
         {
             // Navigate to the ViewConFectionery View page
-            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<ViewConfectioneryPage>());
+            Dictionary<string, object> data = new Dictionary<string, object>();
+            data.Add("FoundConfectionery", SelectedFoundConfectionery);
+            await Shell.Current.GoToAsync("ViewCon", data);
+            SelectedFoundConfectionery = null;
 
         }
 

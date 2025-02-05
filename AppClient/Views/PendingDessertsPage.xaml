@@ -19,33 +19,33 @@
 
 
                 <CollectionView
-                x:Name="collection"
-                Grid.Row="1"
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
-                Margin="3"
-                ItemsSource="{Binding PendingDesserts}"
-                SelectedItem="{Binding SelectedPendingDessert}"
-                SelectionMode="Single">
+                    x:Name="collection"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Margin="3"
+                    ItemsSource="{Binding PendingDesserts}"
+                    SelectedItem="{Binding SelectedPendingDessert}"
+                    SelectionMode="Single">
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="Models:Dessert">
                             <SwipeView>
                                 <SwipeView.RightItems>
                                     <SwipeItem
-                                    Command="{Binding Source={x:Reference collection}, Path=BindingContext.DeclineDessertCommand}"
-                                    CommandParameter="{Binding .}"
-                                    IconImageSource="ex.png" />
+                                        Command="{Binding Source={x:Reference collection}, Path=BindingContext.DeclineDessertCommand}"
+                                        CommandParameter="{Binding .}"
+                                        IconImageSource="ex.png" />
                                     <SwipeItem
-                                    Command="{Binding Source={x:Reference collection}, Path=BindingContext.ApproveDessertCommand}"
-                                    CommandParameter="{Binding .}"
-                                    IconImageSource="check.png" />
+                                        Command="{Binding Source={x:Reference collection}, Path=BindingContext.ApproveDessertCommand}"
+                                        CommandParameter="{Binding .}"
+                                        IconImageSource="check.png" />
                                 </SwipeView.RightItems>
                                 <Border
-                                Margin="4,5"
-                                Padding="4"
-                                HeightRequest="200">
-                                    <Grid RowDefinitions="*,*,*,*">
+                                    Margin="4,5"
+                                    Padding="4"
+                                    HeightRequest="200">
+                                    <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*,*">
                                         <Label Grid.Row="0" Margin="3">
                                             <Label.FormattedText>
                                                 <FormattedString>
@@ -78,6 +78,12 @@
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
+                                        <Image
+                                            x:Name="dessertpic"
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            HeightRequest="150"
+                                            Source="{Binding FullImageURL}" />
 
                                     </Grid>
                                 </Border>
@@ -88,11 +94,11 @@
                         <StackLayout>
                             <Label HorizontalOptions="CenterAndExpand" Text="No pending desserts." />
                             <Image
-                            Aspect="AspectFit"
-                            HeightRequest="80"
-                            HorizontalOptions="CenterAndExpand"
-                            Source="sad.png"
-                            WidthRequest="80" />
+                                Aspect="AspectFit"
+                                HeightRequest="80"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="sad.png"
+                                WidthRequest="80" />
                         </StackLayout>
                     </CollectionView.EmptyView>
                 </CollectionView>
@@ -100,5 +106,5 @@
 
             </Grid>
         </ScrollView>
-</RefreshView>
+    </RefreshView>
 </ContentPage>

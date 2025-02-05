@@ -15,7 +15,7 @@
             VerticalScrollBarVisibility="Always">
 
 
-            <Grid RowDefinitions="*,*,*,*,*,10*">
+            <Grid RowDefinitions="*,*,*,*,*,*">
                 <Label
                     Grid.Row="0"
                     Grid.Column="0"
@@ -83,11 +83,11 @@
                                         CommandParameter="{Binding .}"
                                         Text="View" />
                                 </SwipeView.RightItems>
-                                <Border
-                                    Margin="4,5"
-                                    Padding="4"
-                                    HeightRequest="200">
-                                    <Grid ColumnDefinitions="1*,1.5*" RowDefinitions="*,*,*">
+                                <Border Margin="4,5" Padding="4">
+                                    <Grid
+                                        ColumnDefinitions="1*,1.5*"
+                                        HeightRequest="200"
+                                        RowDefinitions="*,*,*">
                                         <Label
                                             Grid.Row="0"
                                             Margin="3"
@@ -100,12 +100,13 @@
                                             </Label.FormattedText>
                                         </Label>
 
-                                        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*,*">
-                                            <Image
-                                                Grid.RowSpan="4"
-                                                Grid.Column="2"
-                                                Source="{Binding FullImageURL}" />
-                                        </Grid>
+                                        <Image
+                                            x:Name="profilepic"
+                                            Grid.Row="0"
+                                            Grid.RowSpan="3"
+                                            Grid.Column="1"
+                                            HorizontalOptions="Fill"
+                                            Source="{Binding FullImageURL}" />
 
                                         <Label Grid.Row="1" Margin="3">
                                             <Label.FormattedText>
@@ -146,7 +147,7 @@
                     </CollectionView.EmptyView>
                 </CollectionView>
                 <Label
-                    Grid.Row="8"
+                    Grid.Row="9"
                     HorizontalOptions="Center"
                     IsVisible="{Binding IsEmpty}"
                     Text="No Confectioneries Found" />

@@ -20,7 +20,7 @@ namespace AppClient.Models
 
         public int UserTypeId { get; set; }
 
-        public string ProfileImagePath { get; set; } = "";
+        public string? ProfileImagePath { get; set; }
         public String FullImageURL
         {
             get
