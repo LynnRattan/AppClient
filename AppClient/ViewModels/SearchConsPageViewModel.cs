@@ -68,17 +68,17 @@ namespace AppClient.ViewModels
         }
         private async void Filter()
         {
-            FoundConfectioneries.Clear();
+            foundConfectioneries.Clear();
             foreach (Baker b in foundConfectioneriesKeeper)
             {
-                FoundConfectioneries.Add(b);
+                foundConfectioneries.Add(b);
             }
             if (ConfectioneryName != null)
             {
                 foreach (Baker b in foundConfectioneries)
                 {
                     if (b.ConfectioneryName != ConfectioneryName)
-                        FoundConfectioneries.Remove(b);
+                        foundConfectioneries.Remove(b);
                 }
             }
             if (SelectedConfectioneryType != null)
@@ -86,7 +86,7 @@ namespace AppClient.ViewModels
                 foreach (Baker b in foundConfectioneries)
                 {
                     if (b.ConfectioneryTypeId != SelectedConfectioneryType.ConfectioneryTypeId)
-                        FoundConfectioneries.Remove(b);
+                        foundConfectioneries.Remove(b);
                 }
             }
             if (SelectedDessertType != null)
@@ -97,7 +97,7 @@ namespace AppClient.ViewModels
                     foreach (Dessert d in l)
                     {
                         if (d.DessertTypeId != SelectedDessertType.DessertTypeId)
-                            FoundConfectioneries.Remove(b);
+                            foundConfectioneries.Remove(b);
                     }
                 }
             }
@@ -106,7 +106,7 @@ namespace AppClient.ViewModels
                 foreach (Baker b in foundConfectioneries)
                 {  
                         if (b.HighestPrice > double.Parse(HighestPrice))
-                            FoundConfectioneries.Remove(b);  
+                            foundConfectioneries.Remove(b);  
                 }
             }
         }

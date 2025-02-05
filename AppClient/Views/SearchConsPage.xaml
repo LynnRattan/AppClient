@@ -1,75 +1,97 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppClient.Views.SearchConsPage"
-             xmlns:Models="clr-namespace:AppClient.Models"
-             xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-             x:DataType="viewmodel:SearchConsPageViewModel"
-             Title="SearchConsPage">
+<ContentPage
+    x:Class="AppClient.Views.SearchConsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Models="clr-namespace:AppClient.Models"
+    xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+    Title="SearchConsPage"
+    x:DataType="viewmodel:SearchConsPageViewModel">
     <RefreshView Command="{Binding LoadConfectioneriesCommand}" IsRefreshing="{Binding IsRefreshing}">
-        <ScrollView x:Name="scrlview" Margin="10">
+        <ScrollView
+            HorizontalOptions="Center"
+            HorizontalScrollBarVisibility="Always"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Always">
 
 
-            <Grid ColumnDefinitions="3*,2*" RowDefinitions="1*,1*,1*,1*,10*">
-                <Label HorizontalOptions="Center" Grid.Row="0" Text="Search by Confectionery Name:" Grid.Column="0" />
+            <Grid RowDefinitions="*,*,*,*,*,10*">
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    Text="Search by Confectionery Name:" />
                 <SearchBar HorizontalOptions="Center" Text="{Binding ConfectioneryName}" />
-                <Label HorizontalOptions="Center" Grid.Row="1" Text="Price Range:  0-" Grid.Column="0" />
-                <SearchBar Grid.Row="1" HorizontalOptions="Center" Text="{Binding HighestPrice}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    Text="Price Range:  0-" />
+                <SearchBar
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    Text="{Binding HighestPrice}" />
                 <Picker
-     x:DataType="Models:ConfectioneryType"
-     Grid.Row="2"
-     Grid.Column="0"
-     Title="Choose a Confectionery Type"
-     ItemsSource="{Binding ConfectioneryTypes , Source={x:Reference scrlview}}"
-     ItemDisplayBinding="{Binding ConfectioneryTypeName}"
-     SelectedItem="{Binding BindingContext.SelectedConfectioneryType , Source={x:Reference scrlview}}"/>
+                    Title="Choose a Confectionery Type"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    ItemDisplayBinding="{Binding ConfectioneryTypeName}"
+                    ItemsSource="{Binding ConfectioneryTypes}"
+                    SelectedItem="{Binding BindingContext.SelectedConfectioneryType, Source={x:Reference scrlview}}" />
                 <Picker
-     x:DataType="Models:DessertType"
-     Grid.Row="3"
-     Grid.Column="0"
-     Title="Choose a Dessert Type"
-     ItemsSource="{Binding DessertTypes , Source={x:Reference scrlview}}"
-     ItemDisplayBinding="{Binding DessertTypeName}"
-     SelectedItem="{Binding BindingContext.SelectedDessertType , Source={x:Reference scrlview}}"/>
-               
+                    Title="Choose a Dessert Type"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    ItemDisplayBinding="{Binding DessertTypeName}"
+                    ItemsSource="{Binding DessertTypes}"
+                    SelectedItem="{Binding BindingContext.SelectedDessertType, Source={x:Reference scrlview}}" />
+
                 <Button
-     Grid.Row="4"
-     Grid.Column="1"
-     Margin="10"
-     BackgroundColor="White"
-     BorderColor="Black"
-     BorderWidth="3"
-     Command="{Binding FilterCommand}"
-     Text="Search"
-     TextColor="Black" />
+                    Grid.Row="4"
+                    Grid.ColumnSpan="3"
+                    Margin="1"
+                    BackgroundColor="White"
+                    BorderColor="Black"
+                    BorderWidth="3"
+                    Command="{Binding FilterCommand}"
+                    HorizontalOptions="Center"
+                    Text="Search"
+                    TextColor="Black"
+                    WidthRequest="200" />
 
 
-
+                <!--<Grid
+                    Grid.Row="5"
+                    ColumnDefinitions="3*,2*"
+                    RowDefinitions="1*,1*,1*,10*">-->
                 <CollectionView
-                x:Name="collection"
-                Grid.Row="5"
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
-                Margin="3"
-                ItemsSource="{Binding FoundConfectioneries}"
-                SelectedItem="{Binding SelectedFoundConfectionery}"
-                SelectionMode="Single">
+                    x:Name="collection"
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Margin="3"
+                    ItemsSource="{Binding FoundConfectioneries}"
+                    SelectedItem="{Binding SelectedFoundConfectionery}"
+                    SelectionMode="Single">
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="Models:Baker">
                             <SwipeView>
                                 <SwipeView.RightItems>
                                     <SwipeItem
-                                    Command="{Binding Source={x:Reference collection}, Path=BindingContext.ViewConfectioneryCommand}"
-                                    CommandParameter="{Binding .}"
-                                    Text="View" />
+                                        Command="{Binding Source={x:Reference collection}, Path=BindingContext.ViewConfectioneryCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Text="View" />
                                 </SwipeView.RightItems>
                                 <Border
-                                Margin="4,5"
-                                Padding="4"
-                                HeightRequest="200">
-                                    <Grid RowDefinitions="*,*,*,*">
-                                        <Label Grid.Row="0" Margin="3" FontSize="Title">
+                                    Margin="4,5"
+                                    Padding="4"
+                                    HeightRequest="200">
+                                    <Grid ColumnDefinitions="1*,1.5*" RowDefinitions="*,*,*">
+                                        <Label
+                                            Grid.Row="0"
+                                            Margin="3"
+                                            FontSize="Header">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span FontAttributes="Bold" Text="Confectionery name: " />
@@ -80,12 +102,12 @@
 
                                         <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*,*">
                                             <Image
-                                             Grid.RowSpan="4"
-                                             Grid.Column="2"
-                                             Source="{Binding FullImageURL}" />
-                                            </Grid>
+                                                Grid.RowSpan="4"
+                                                Grid.Column="2"
+                                                Source="{Binding FullImageURL}" />
+                                        </Grid>
 
-                                            <Label Grid.Row="2" Margin="3">
+                                        <Label Grid.Row="1" Margin="3">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span FontAttributes="Bold" Text="Confectionery Type: " />
@@ -96,7 +118,7 @@
 
 
 
-                                        <Label Grid.Row="3" Margin="3">
+                                        <Label Grid.Row="2" Margin="3">
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span FontAttributes="Bold" Text="Price range: " />
@@ -115,14 +137,27 @@
                         <StackLayout>
                             <Label HorizontalOptions="CenterAndExpand" Text="No confectioneries found." />
                             <Image
-                            Aspect="AspectFit"
-                            HeightRequest="80"
-                            HorizontalOptions="CenterAndExpand"
-                            Source="sad.png"
-                            WidthRequest="80" />
+                                Aspect="AspectFit"
+                                HeightRequest="80"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="sad.png"
+                                WidthRequest="80" />
                         </StackLayout>
                     </CollectionView.EmptyView>
                 </CollectionView>
+                <Label
+                    Grid.Row="8"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsEmpty}"
+                    Text="No Confectioneries Found" />
+                <Image
+                    Grid.Row="8"
+                    Aspect="AspectFit"
+                    HeightRequest="80"
+                    HorizontalOptions="CenterAndExpand"
+                    IsVisible="{Binding IsEmpty}"
+                    Source="sad.png"
+                    WidthRequest="80" />
 
 
             </Grid>

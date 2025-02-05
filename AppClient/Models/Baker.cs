@@ -1,4 +1,5 @@
-﻿using AppClient.Services;
+﻿//using Android.Service.Autofill;
+using AppClient.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace AppClient.Models
         public double? HighestPrice { get; set; }
 
         public int? ConfectioneryTypeId { get; set; }
+
+        public User? UserNavigation { get; set; }
 
         public string? ConfectioneryTypeName 
         { 
@@ -46,14 +49,8 @@ namespace AppClient.Models
         {
             get
             {
-                LMBWebApi service = new();
-                List<User>? l = new();
-                GetUsers(l, service);
-                foreach(User user in l)
-                {
-                    if(user.UserId==this.BakerId)
-                        return LMBWebApi.ImageBaseAddress + user.ProfileImagePath;
-                }
+                if (UserNavigation != null)
+                    return UserNavigation.FullImageURL;
                 return null;
             }
         }
