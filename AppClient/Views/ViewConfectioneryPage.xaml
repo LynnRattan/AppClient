@@ -91,9 +91,9 @@
                                     <SwipeView>
                                         <SwipeView.RightItems>
                                             <SwipeItem
-                                                Command="{Binding Source={x:Reference collection}, Path=BindingContext.DeleteDessertCommand}"
+                                                Command="{Binding Source={x:Reference collection}, Path=BindingContext.PurchaseCommand}"
                                                 CommandParameter="{Binding .}"
-                                                IconImageSource="ex.png" />
+                                                Text="Purchase" />
                                         </SwipeView.RightItems>
                                         <Border
                                             Margin="4,5"

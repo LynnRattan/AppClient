@@ -41,7 +41,7 @@ namespace AppClient.ViewModels
 
         public ICommand DeleteDessertCommand { get; private set; }
 
-        public Baker? LoggedInBaker { get; set; }
+        
         public User? LoggedInUser { get; set; }
 
         public ICommand LoadBakerDessertsCommand { get; set; }
@@ -50,7 +50,7 @@ namespace AppClient.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
-            LoggedInBaker = ((App)Application.Current).LoggedInBaker;
+            
             LoggedInUser = ((App)Application.Current).LoggedInUser;
             bakerDessertsKeeper = new();
             BakerDesserts = new();
@@ -67,7 +67,7 @@ namespace AppClient.ViewModels
 
             foreach (Dessert d in bakerDessertsKeeper)
             {
-                if (d.BakerId == LoggedInBaker.BakerId&& d.StatusCode==2)
+                if (d.BakerId == Confectionery.BakerId&& d.StatusCode==2)
                 {
                     bakerDesserts.Add(d);
                 }
@@ -87,6 +87,15 @@ namespace AppClient.ViewModels
                 proxy.DeclineDes(dessert.DessertId);
                 BakerDesserts.Add(dessert);
             }
+        }
+
+        public async void OnPurchase()
+        {
+            // Navigate to the PurchaseDessert View page
+            Dictionary<string, object> data = new Dictionary<string, object>();
+            data.Add("SelectedDessert", SelectedBakerDessert);
+            await Shell.Current.GoToAsync("BuyDes", data);
+            SelectedBakerDessert = null;
         }
         
 

@@ -50,6 +50,7 @@ namespace AppClient
             builder.Services.AddTransient<AddDessertPage>();
             builder.Services.AddTransient<SearchConsPage>();
             builder.Services.AddTransient<ViewConfectioneryPage>();
+            builder.Services.AddTransient<BuyDessertPage>();
 
             return builder;
         }
@@ -77,6 +78,7 @@ namespace AppClient
             builder.Services.AddTransient<AddDessertPageViewModel>();
             builder.Services.AddTransient<SearchConsPageViewModel>();
             builder.Services.AddTransient<ViewConfectioneryPageViewModel>();
+            builder.Services.AddTransient<BuyDessertPageViewModel>();
 
 
 

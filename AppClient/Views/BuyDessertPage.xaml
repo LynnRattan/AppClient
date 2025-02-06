@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppClient.Views.BuyDessertPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+    Title="BuyDessertPage"
+    x:DataType="viewmodel:BuyDessertPageViewModel">
+    <VerticalStackLayout>
+        <ScrollView
+            HorizontalScrollBarVisibility="Always"
+            VerticalOptions="FillAndExpand"
+            VerticalScrollBarVisibility="Always">
+
+            <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*">
+
+
+                <!--  תמונה של הקינוח  -->
+                <Frame
+                    Grid.ColumnSpan="2"
+                    Margin="10"
+                    Padding="5"
+                    BorderColor="Black"
+                    HorizontalOptions="Center">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            x:Name="theImageBug"
+                            HeightRequest="150"
+                            Source="{Binding PhotoURL}" />
+                    </Grid>
+                </Frame>
+                <!--
+
+                <Frame Grid.ColumnSpan="2" HorizontalOptions="Center" BorderColor="Black" Padding="5" Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="proliepic" Source="profilepicture.png"  HeightRequest="150"/>
+                        <Label Grid.Row="1"
+                        Text="Click Here To Upload Photo!"
+                        TextColor="Blue"
+                        HorizontalOptions="Center"
+                        VerticalOptions="End">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding UploadPhotoCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Frame>-->
+
+
+
+
+                <!--  בחירת שם קינוח  -->
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    Text="Dessert Name" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="{Binding DessertName}" />
+
+
+
+                <Label
+                    x:Name="dessertPrice_lbl"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="15"
+                    Text="Dessert Quantity" />
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    IsVisible="{Binding ShowQuantityError}"
+                    Text="{Binding QuantityError}"
+                    TextColor="Red" />
+
+                <Entry
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Placeholder="Enter quantity"
+                    Text="{Binding Quantity}" />
+
+
+
+
+                <!--  כפתורי הוספה לסל וביטול  -->
+                <Button
+                    Grid.Row="12"
+                    Grid.Column="1"
+                    Command="{Binding AddToCartCommand}"
+                    IsEnabled="{Binding NotInServerCall}"
+                    Text="Add To Cart" />
+
+                <Button
+                    Grid.Row="12"
+                    Grid.Column="0"
+                    Command="{Binding CancelCommand}"
+                    IsEnabled="{Binding NotInServerCall}"
+                    Text="Cancel" />
+
+
+
+
+
+
+            </Grid>
+
+
+        </ScrollView>
+    </VerticalStackLayout>
+</ContentPage>
