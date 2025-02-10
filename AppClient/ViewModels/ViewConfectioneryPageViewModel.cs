@@ -40,6 +40,7 @@ namespace AppClient.ViewModels
         public bool IsEmpty { get => isEmpty; set { isEmpty = value; OnPropertyChanged(); } }
 
         public ICommand DeleteDessertCommand { get; private set; }
+        public ICommand PurchaseCommand { get; private set; }
 
         
         public User? LoggedInUser { get; set; }
@@ -57,7 +58,7 @@ namespace AppClient.ViewModels
             isEmpty = true;
             FillBakerDesserts();
             DeleteDessertCommand = new Command(OnDelete);
-           
+            PurchaseCommand= new Command(OnPurchase);
             LoadBakerDessertsCommand = new Command(LoadBakerDesserts);
         }
 
@@ -91,13 +92,13 @@ namespace AppClient.ViewModels
 
         public async void OnPurchase()
         {
-            // Navigate to the PurchaseDessert View page
+            // Navigate to the BuyDessert View page
             Dictionary<string, object> data = new Dictionary<string, object>();
             data.Add("SelectedDessert", SelectedBakerDessert);
             await Shell.Current.GoToAsync("BuyDes", data);
             SelectedBakerDessert = null;
         }
-        
+
 
         private async void LoadBakerDesserts()
         {

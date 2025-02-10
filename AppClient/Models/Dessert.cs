@@ -10,7 +10,7 @@ namespace AppClient.Models
     public class Dessert
     {
         public int DessertId { get; set; }
-        public string DessertName { get; set; }
+        public string? DessertName { get; set; }
 
         public int? DessertTypeId { get; set; }
         public string? DessertTypeName

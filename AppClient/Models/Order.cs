@@ -9,7 +9,7 @@ namespace AppClient.Models
     public class Order
     {
         public int Id { get; set; }
-        public int CustomerId { get; set; }
+        public int UserId { get; set; }
         public int BakerId { get; set; }
 
         public DateOnly OrderDate { get; set; }

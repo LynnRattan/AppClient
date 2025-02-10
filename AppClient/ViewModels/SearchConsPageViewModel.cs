@@ -126,7 +126,6 @@ namespace AppClient.ViewModels
             data.Add("FoundConfectionery", SelectedFoundConfectionery);
             await Shell.Current.GoToAsync("ViewCon", data);
             SelectedFoundConfectionery = null;
-
         }
 
         private async void LoadFoundConfectioneries()

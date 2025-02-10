@@ -1,5 +1,6 @@
 ﻿using AppClient.Models;
 using AppClient.Services;
+using AppClient.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,7 +86,7 @@ namespace AppClient.ViewModels
 
         public string QuantityError
         {
-            get => QuantityError;
+            get => quantityError;
             set
             {
                 quantityError = value;
@@ -109,63 +110,39 @@ namespace AppClient.ViewModels
                 var newOrderedDessert = new OrderedDessert
                 {
                     DessertId = SelectedDessert.DessertId,
-                    OrderID = 0,
+                    OrderId = 0,
                     Quantity = int.Parse(this.Quantity),
                     StatusCode = 1,
-                    BakerId = ((App)Application.Current).LoggedInUser.UserId
+                    UserId = ((App)Application.Current).LoggedInUser.UserId,
+                    BakerId= SelectedDessert.BakerId,
+                    OrderedDessertImage= SelectedDessert.DessertImage,
+                    Price = SelectedDessert.Price*int.Parse(Quantity)
                 };
 
 
                 //Call the Register method on the proxy to register the new user
                 InServerCall = true;
 
-                newDessert = await proxy.AddDessert(newDessert);
+                newOrderedDessert = await proxy.AddOrderedDessert(newOrderedDessert);
                 InServerCall = false;
 
                 //If the registration was successful, navigate to the login page
-                if (newDessert != null)
+                if (newOrderedDessert != null)
                 {
-                    //UPload profile imae if needed
-                    if (!string.IsNullOrEmpty(LocalPhotoPath))
-                    {
-                        Dessert? updatedDessert = await proxy.UploadDessertImage(LocalPhotoPath, newDessert.DessertId, LoggedInBaker.BakerId);
-                        if (updatedDessert == null)
-                        {
-                            InServerCall = false;
-                            await Application.Current.MainPage.DisplayAlert("Sign Up", "Dessert Data Was Saved BUT dessert image upload failed", "ok");
-                        }
-                        else
-                        {
-                            newDessert = updatedDessert;
-                        }
-
                         InServerCall = false;
-                    }
-
-                    string successMsg = "Adding a dessert succeeded!";
-                    await Application.Current.MainPage.DisplayAlert("Adding a dessert", successMsg, "ok");
-                    if (double.Parse(this.Price) > LoggedInBaker.HighestPrice)
-                    {
-                        if (await AppShell.Current.DisplayAlert("Dessert price is higher than your highest price.", "Would you like to change you highest price?", "Yes", "Cancel"))
-                        {
-                            LoggedInBaker.HighestPrice = double.Parse(this.price);
-                            proxy.UpdateHighestPrice(LoggedInBaker);
-
-                        }
-                        else
-                            OnCancel();
-                    }
-
+                    
+                    string successMsg = "Dessert has been added to cart!";
+                    await Application.Current.MainPage.DisplayAlert(successMsg,"You are able to see the dessert in your cart.", "ok");
                 }
                 else
                 {
 
                     //If the registration failed, display an error message
-                    string errorMsg = "Adding a dessert failed. Please try again.";
-                    await Application.Current.MainPage.DisplayAlert("Adding a dessert", errorMsg, "ok");
+                    string errorMsg = "Adding a dessert to cart failed. Please try again.";
+                    await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
                 }
-                // Navigate to the Baker profile View page
-                ConProfilePage cp = serviceProvider.GetService<ConProfilePage>();
+                // Navigate to the Baker profile View page for User
+                ViewConfectioneryPage vcp = serviceProvider.GetService<ViewConfectioneryPage>();
                 ((App)Application.Current).MainPage.Navigation.PopAsync();
             }
         }
