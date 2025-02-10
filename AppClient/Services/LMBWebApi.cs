@@ -13,25 +13,25 @@ namespace AppClient.Services
     public class LMBWebApi
     {
         #region without tunnel
-        /*
+
         //Define the serevr IP address! (should be realIP address if you are using a device that is not running on the same machine as the server)
         private static string serverIP = "localhost";
         private HttpClient client;
         private string baseUrl;
         public static string BaseAddress = (DeviceInfo.Platform == DevicePlatform.Android &&
-            DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:5110/api/" : $"http://{serverIP}:5110/api/";
-        private static string ImageBaseAddress = (DeviceInfo.Platform == DevicePlatform.Android &&
-            DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:5110" : $"http://{serverIP}:5110";
-        */
+            DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:5039/api/" : $"http://{serverIP}:5039/api/";
+        public static string ImageBaseAddress = (DeviceInfo.Platform == DevicePlatform.Android &&
+            DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:5039" : $"http://{serverIP}:5039";
+
         #endregion
 
         #region with tunnel
         //Define the serevr IP address! (should be realIP address if you are using a device that is not running on the same machine as the server)
-        private static string serverIP = "6gh41sf3-5039.euw.devtunnels.ms";
-        private HttpClient client;
-        private string baseUrl;
-        public static string BaseAddress = "https://6gh41sf3-5039.euw.devtunnels.ms/api/";
-        public static string ImageBaseAddress = "https://6gh41sf3-5039.euw.devtunnels.ms/";
+        //private static string serverIP = "6gh41sf3-5039.euw.devtunnels.ms";
+        //private HttpClient client;
+        //private string baseUrl;
+        //public static string BaseAddress = "https://6gh41sf3-5039.euw.devtunnels.ms/api/";
+        //public static string ImageBaseAddress = "https://6gh41sf3-5039.euw.devtunnels.ms/";
         #endregion
 
         public LMBWebApi()
@@ -756,6 +756,38 @@ namespace AppClient.Services
                         PropertyNameCaseInsensitive = true
                     };
                     OrderedDessert? result = JsonSerializer.Deserialize<OrderedDessert>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<List<OrderedDessert>?> GetOrderedDesserts()
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getordereddesserts";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<OrderedDessert>? result = JsonSerializer.Deserialize<List<OrderedDessert>>(resContent, options);
                     return result;
                 }
                 else

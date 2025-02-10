@@ -110,7 +110,7 @@ namespace AppClient.ViewModels
                 var newOrderedDessert = new OrderedDessert
                 {
                     DessertId = SelectedDessert.DessertId,
-                    OrderId = 0,
+                    OrderId = null,
                     Quantity = int.Parse(this.Quantity),
                     StatusCode = 1,
                     UserId = ((App)Application.Current).LoggedInUser.UserId,
@@ -142,7 +142,7 @@ namespace AppClient.ViewModels
                     await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
                 }
                 // Navigate to the Baker profile View page for User
-                ViewConfectioneryPage vcp = serviceProvider.GetService<ViewConfectioneryPage>();
+                //ViewConfectioneryPage vcp = serviceProvider.GetService<ViewConfectioneryPage>();
                 ((App)Application.Current).MainPage.Navigation.PopAsync();
             }
         }

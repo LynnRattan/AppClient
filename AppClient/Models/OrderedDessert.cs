@@ -9,13 +9,15 @@ namespace AppClient.Models
 {
     public class OrderedDessert
     {
+        public int OrderedDessertId { get; set; }
         public int DessertId { get; set; }
-        public int OrderId { get; set; }
+        public int? OrderId { get; set; }
         public int Quantity { get; set; }
         public int StatusCode { get; set; }
         public int UserId { get; set; }
         public int BakerId { get; set; }
-
+        public Dessert TheDessert { get; set; }
+        public Baker TheBaker { get; set; }
         public string? StatusName
         {
             get
@@ -38,5 +40,7 @@ namespace AppClient.Models
                 return LMBWebApi.ImageBaseAddress + this.OrderedDessertImage;
             }
         }
+
+        
     }
 }
