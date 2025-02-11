@@ -801,6 +801,73 @@ namespace AppClient.Services
             }
         }
 
+        public async void DeleteOD(int dessertId)
+        {
+            string url = $"{this.baseUrl}DeleteOrderedDessert";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(dessertId);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+
+        public async Task<OrderedDessert?> UpdateQuantity(OrderedDessert d, int quantity)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}UpdateQuantity?quantity={quantity}";
+
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(d);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    OrderedDessert? result = JsonSerializer.Deserialize<OrderedDessert>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null; ;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
     }
 }
 

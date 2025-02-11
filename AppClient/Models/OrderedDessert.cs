@@ -37,7 +37,7 @@ namespace AppClient.Models
         {
             get
             {
-                return LMBWebApi.ImageBaseAddress + this.OrderedDessertImage;
+                return TheDessert.FullImageURL;
             }
         }
 

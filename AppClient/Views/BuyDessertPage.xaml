@@ -77,7 +77,7 @@
 
 
                 <Label
-                    x:Name="dessertPrice_lbl"
+                    x:Name="dessertQuantity_lbl"
                     Grid.Row="3"
                     Grid.Column="0"
                     Margin="15"

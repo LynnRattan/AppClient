@@ -6,24 +6,39 @@
              xmlns:Models="clr-namespace:AppClient.Models"
              xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
              x:DataType="viewmodel:CartPageViewModel">
-    <RefreshView Command="{Binding LoadOrderedDessertsCommand}" IsRefreshing="{Binding IsRefreshing}">
+    <RefreshView Command="{Binding LoadUserDessertsCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView x:Name="scrlview" Margin="10">
 
 
-            <Grid ColumnDefinitions="3*,2*,*" RowDefinitions="1*,10*">
+            <Grid ColumnDefinitions="2*,2*,*,*" RowDefinitions="*,*,*,10*,*,*">
 
 
+                <Label HorizontalOptions="Center" Grid.Row="0" Text="Total Price:"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding TotalPrice}"/>
+
+                <Label IsVisible="{Binding IsChanging}"
+    x:Name="newQuantity_lbl"
+    Grid.Row="1"
+    Grid.Column="0"
+    Margin="15"
+    Text="New Quantity" />
 
 
-
+                <Entry Keyboard="Numeric" IsVisible="{Binding IsChanging}"
+    Grid.Row="1"
+    Grid.Column="1"
+    Placeholder="Enter quantity"
+    Text="{Binding NewQuantity}" />
+                <Button IsVisible="{Binding IsChanging}" Grid.Row="1" Grid.Column="2" Text="Change" Command="{Binding UpdateQuantityCommand}" CommandParameter="{Binding SelectedOrderedDessert}"/>
+                <Button IsVisible="{Binding IsChanging}" Grid.Row="1" Grid.Column="3" Text="Cancle" Command="{Binding CancelCommand}"/>
                 <CollectionView
                     x:Name="collection"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="0"
-                    Grid.ColumnSpan="3"
+                    Grid.ColumnSpan="4"
                     Margin="3"
-                    ItemsSource="{Binding OrderedDesserts}"
-                    SelectedItem="{Binding SelectedDessert}"
+                    ItemsSource="{Binding UserOrderedDesserts}"
+                    SelectedItem="{Binding SelectedOrderedDessert}"
                     SelectionMode="Single">
 
                     <CollectionView.ItemTemplate>
@@ -76,7 +91,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span FontAttributes="Bold" Text="Price: " />
-                                                    <Span Text="0-" />
+                                                    
                                                     <Span Text="{Binding Price}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
@@ -106,6 +121,9 @@
                         </StackLayout>
                     </CollectionView.EmptyView>
                 </CollectionView>
+
+                <Button Grid.Row="3" Grid.Column="1" Text="Delete" Command="{Binding DeleteAllCommand}" HeightRequest="40" />
+                <Button Grid.Row="3" Grid.RowSpan="3" Grid.Column="1" Text="Order" Command="{Binding OrderCommand}" HeightRequest="40" Padding="10"/>
 
 
             </Grid>

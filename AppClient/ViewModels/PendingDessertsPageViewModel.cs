@@ -37,7 +37,6 @@ namespace AppClient.ViewModels
             pendingDessertsKeeper = new();
             PendingDesserts = new();
             isEmpty = true;
-            //GetBakers();
             FillPendingDesserts();
             DeclineDessertCommand = new Command(OnDecline);
             ApproveDessertCommand = new Command(OnApprove);

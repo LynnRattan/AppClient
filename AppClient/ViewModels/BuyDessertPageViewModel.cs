@@ -105,6 +105,7 @@ namespace AppClient.ViewModels
             ValidateQuantity();
             if (!ShowQuantityError)
             {
+                Baker b = await proxy.GetBaker(SelectedDessert.BakerId);
 
                 //Create a new AppUser object with the data from the registration form
                 var newOrderedDessert = new OrderedDessert
@@ -114,9 +115,11 @@ namespace AppClient.ViewModels
                     Quantity = int.Parse(this.Quantity),
                     StatusCode = 1,
                     UserId = ((App)Application.Current).LoggedInUser.UserId,
-                    BakerId= SelectedDessert.BakerId,
-                    OrderedDessertImage= SelectedDessert.DessertImage,
-                    Price = SelectedDessert.Price*int.Parse(Quantity)
+                    BakerId = SelectedDessert.BakerId,
+                    OrderedDessertImage = SelectedDessert.DessertImage,
+                    Price = SelectedDessert.Price * int.Parse(Quantity),
+                    TheBaker = b,
+                    TheDessert = SelectedDessert
                 };
 
 
