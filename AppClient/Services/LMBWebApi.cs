@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AppClient.Models;
 using AppClient.ModelsExt;
+//using Windows.Media.Protection.PlayReady;
 
 namespace AppClient.Services
 {
@@ -52,7 +53,8 @@ namespace AppClient.Services
         public string GetDefaultProfilePhotoUrl()
         {
             return $"{LMBWebApi.ImageBaseAddress}/profileImages/default.png";
-        }public string GetDefaultDessertPhotoUrl()
+        }
+        public string GetDefaultDessertPhotoUrl()
         {
             return $"{LMBWebApi.ImageBaseAddress}/dessertImages/defaultD.png";
         }
@@ -203,7 +205,7 @@ namespace AppClient.Services
         }
 
         //Same operation for dessert
-        public async Task<Dessert?> UploadDessertImage(string imagePath,int dessertId, int userId)
+        public async Task<Dessert?> UploadDessertImage(string imagePath, int dessertId, int userId)
         {
             //Set URI to the specific function API
             string url = $"{this.baseUrl}UploadDessertImage?dessertId={dessertId}&userId={userId}";
@@ -311,7 +313,7 @@ namespace AppClient.Services
             }
         }
 
-        
+
 
         public async Task<List<Baker>?> GetBakers()
         {
@@ -365,7 +367,7 @@ namespace AppClient.Services
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    
+
                 }
                 else
                 {
@@ -396,7 +398,7 @@ namespace AppClient.Services
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    
+
                 }
                 else
                 {
@@ -646,7 +648,7 @@ namespace AppClient.Services
                 string json = JsonSerializer.Serialize(bakerId);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 //Call the server API
-                HttpResponseMessage response = await client.PostAsync(url,content);
+                HttpResponseMessage response = await client.PostAsync(url, content);
                 //Check status
                 if (response.IsSuccessStatusCode)
                 {
@@ -735,7 +737,7 @@ namespace AppClient.Services
             }
         }
 
-        public async Task <OrderedDessert?> AddOrderedDessert(OrderedDessert d)
+        public async Task<OrderedDessert?> AddOrderedDessert(OrderedDessert d)
         {
             //Set URI to the specific function API
             string url = $"{this.baseUrl}addordereddessert";
@@ -868,6 +870,104 @@ namespace AppClient.Services
             }
         }
 
+        public async Task<Order?> AddOrder(Order o)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}addorder";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(o);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Order? result = JsonSerializer.Deserialize<Order>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        public async void PutInOrder(int orderedDessertId, int orderId)
+        {
+            string url = $"{this.baseUrl}PutInOrder?orderId={orderId}";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(orderedDessertId);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
+
+        public async Task<List<Order>?> GetOrders()
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getorders";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Order>? result = JsonSerializer.Deserialize<List<Order>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
 

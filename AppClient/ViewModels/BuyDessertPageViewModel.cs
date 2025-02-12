@@ -18,6 +18,7 @@ namespace AppClient.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
+            IsOneCon = true;
             LoggedInUser = ((App)Application.Current).LoggedInUser;
             AddToCartCommand = new Command(OnAddToCart);
             CancelCommand = new Command(OnCancel);
@@ -37,12 +38,69 @@ namespace AppClient.ViewModels
         }
     public User? LoggedInUser { get; set; }
 
+        private bool isOneCon;
+        public bool IsOneCon
+        {
+            get => isOneCon;
+            set
+            {
+                isOneCon = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Command AddToCartCommand { get; }
         public Command CancelCommand { get; }
 
-       
 
-        
+        #region check if the dessert is from the same confectionery
+        private async Task<bool> CheckIfSameCon()
+        {
+            int bakerID = 0;
+            List<OrderedDessert> UserDesserts = new List<OrderedDessert>();
+            List<OrderedDessert> temp = await proxy.GetOrderedDesserts();
+            foreach(OrderedDessert d in temp)
+            {
+                if(d.UserId==LoggedInUser.UserId)
+                {
+                    UserDesserts.Add(d);
+                }
+            }
+
+            if(UserDesserts.Count>0 && SelectedDessert.BakerId != UserDesserts[0].BakerId)
+            {
+                return false;
+            }
+            return true;
+
+        }
+        #endregion
+
+        #region check if the dessert has been ordered already
+        private async Task<bool> CheckIfExists()
+        {
+            int dessertID = 0;
+            List<OrderedDessert> UserDesserts = new List<OrderedDessert>();
+            List<OrderedDessert> temp = await proxy.GetOrderedDesserts();
+            foreach (OrderedDessert d in temp)
+            {
+                if (d.UserId == LoggedInUser.UserId)
+                {
+                    UserDesserts.Add(d);
+                }
+            }
+
+            if (UserDesserts.Count > 0)
+            { 
+                foreach(OrderedDessert d in UserDesserts)
+               if(SelectedDessert.DessertId == d.DessertId)
+                return false;
+            }
+            return true;
+
+        }
+        #endregion
+
 
         #region DessertQuantity
         private string quantity;
@@ -102,8 +160,10 @@ namespace AppClient.ViewModels
 
         public async void OnAddToCart()
         {
+            bool b1 = await CheckIfSameCon();
+            bool b2 = await CheckIfExists();
             ValidateQuantity();
-            if (!ShowQuantityError)
+            if (!ShowQuantityError && b1 && b2)
             {
                 Baker b = await proxy.GetBaker(SelectedDessert.BakerId);
 
@@ -132,22 +192,36 @@ namespace AppClient.ViewModels
                 //If the registration was successful, navigate to the login page
                 if (newOrderedDessert != null)
                 {
-                        InServerCall = false;
-                    
+                    InServerCall = false;
+
                     string successMsg = "Dessert has been added to cart!";
-                    await Application.Current.MainPage.DisplayAlert(successMsg,"You are able to see the dessert in your cart.", "ok");
+                    await Application.Current.MainPage.DisplayAlert(successMsg, "You are able to see the dessert in your cart.", "ok");
                 }
                 else
                 {
-
-                    //If the registration failed, display an error message
                     string errorMsg = "Adding a dessert to cart failed. Please try again.";
+                    //If the registration failed, display an error message
+                    if (IsOneCon = false)
+                    {
+                        errorMsg = "You cannot order from different confectioneries.";
+                    }
                     await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
                 }
                 // Navigate to the Baker profile View page for User
                 //ViewConfectioneryPage vcp = serviceProvider.GetService<ViewConfectioneryPage>();
                 ((App)Application.Current).MainPage.Navigation.PopAsync();
             }
+            if (!b1)
+            {
+                string errorMsg = "You cannot order from different confectioneries.";
+                await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
+            }
+            else if (!b2)
+            {
+                string errorMsg = "You cannot order the same dessert twice.";
+                await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
+            }
+            
         }
 
 

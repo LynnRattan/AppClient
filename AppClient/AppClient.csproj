@@ -131,6 +131,9 @@
     <MauiXaml Update="Views\UserProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiXaml Update="Views\UserViewOrderPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="Views\ViewConfectioneryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

@@ -13,7 +13,9 @@ namespace AppClient.Models
         public int BakerId { get; set; }
 
         public DateOnly OrderDate { get; set; }
-        public DateOnly? ArrivelDate { get; set; }
+        public DateOnly? ArrivalDate { get; set; }
+        public User TheUser { get; set; }
+        public Baker TheBaker { get; set; }
 
         public string Adress { get; set; }
 

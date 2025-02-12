@@ -10,7 +10,7 @@
         <ScrollView x:Name="scrlview" Margin="10">
 
 
-            <Grid ColumnDefinitions="2*,2*,*,*" RowDefinitions="*,*,*,10*,*,*">
+            <Grid ColumnDefinitions="2*,2*,*,*" RowDefinitions="*,*,*,10*,*,*,*,*">
 
 
                 <Label HorizontalOptions="Center" Grid.Row="0" Text="Total Price:"/>
@@ -23,7 +23,12 @@
     Margin="15"
     Text="New Quantity" />
 
-
+                <Label
+    Grid.Row="1"
+    Grid.Column="1"
+    IsVisible="{Binding ShowNewQuantityError}"
+    Text="{Binding NewQuantityError}"
+    TextColor="Red" />
                 <Entry Keyboard="Numeric" IsVisible="{Binding IsChanging}"
     Grid.Row="1"
     Grid.Column="1"
@@ -121,9 +126,29 @@
                         </StackLayout>
                     </CollectionView.EmptyView>
                 </CollectionView>
+                
+                <Label
+x:Name="adress_lbl"
+Grid.Row="3"
+Grid.Column="0"
+Margin="15"
+Text="Adress" />
 
-                <Button Grid.Row="3" Grid.Column="1" Text="Delete" Command="{Binding DeleteAllCommand}" HeightRequest="40" />
-                <Button Grid.Row="3" Grid.RowSpan="3" Grid.Column="1" Text="Order" Command="{Binding OrderCommand}" HeightRequest="40" Padding="10"/>
+                <Label
+Grid.Row="3"
+Grid.Column="1"
+IsVisible="{Binding ShowAdressError}"
+Text="{Binding AdressError}"
+TextColor="Red" />
+                <Entry
+Grid.Row="3"
+Grid.Column="1"
+Grid.RowSpan="1"
+Placeholder="Enter city and street"
+Text="{Binding Adress}" />
+
+                <Button Grid.Row="4" Grid.Column="1" Text="Delete" Command="{Binding DeleteAllCommand}" HeightRequest="40" />
+                <Button Grid.Row="4" Grid.RowSpan="3" Grid.Column="1" Text="Order" Command="{Binding OrderCommand}" HeightRequest="40" Padding="10"/>
 
 
             </Grid>

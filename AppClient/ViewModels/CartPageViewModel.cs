@@ -28,8 +28,81 @@ namespace AppClient.ViewModels
         private bool isChanging;
         public bool IsChanging { get => isChanging; set { isChanging = value; OnPropertyChanged(); } }
 
-        private int newQuantity;
-        public int NewQuantity { get => newQuantity; set { newQuantity=value; OnPropertyChanged(); } }
+        #region New Quantity
+        private string newQuantity;
+        public string NewQuantity { get => newQuantity; set { newQuantity=value; OnPropertyChanged(); } }
+
+        private bool showNewQuantityError;
+
+        public bool ShowNewQuantityError
+        {
+            get => showNewQuantityError;
+            set
+            {
+                showNewQuantityError = value;
+                OnPropertyChanged("ShowNewQuantityError");
+            }
+        }
+
+        private void ValidateNewQuantity()
+        {
+            int d = 0;
+            if ((string.IsNullOrEmpty(NewQuantity) || !int.TryParse(this.newQuantity, out d)))
+            {
+                this.ShowNewQuantityError = true;
+            }
+            else
+                this.ShowNewQuantityError = false;
+
+        }
+
+        private string newQuantityError;
+
+        public string NewQuantityError
+        {
+            get => newQuantityError;
+            set
+            {
+                newQuantityError = value;
+                OnPropertyChanged("NewQuantityError");
+            }
+        }
+        #endregion
+
+        #region Adress
+        private string adress;
+        public string Adress { get => adress; set { adress = value; ValidateAdress(); OnPropertyChanged("Adress"); } }
+
+        private bool showAdressError;
+
+        public bool ShowAdressError
+        {
+            get => showAdressError;
+            set
+            {
+                showAdressError = value;
+                OnPropertyChanged("ShowAdressError");
+            }
+        }
+
+
+        private string adressError;
+
+        public string AdressError
+        {
+            get => adressError;
+            set
+            {
+                adressError = value;
+                OnPropertyChanged("AdressError");
+            }
+        }
+
+        private void ValidateAdress()
+        {
+            this.ShowAdressError = string.IsNullOrEmpty(Adress);
+        }
+        #endregion
 
         private double totalPrice;
         public double TotalPrice { get => totalPrice; set { totalPrice = value; OnPropertyChanged(); } }
@@ -62,12 +135,15 @@ namespace AppClient.ViewModels
             OrderCommand = new Command(OnOrder);
             CancelCommand = new Command(OnCancel);
             LoadUserDessertsCommand = new Command(LoadUserDesserts);
+            NewQuantityError = "New quantity must be a number.";
+            AdressError = "Adress Is Required.";
 
         }
 
         private void OnCancel()
         {
             IsChanging = false;
+            ShowNewQuantityError = false;
         }
 
         private async void GetOrderedDesserts()
@@ -77,19 +153,20 @@ namespace AppClient.ViewModels
         private async void FillUserDesserts()
         {
             UserOrderedDesserts.Clear();
+            orderedDessertsKeeper.Clear();
             this.totalPrice = 0;
             orderedDessertsKeeper = await proxy.GetOrderedDesserts();
 
             foreach (OrderedDessert d in orderedDessertsKeeper)
             {
-                if (d.UserId == LoggedInUser.UserId)
+                if (d.UserId == LoggedInUser.UserId&&d.OrderId==null)
                 {
-                    userOrderedDesserts.Add(d);
+                    UserOrderedDesserts.Add(d);
                     this.TotalPrice += d.Price;
                 }
 
             }
-            if (userOrderedDesserts != null)
+            if (UserOrderedDesserts != null)
             {
                 isEmpty = false;
             }
@@ -121,7 +198,7 @@ namespace AppClient.ViewModels
         {
             OrderedDessert d = (OrderedDessert)obj;
             OrderedDessert o = new OrderedDessert();
-            o=await proxy.UpdateQuantity(d, NewQuantity);
+            o=await proxy.UpdateQuantity(d, int.Parse(NewQuantity));
             if (o != null)
             {
                 string successMsg = "Quantity was successfully changed!";
@@ -154,9 +231,57 @@ namespace AppClient.ViewModels
 
         public async void OnOrder()
         {
+            ValidateNewQuantity();
+            if (!ShowNewQuantityError && !ShowAdressError&& UserOrderedDesserts != null)
+            {
+                Baker b = UserOrderedDesserts[0].TheBaker;
+                //Create a new AppUser object with the data from the registration form
+                var newOrder = new Order
+                {
+                    UserId = LoggedInUser.UserId,
+                    BakerId = b.BakerId,
+                    OrderDate = DateOnly.FromDateTime(DateTime.Now),
+                    ArrivalDate = null,
+                    Adress = Adress,
+                    TotalPrice = this.TotalPrice,
+                    StatusCode = 1,
+                    TheBaker=b,
+                    TheUser=LoggedInUser
+                };
 
+                List<OrderedDessert> temp = UserOrderedDesserts.ToList();
+                foreach(OrderedDessert d in temp)
+                {
+                    proxy.PutInOrder(d.OrderedDessertId, newOrder.Id);
+                    UserOrderedDesserts.Remove(d);
+                }
+
+                //Call the Register method on the proxy to register the new user
+                InServerCall = true;
+
+                newOrder = await proxy.AddOrder(newOrder);
+                InServerCall = false;
+
+                //If the registration was successful, navigate to the login page
+                if (newOrder != null)
+                {
+                    InServerCall = false;
+
+                    string successMsg = "Your order has been sent!";
+                    await Application.Current.MainPage.DisplayAlert("Order", successMsg, "ok");
+                }
+                else
+                {
+                    string errorMsg = "Order has failed. Please try again.";
+                    //If the registration failed, display an error message
+                    if (UserOrderedDesserts ==null)
+                    {
+                        errorMsg = "Your cart is empty.";
+                    }
+                    await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
+                }
+            }
         }
-
         private async void LoadUserDesserts()
         {
             IsRefreshing = true;
