@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppClient.Views.ViewNewOrder"
+             Title="ViewNewOrder"      
+             xmlns:Models="clr-namespace:AppClient.Models"
+             xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+             x:DataType="viewmodel:ViewNewOrderViewModel">
+    <RefreshView Command="{Binding LoadBakerDessertsCommand}" IsRefreshing="{Binding IsRefreshing}">
+    <ScrollView x:Name="scrlview" Margin="10">
+
+
+        <Grid ColumnDefinitions="2*,2*,*,*" RowDefinitions="*,*,*,10*,*,*,*,*">
+
+
+
+
+            <CollectionView
+                    x:Name="collection"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="4"
+                    Margin="3"
+                    ItemsSource="{Binding BakerOrderedDesserts}"
+                    SelectedItem="{Binding SelectedOrderedDessert}"
+                    SelectionMode="Single">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="Models:OrderedDessert">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItem
+                                        Command="{Binding Source={x:Reference collection}, Path=BindingContext.DeleteDessertCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Text="Delete" />
+                            </SwipeView.RightItems>
+                            <Border
+                                    Margin="4,5"
+                                    Padding="4"
+                                    HeightRequest="200">
+                                <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*">
+                                    <Label Grid.Row="0" Margin="3">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="Dessert name: " />
+                                                <Span Text="{Binding TheDessert.DessertName}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+        
+
+                                    <Label Grid.Row="1" Margin="3">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="Quantity: " />
+                                                <Span Text="{Binding Quantity}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+
+
+                                    <Label Grid.Row="2" Margin="3">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="Price: " />
+
+                                                <Span Text="{Binding Price}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Image
+                                            x:Name="dessertpic"
+                                            Grid.Row="0"
+                                            Grid.RowSpan="4"
+                                            Grid.Column="1"
+                                            HorizontalOptions="Fill"
+                                            Source="{Binding FullImageURL}" />
+
+                                </Grid>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label HorizontalOptions="CenterAndExpand" Text="No desserts in order." />
+                        <Image
+                                Aspect="AspectFit"
+                                HeightRequest="80"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="sad.png"
+                                WidthRequest="80" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+
+
+
+            <Button Grid.Row="2" Grid.Column="1" Text="Decline" Command="{Binding DeclineOrderCommand}" HeightRequest="40" />
+            <Button Grid.Row="3" Grid.RowSpan="3" Grid.Column="1" Text="Aprrove" Command="{Binding ApproveOrderCommand}" HeightRequest="40" Padding="10"/>
+
+
+        </Grid>
+    </ScrollView>
+    </RefreshView>

@@ -1,5 +1,6 @@
 ﻿using AppClient.Models;
 using AppClient.Services;
+//using Microsoft.UI.Xaml.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,7 +31,7 @@ namespace AppClient.ViewModels
 
         #region New Quantity
         private string newQuantity;
-        public string NewQuantity { get => newQuantity; set { newQuantity=value; OnPropertyChanged(); } }
+        public string NewQuantity { get => newQuantity; set { newQuantity=value; ValidateNewQuantity(); OnPropertyChanged(); } }
 
         private bool showNewQuantityError;
 
@@ -47,7 +48,7 @@ namespace AppClient.ViewModels
         private void ValidateNewQuantity()
         {
             int d = 0;
-            if ((string.IsNullOrEmpty(NewQuantity) || !int.TryParse(this.newQuantity, out d)))
+            if (IsChanging&&(string.IsNullOrEmpty(NewQuantity) || !int.TryParse(this.newQuantity, out d)))
             {
                 this.ShowNewQuantityError = true;
             }
@@ -123,7 +124,7 @@ namespace AppClient.ViewModels
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
             isChanging = false;
-            LoggedInUser = ((App)Application.Current).LoggedInUser;
+            LoggedInUser = ((App)Application.Current).LoggedInBaker;
             orderedDessertsKeeper = new();
             UserOrderedDesserts = new();
             isEmpty = true;
@@ -178,8 +179,15 @@ namespace AppClient.ViewModels
             if (await AppShell.Current.DisplayAlert("Dessert", "Would you like to delete the dessert from your cart?", "Yes", "Cancel"))
             {
                 OrderedDessert d = (OrderedDessert)obj;
-                UserOrderedDesserts.Remove(((OrderedDessert)obj));
-                proxy.DeleteOD(d.OrderedDessertId);
+                bool isDeleted = await proxy.DeleteOD(d.OrderedDessertId);
+                if (isDeleted)
+                {
+                    UserOrderedDesserts.Remove(((OrderedDessert)obj));
+                }
+                else
+                {
+                    AppShell.Current.DisplayAlert("Dessert", "Something went wrong.\nPlease try again later", "Ok");
+                }
                 if (userOrderedDesserts == null)
                 {
                     isEmpty = true;
@@ -232,6 +240,7 @@ namespace AppClient.ViewModels
         public async void OnOrder()
         {
             ValidateNewQuantity();
+            ValidateAdress();
             if (!ShowNewQuantityError && !ShowAdressError&& UserOrderedDesserts != null)
             {
                 Baker b = UserOrderedDesserts[0].TheBaker;
@@ -249,24 +258,25 @@ namespace AppClient.ViewModels
                     TheUser=LoggedInUser
                 };
 
+                
+
+                //Call the Register method on the proxy to register the new user
+                InServerCall = true;
+                newOrder = await proxy.AddOrder(newOrder);
                 List<OrderedDessert> temp = UserOrderedDesserts.ToList();
-                foreach(OrderedDessert d in temp)
+                foreach (OrderedDessert d in temp)
                 {
                     proxy.PutInOrder(d.OrderedDessertId, newOrder.Id);
                     UserOrderedDesserts.Remove(d);
                 }
 
-                //Call the Register method on the proxy to register the new user
-                InServerCall = true;
-
-                newOrder = await proxy.AddOrder(newOrder);
                 InServerCall = false;
 
                 //If the registration was successful, navigate to the login page
                 if (newOrder != null)
                 {
                     InServerCall = false;
-
+                    proxy.UpdateProfits(newOrder.TheBaker, TotalPrice);
                     string successMsg = "Your order has been sent!";
                     await Application.Current.MainPage.DisplayAlert("Order", successMsg, "ok");
                 }

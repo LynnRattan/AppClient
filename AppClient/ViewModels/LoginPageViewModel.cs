@@ -95,7 +95,7 @@ public class LoginPageViewModel : ViewModelBase
         InServerCall = false;
 
         //Set the application logged in user to be whatever user returned (null or real user)
-        ((App)Application.Current).LoggedInUser = u;
+        ((App)Application.Current).LoggedInBaker = u;
         if (u == null)
         {
             ErrorMsg = "Invalid mail or password";

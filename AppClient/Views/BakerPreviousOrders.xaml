@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage     x:Class="AppClient.Views.PreviousOrdersPage"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:Models="clr-namespace:AppClient.Models"
-    xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-    Title="Orders"
-    x:DataType="viewmodel:PreviousOrdersPageViewModel">
-    <RefreshView Command="{Binding LoadUserOrdersCommand}" IsRefreshing="{Binding IsRefreshing}">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppClient.Views.BakerPreviousOrders"
+             Title="Previous Orders"
+             xmlns:Models="clr-namespace:AppClient.Models"
+             xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+   
+    x:DataType="viewmodel:BakerPreviousOrdersViewModel">
+    <RefreshView Command="{Binding LoadBakerOrdersCommand}" IsRefreshing="{Binding IsRefreshing}">
 
         <ScrollView x:Name="scrlview" Margin="10">
 
@@ -23,7 +24,7 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
                     Margin="3"
-                    ItemsSource="{Binding UserOrders}"
+                    ItemsSource="{Binding BakerOrders}"
                     SelectedItem="{Binding SelectedOrder}"
                     SelectionMode="Single">
 
@@ -44,8 +45,8 @@
                                         <Label Grid.Row="0" Margin="3">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span FontAttributes="Bold" Text="Confectionery name: " />
-                                                    <Span Text="{Binding TheBaker.ConfectioneryName}" />
+                                                    <Span FontAttributes="Bold" Text="User Profile Name: " />
+                                                    <Span Text="{Binding TheUser.ProfileName}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>

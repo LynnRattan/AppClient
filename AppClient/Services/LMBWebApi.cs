@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using AppClient.Models;
 using AppClient.ModelsExt;
 //using Windows.Media.Protection.PlayReady;
+//using Windows.Media.Protection.PlayReady;
 
 namespace AppClient.Services
 {
@@ -803,35 +804,30 @@ namespace AppClient.Services
             }
         }
 
-        public async void DeleteOD(int dessertId)
+        public async Task<bool> DeleteOD(int dessertId)
         {
-            string url = $"{this.baseUrl}DeleteOrderedDessert";
+            string parameterKey = "id";
+            string parameterValue = dessertId.ToString();
+            string url = $"{this.baseUrl}DeleteOrderedDessert?{parameterKey}={parameterValue}";
             try
             {
                 //Call the server API
-                string json = JsonSerializer.Serialize(dessertId);
-                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(url, content);
+                HttpResponseMessage response = await client.GetAsync(url);
                 //Extract the content as string
                 string resContent = await response.Content.ReadAsStringAsync();
                 //Check status
                 if (response.IsSuccessStatusCode)
                 {
-                    //Desrialize result
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-
+                    return true;
                 }
                 else
                 {
-                    return;
+                    return false;
                 }
             }
             catch (Exception ex)
             {
-                return;
+                return false;
             }
         }
 
@@ -967,6 +963,41 @@ namespace AppClient.Services
             {
                 return null;
             }
+        }
+
+
+        public async void UpdateProfits(Baker b, double price)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}UpdateProfits?price={price}";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(b);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+
+                }
+                else
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+
         }
     }
 }

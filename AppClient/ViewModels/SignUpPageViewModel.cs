@@ -607,7 +607,7 @@ namespace AppClient.ViewModels
                     }
                     InServerCall = false;
 
-                    ((App)Application.Current).LoggedInUser = newUserBaker;
+                    ((App)Application.Current).LoggedInBaker = newUserBaker;
                     AppShell shell = serviceProvider.GetService<AppShell>();
                     if (newUserBaker.UserTypeId == 1)
                         ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserProfilePage>());

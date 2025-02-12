@@ -10,14 +10,14 @@ using System.Windows.Input;
 
 namespace AppClient.ViewModels
 {
-    public class PreviousOrdersPageViewModel : ViewModelBase
+    public class BakerPreviousOrdersViewModel:ViewModelBase
     {
         private LMBWebApi proxy;
         private readonly IServiceProvider serviceProvider;
-        private List<Order> userOrdersKeeper;
-        private ObservableCollection<Order> userOrderes;
-        
-        public ObservableCollection<Order> UserOrders { get => userOrderes; set { userOrderes = value; OnPropertyChanged(); } }
+        private List<Order> bakerOrdersKeeper;
+        private ObservableCollection<Order> bakerOrderes;
+
+        public ObservableCollection<Order> BakerOrders { get => bakerOrderes; set { bakerOrderes = value; OnPropertyChanged(); } }
         private Order selectedOrder;
         public Order SelectedOrder { get => selectedOrder; set { selectedOrder = value; OnPropertyChanged(); } }
         private bool isRefreshing;
@@ -27,36 +27,36 @@ namespace AppClient.ViewModels
         public bool IsEmpty { get => isEmpty; set { isEmpty = value; OnPropertyChanged(); } }
 
 
-        public User? LoggedInUser { get; set; }
+        public Baker? LoggedInBaker { get; set; }
         public ICommand ViewOrderCommand { get; private set; }
-        public ICommand LoadUserOrdersCommand { get; private set; }
+        public ICommand LoadBakerOrdersCommand { get; private set; }
 
-        public PreviousOrdersPageViewModel(LMBWebApi proxy, IServiceProvider serviceProvider)
+        public BakerPreviousOrdersViewModel(LMBWebApi proxy, IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
-            LoggedInUser = ((App)Application.Current).LoggedInUser;
-            userOrdersKeeper = new();
-            UserOrders = new();
+            LoggedInBaker = ((App)Application.Current).LoggedInBaker;
+            bakerOrdersKeeper = new();
+            BakerOrders = new();
             isEmpty = true;
-            FillUserOrders();
+            FillBakerOrders();
             ViewOrderCommand = new Command(OnView);
-            LoadUserOrdersCommand = new Command(LoadUserOrders);
+            LoadBakerOrdersCommand = new Command(LoadBakerOrders);
 
         }
 
 
-       
-        private async void FillUserOrders()
-        {
-            userOrdersKeeper = await proxy.GetOrders();
 
-            foreach (Order o in userOrdersKeeper)
+        private async void FillBakerOrders()
+        {
+            bakerOrdersKeeper = await proxy.GetOrders();
+
+            foreach (Order o in bakerOrdersKeeper)
             {
-                if (o.UserId==LoggedInUser.UserId)
-                    UserOrders.Add(o);
+                if (o.BakerId == LoggedInBaker.BakerId && o.StatusCode!=1)
+                    BakerOrders.Add(o);
             }
-            if (UserOrders != null)
+            if (BakerOrders != null)
             {
                 isEmpty = false;
             }
@@ -68,15 +68,15 @@ namespace AppClient.ViewModels
             // Navigate to the UserViewOrder View page
             Dictionary<string, object> data = new Dictionary<string, object>();
             data.Add("SelectedOrder", SelectedOrder);
-            await Shell.Current.GoToAsync("ViewOrder", data);
+            await Shell.Current.GoToAsync("BakerViewOrder", data);
             SelectedOrder = null;
         }
-       
-        private async void LoadUserOrders()
+
+        private async void LoadBakerOrders()
         {
             IsRefreshing = true;
-            UserOrders.Clear();
-            FillUserOrders();
+            BakerOrders.Clear();
+            FillBakerOrders();
             IsRefreshing = false;
 
         }
@@ -84,4 +84,3 @@ namespace AppClient.ViewModels
 
     }
 }
-

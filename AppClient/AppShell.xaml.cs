@@ -20,6 +20,8 @@ namespace AppClient
             Routing.RegisterRoute("AddDessert", typeof(AddDessertPage));
             Routing.RegisterRoute("ViewCon", typeof(ViewConfectioneryPage));
             Routing.RegisterRoute("BuyDes", typeof(BuyDessertPage));
+            Routing.RegisterRoute("ViewOrder", typeof(UserViewOrderPage));
+            Routing.RegisterRoute("BakerViewOrder", typeof(BakerViewOrderPage));
         }
         
     }
