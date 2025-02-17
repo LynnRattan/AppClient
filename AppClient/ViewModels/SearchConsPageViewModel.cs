@@ -71,52 +71,58 @@ namespace AppClient.ViewModels
         private async void Filter()
         {
 
-            foundConfectioneries.Clear();
+            FoundConfectioneries.Clear();
             foreach (Baker b in foundConfectioneriesKeeper)
             {
                 if(b.StatusCode==2)
-                foundConfectioneries.Add(b);
+                FoundConfectioneries.Add(b);
             }
-            if (ConfectioneryName != null)
+            if (!string.IsNullOrEmpty(ConfectioneryName))
             {
-                foreach (Baker b in foundConfectioneries.ToList())
+                foreach (Baker b in FoundConfectioneries.ToList())
                 {
-                    if (b.ConfectioneryName != ConfectioneryName)
-                        foundConfectioneries.Remove(b);
+                    if (!(b.ConfectioneryName.Contains(ConfectioneryName)))
+                        FoundConfectioneries.Remove(b);
                 }
             }
             if (SelectedConfectioneryType != null)
             {
-                foreach (Baker b in foundConfectioneries.ToList())
+                foreach (Baker b in FoundConfectioneries.ToList())
                 {
                     if (b.ConfectioneryTypeId != SelectedConfectioneryType.ConfectioneryTypeId)
-                        foundConfectioneries.Remove(b);
+                        FoundConfectioneries.Remove(b);
                 }
             }
             if (SelectedDessertType != null)
             {
-                foreach (Baker b in foundConfectioneries.ToList())
+                foreach (Baker b in FoundConfectioneries.ToList())
                 {
+                    bool exists = false;
                     List <Dessert> l = await proxy.GetBakerDesserts(b.BakerId);
                     foreach (Dessert d in l)
                     {
-                        if (d.DessertTypeId != SelectedDessertType.DessertTypeId)
-                            foundConfectioneries.Remove(b);
+                        if (d.DessertTypeId == SelectedDessertType.DessertTypeId)
+                            exists = true;
+                    }
+                    if (!exists)
+                    {
+                        FoundConfectioneries.Remove(b);
                     }
                 }
             }
             if (HighestPrice != null)
             {
-                foreach (Baker b in foundConfectioneries.ToList())
+                foreach (Baker b in FoundConfectioneries.ToList())
                 {  
                         if (b.HighestPrice > double.Parse(HighestPrice))
-                            foundConfectioneries.Remove(b);  
+                            FoundConfectioneries.Remove(b);  
                 }
             }
-            if (foundConfectioneries.Count > 0)
+            if (FoundConfectioneries.Count > 0)
                 isEmpty = false;
             else isEmpty = true;
             OnPropertyChanged("IsEmpty");
+
         }
 
         private async void OnView()

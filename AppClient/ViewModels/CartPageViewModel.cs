@@ -172,6 +172,7 @@ namespace AppClient.ViewModels
                 isEmpty = false;
             }
             else isEmpty = true;
+            IsRefreshing = false;
         }
 
         public async void OnDeleteDessert(Object obj)
@@ -211,7 +212,7 @@ namespace AppClient.ViewModels
             {
                 string successMsg = "Quantity was successfully changed!";
                 await Application.Current.MainPage.DisplayAlert("Changing Quantity", successMsg, "ok");
-                LoadUserDesserts();
+                IsRefreshing = true;
             }
             else
             {
@@ -294,10 +295,9 @@ namespace AppClient.ViewModels
         }
         private async void LoadUserDesserts()
         {
-            IsRefreshing = true;
             IsChanging = false;
             FillUserDesserts();
-            IsRefreshing = false;
+            
 
         }
 

@@ -38,10 +38,7 @@ namespace AppClient.ViewModels
             }
         }
         public ICommand LoadBakerDessertsCommand { get; private set; }
-        public ICommand DeclineDessertCommand { get; private set; }
-       
-        public ICommand DeclineOrderCommand { get; private set; }
-        public ICommand ApproveOrderCommand { get; private set; }
+        
         public Baker? LoggedInBaker { get; set; }
 
 
@@ -55,30 +52,13 @@ namespace AppClient.ViewModels
             isEmpty = true;
             FillBakerDesserts();
             LoadBakerDessertsCommand = new Command(LoadBakerDesserts);
-            DeclineDessertCommand = new Command(OnDeclineDessert);
-            DeclineOrderCommand = new Command(OnDeclineOrder);
-            ApproveOrderCommand = new Command(OnApproveOrder);
+            
             
 
 
         }
 
-        private async void OnDeclineDessert()
-        {
-
-        }
-
-        private async void OnDeclineOrder()
-        {
-
-        }
-
-        private async void OnApproveOrder()
-        {
-
-        }
-
-
+        
         private async void FillBakerDesserts()
         {
             BakerOrderedDesserts.Clear();
@@ -88,7 +68,7 @@ namespace AppClient.ViewModels
 
             foreach (OrderedDessert d in orderedDessertsKeeper)
             {
-                if (d.OrderId == SelectedOrder.Id && d.StatusCode==1)
+                if (d.OrderId == SelectedOrder.Id && d.StatusCode!=1)
                 {
                     BakerOrderedDesserts.Add(d);
                 }

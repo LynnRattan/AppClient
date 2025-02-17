@@ -26,6 +26,10 @@ namespace AppClient.ViewModels
         private bool isEmpty;
         public bool IsEmpty { get => isEmpty; set { isEmpty = value; OnPropertyChanged(); } }
 
+       
+        
+        
+
 
         public Baker? LoggedInBaker { get; set; }
         public ICommand ViewOrderCommand { get; private set; }

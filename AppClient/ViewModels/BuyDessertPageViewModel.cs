@@ -84,7 +84,7 @@ namespace AppClient.ViewModels
             List<OrderedDessert> temp = await proxy.GetOrderedDesserts();
             foreach (OrderedDessert d in temp)
             {
-                if (d.UserId == LoggedInUser.UserId&&d.StatusCode==1)
+                if (d.UserId == LoggedInUser.UserId && d.OrderId == null)
                 {
                     UserDesserts.Add(d);
                 }

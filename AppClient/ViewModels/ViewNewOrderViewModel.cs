@@ -27,7 +27,7 @@ namespace AppClient.ViewModels
         private bool isEmpty;
         public bool IsEmpty { get => isEmpty; set { isEmpty = value; OnPropertyChanged(); } }
 
-
+        
 
         private Order selectedOrder;
         public Order SelectedOrder
@@ -91,7 +91,7 @@ namespace AppClient.ViewModels
 
         private async void OnApproveOrder()
         {
-            if (IsEmpty)
+            if (BakerOrderedDesserts.Count==0)
             {
                 string errorMsg = "You cannot approve an empty order.";
                 await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
@@ -101,7 +101,8 @@ namespace AppClient.ViewModels
                 if (await AppShell.Current.DisplayAlert("Order", "Would you like to approve the order?", "Yes", "Cancel"))
                 {
                     Order o = SelectedOrder;
-                    proxy.ApproveOrder(o.Id);
+                    DateOnly arrivaldate = DateOnly.FromDateTime(DateTime.Now);
+                    proxy.ApproveOrder(o.Id,arrivaldate);
                     foreach (OrderedDessert d in BakerOrderedDesserts.ToList())
                     {
                             BakerOrderedDesserts.Remove(d);
@@ -109,8 +110,9 @@ namespace AppClient.ViewModels
                             proxy.ApproveOrderedDes(d.OrderedDessertId);
                     }
                 }
+                 ((App)Application.Current).MainPage.Navigation.PopAsync();
             }
-            ((App)Application.Current).MainPage.Navigation.PopAsync();
+           
         }
 
 

@@ -85,7 +85,7 @@
                     </CollectionView.ItemTemplate>
                     <CollectionView.EmptyView>
                         <StackLayout>
-                            <Label HorizontalOptions="CenterAndExpand" Text="No pending confectioneries." />
+                            <Label HorizontalOptions="CenterAndExpand" Text="No desserts in order." />
                             <Image
                                 Aspect="AspectFit"
                                 HeightRequest="80"

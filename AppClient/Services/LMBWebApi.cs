@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -1096,9 +1097,9 @@ namespace AppClient.Services
             }
         }
 
-        public async void ApproveOrder(int id)
+        public async void ApproveOrder(int id,DateOnly arrivalDate)
         {
-            string url = $"{this.baseUrl}approveorder";
+            string url = $"{this.baseUrl}approveorder?arrivalDate={arrivalDate}";
             try
             {
                 //Call the server API

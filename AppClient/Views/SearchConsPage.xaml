@@ -30,21 +30,20 @@
                 <SearchBar
                     Grid.Row="1"
                     HorizontalOptions="Center"
+                    Keyboard="Numeric"
                     Text="{Binding HighestPrice}" />
                 <Picker
                     Title="Choose a Confectionery Type"
                     Grid.Row="2"
                     Grid.Column="0"
-                    ItemDisplayBinding="{Binding ConfectioneryTypeName}"
                     ItemsSource="{Binding ConfectioneryTypes}"
-                    SelectedItem="{Binding BindingContext.SelectedConfectioneryType, Source={x:Reference scrlview}}" />
+                    SelectedItem="{Binding SelectedConfectioneryType}" />
                 <Picker
                     Title="Choose a Dessert Type"
                     Grid.Row="3"
                     Grid.Column="0"
-                    ItemDisplayBinding="{Binding DessertTypeName}"
                     ItemsSource="{Binding DessertTypes}"
-                    SelectedItem="{Binding BindingContext.SelectedDessertType, Source={x:Reference scrlview}}" />
+                    SelectedItem="{Binding SelectedDessertType}" />
 
                 <Button
                     Grid.Row="4"
