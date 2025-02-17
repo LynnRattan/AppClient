@@ -124,7 +124,7 @@ namespace AppClient.ViewModels
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
             isChanging = false;
-            LoggedInUser = ((App)Application.Current).LoggedInBaker;
+            LoggedInUser = ((App)Application.Current).LoggedInUser;
             orderedDessertsKeeper = new();
             UserOrderedDesserts = new();
             isEmpty = true;

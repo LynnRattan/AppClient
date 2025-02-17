@@ -302,7 +302,7 @@ namespace AppClient.ViewModels
                     DessertTypeId = dessertType,
                     Price = double.Parse(this.Price),
                     StatusCode = 1,
-                    BakerId = ((App)Application.Current).LoggedInBaker.UserId
+                    BakerId = ((App)Application.Current).LoggedInBaker.BakerId
                 };
 
 

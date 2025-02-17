@@ -21,7 +21,7 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
                     Margin="3"
-                    ItemsSource="{Binding UserOrderedDesserts}"
+                    ItemsSource="{Binding BakerOrderedDesserts}"
                     SelectedItem="{Binding SelectedOrderedDessert}"
                     SelectionMode="Single">
 

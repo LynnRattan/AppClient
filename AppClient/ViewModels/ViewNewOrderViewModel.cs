@@ -63,19 +63,54 @@ namespace AppClient.ViewModels
 
         }
 
-        private async void OnDeclineDessert()
+        private async void OnDeclineDessert(Object obj)
         {
-
+            if (await AppShell.Current.DisplayAlert("Dessert", "Would you like to decline the dessert?", "Yes", "Cancel"))
+            {
+                OrderedDessert d = (OrderedDessert)obj;
+                BakerOrderedDesserts.Remove(((OrderedDessert)obj));
+                proxy.DeclineOrderedDes(d.OrderedDessertId);
+            }
+            if (BakerOrderedDesserts == null)
+                IsEmpty = true;
         }
 
         private async void OnDeclineOrder()
         {
-
+            if (await AppShell.Current.DisplayAlert("Order", "Would you like to decline the order?", "Yes", "Cancel"))
+            {
+                Order o = SelectedOrder;
+                proxy.DeclineOrder(o.Id);
+                foreach(OrderedDessert d in BakerOrderedDesserts)
+                {
+                    proxy.DeclineOrderedDes(d.OrderedDessertId);
+                }
+            }
+            ((App)Application.Current).MainPage.Navigation.PopAsync();
         }
 
         private async void OnApproveOrder()
         {
-
+            if (IsEmpty)
+            {
+                string errorMsg = "You cannot approve an empty order.";
+                await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
+            }
+            else
+            {
+                if (await AppShell.Current.DisplayAlert("Order", "Would you like to approve the order?", "Yes", "Cancel"))
+                {
+                    Order o = SelectedOrder;
+                    proxy.ApproveOrder(o.Id);
+                    foreach (OrderedDessert d in BakerOrderedDesserts.ToList())
+                    {
+                            BakerOrderedDesserts.Remove(d);
+                        if(d.StatusCode!=3)
+                            proxy.ApproveOrderedDes(d.OrderedDessertId);
+                    }
+                }
+            }
+            ((App)Application.Current).MainPage.Navigation.PopAsync();
         }
 
 

@@ -43,7 +43,7 @@ namespace AppClient.ViewModels
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
             LoggedInBaker = ((App)Application.Current).LoggedInBaker;
-            LoggedInUser = ((App)Application.Current).LoggedInBaker;
+            LoggedInUser = ((App)Application.Current).LoggedInUser;
             bakerDessertsKeeper = new();
             BakerDesserts = new();
             isEmpty = true;

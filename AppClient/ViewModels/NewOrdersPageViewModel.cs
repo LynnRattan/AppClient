@@ -68,7 +68,7 @@ namespace AppClient.ViewModels
             // Navigate to the UserViewOrder View page
             Dictionary<string, object> data = new Dictionary<string, object>();
             data.Add("SelectedOrder", SelectedOrder);
-            await Shell.Current.GoToAsync("BakerViewOrder", data);
+            await Shell.Current.GoToAsync("ViewNewOrder", data);
             SelectedOrder = null;
         }
 
