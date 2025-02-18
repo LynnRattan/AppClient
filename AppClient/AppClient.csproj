@@ -60,6 +60,7 @@
     <None Remove="Resources\Images\approved.png" />
     <None Remove="Resources\Images\check.png" />
     <None Remove="Resources\Images\ex.png" />
+    <None Remove="Resources\Images\heart.png" />
     <None Remove="Resources\Images\rejected.png" />
     <None Remove="Resources\Images\sad.png" />
   </ItemGroup>

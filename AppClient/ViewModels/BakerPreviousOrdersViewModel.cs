@@ -42,7 +42,7 @@ namespace AppClient.ViewModels
             LoggedInBaker = ((App)Application.Current).LoggedInBaker;
             bakerOrdersKeeper = new();
             BakerOrders = new();
-            isEmpty = true;
+            IsEmpty = true;
             FillBakerOrders();
             ViewOrderCommand = new Command(OnView);
             LoadBakerOrdersCommand = new Command(LoadBakerOrders);
@@ -60,11 +60,10 @@ namespace AppClient.ViewModels
                 if (o.BakerId == LoggedInBaker.BakerId && o.StatusCode!=1)
                     BakerOrders.Add(o);
             }
-            if (BakerOrders != null)
+            if (BakerOrders != null&&BakerOrders.Count>0)
             {
-                isEmpty = false;
+                IsEmpty = false;
             }
-            else isEmpty = true;
         }
 
         public async void OnView(Object obj)

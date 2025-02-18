@@ -59,13 +59,13 @@ namespace AppClient.ViewModels
             {
                 if (b.StatusCode == 1)
                 {
-                    pendingConfectioneries.Add(b);
+                    PendingConfectioneries.Add(b);
                 }
             }
 
-            if(pendingConfectioneries!=null)
-                isEmpty = false;
-            else isEmpty = true;
+            if(PendingConfectioneries!=null &&PendingConfectioneries.Count>0)
+                IsEmpty = false;
+            else IsEmpty = true;
 
 
 
@@ -78,8 +78,9 @@ namespace AppClient.ViewModels
                 Baker baker = (Baker)obj;
                 PendingConfectioneries.Remove(((Baker)obj));
                 proxy.DeclineCon(baker.BakerId);
-                if (pendingConfectioneries == null)
-                    isEmpty = true;
+                if (PendingConfectioneries != null && PendingConfectioneries.Count > 0)
+                    IsEmpty = false;
+                else IsEmpty = true;
             }
         }
         public async void OnApprove(Object obj)
@@ -89,8 +90,9 @@ namespace AppClient.ViewModels
                 Baker baker = (Baker)obj;
                 PendingConfectioneries.Remove(((Baker)obj));
                 proxy.ApproveCon(baker.BakerId);
-                if (pendingConfectioneries == null)
-                    isEmpty = true;
+                if (PendingConfectioneries != null && PendingConfectioneries.Count > 0)
+                    IsEmpty = false;
+                else IsEmpty = true;
             }
         }
 

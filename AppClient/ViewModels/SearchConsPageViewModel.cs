@@ -119,8 +119,8 @@ namespace AppClient.ViewModels
                 }
             }
             if (FoundConfectioneries.Count > 0)
-                isEmpty = false;
-            else isEmpty = true;
+                IsEmpty = false;
+            else IsEmpty = true;
             OnPropertyChanged("IsEmpty");
 
         }
@@ -145,8 +145,8 @@ namespace AppClient.ViewModels
             SelectedDessertType = null;
             Filter();
             if (foundConfectioneries.Count > 0)
-                isEmpty = false;
-            else isEmpty = true;
+                IsEmpty = false;
+            else IsEmpty = true;
             OnPropertyChanged("IsEmpty");
             //OnPropertyChanged("LoggedInUser");
             IsRefreshing = false;

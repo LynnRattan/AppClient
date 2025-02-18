@@ -573,6 +573,7 @@ namespace AppClient.ViewModels
                     Mail = this.Mail,
                     Password = this.Password,
                     UserTypeId = userType,
+                    ProfileImagePath=""
                 };
                
                 //Call the Register method on the proxy to register the new user

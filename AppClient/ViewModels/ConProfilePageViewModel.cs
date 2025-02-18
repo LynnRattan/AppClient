@@ -64,7 +64,7 @@ namespace AppClient.ViewModels
                     bakerDesserts.Add(d);
                 }
             }
-            if (bakerDesserts.Count>0)
+            if (bakerDesserts!=null && bakerDesserts.Count>0)
                 isEmpty = false;
             else isEmpty = true;
             OnPropertyChanged("IsEmpty");

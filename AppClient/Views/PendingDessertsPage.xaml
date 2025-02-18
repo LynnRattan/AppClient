@@ -90,19 +90,21 @@
                             </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                    <CollectionView.EmptyView>
-                        <StackLayout>
-                            <Label HorizontalOptions="CenterAndExpand" Text="No pending desserts." />
-                            <Image
-                                Aspect="AspectFit"
-                                HeightRequest="80"
-                                HorizontalOptions="CenterAndExpand"
-                                Source="sad.png"
-                                WidthRequest="80" />
-                        </StackLayout>
-                    </CollectionView.EmptyView>
-                </CollectionView>
 
+                </CollectionView>
+                <Label
+                    Grid.Row="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsEmpty}"
+                    Text="No pending desserts." />
+                <Image
+                    Grid.Row="3"
+                    Aspect="AspectFit"
+                    HeightRequest="80"
+                    HorizontalOptions="CenterAndExpand"
+                    IsVisible="{Binding IsEmpty}"
+                    Source="sad.png"
+                    WidthRequest="80" />
 
             </Grid>
         </ScrollView>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppClient.Views.UserViewOrderPage"
-             Title="UserViewOrderPage"            
-             xmlns:Models="clr-namespace:AppClient.Models"
-             xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-             x:DataType="viewmodel:UserViewOrderViewModel">
+<ContentPage
+    x:Class="AppClient.Views.UserViewOrderPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Models="clr-namespace:AppClient.Models"
+    xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+    Title="UserViewOrderPage"
+    x:DataType="viewmodel:UserViewOrderViewModel">
     <RefreshView Command="{Binding LoadUserDessertsCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView x:Name="scrlview" Margin="10">
 
+            <Grid RowDefinitions="*,10*,*,*">
 
-           
                 <CollectionView
                     x:Name="collection"
-                    
                     Margin="3"
                     ItemsSource="{Binding UserOrderedDesserts}"
                     SelectedItem="{Binding SelectedOrderedDessert}"
@@ -21,79 +21,81 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="Models:OrderedDessert">
-                            
-                                <Border
-                                    Margin="4,5"
-                                    Padding="4"
-                                    HeightRequest="200">
-                                    <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*">
-                                        <Label Grid.Row="0" Margin="3">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span FontAttributes="Bold" Text="Dessert name: " />
-                                                    <Span Text="{Binding TheDessert.DessertName}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Grid.Row="1" Margin="3">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span FontAttributes="Bold" Text="Staus: " />
-                                                    <Span Text="{Binding StatusName}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
 
-                                        <Label Grid.Row="2" Margin="3">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span FontAttributes="Bold" Text="Quantity: " />
-                                                    <Span Text="{Binding Quantity}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
+                            <Border
+                                Margin="4,5"
+                                Padding="4"
+                                HeightRequest="200">
+                                <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*">
+                                    <Label Grid.Row="0" Margin="3">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="Dessert name: " />
+                                                <Span Text="{Binding TheDessert.DessertName}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="1" Margin="3">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="Staus: " />
+                                                <Span Text="{Binding StatusName}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <Label Grid.Row="2" Margin="3">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="Quantity: " />
+                                                <Span Text="{Binding Quantity}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
 
 
 
-                                        <Label Grid.Row="3" Margin="3">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span FontAttributes="Bold" Text="Price: " />
+                                    <Label Grid.Row="3" Margin="3">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="Price: " />
 
-                                                    <Span Text="{Binding Price}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Image
-                                            x:Name="dessertpic"
-                                            Grid.Row="0"
-                                            Grid.RowSpan="4"
-                                            Grid.Column="1"
-                                            HorizontalOptions="Fill"
-                                            Source="{Binding FullImageURL}" />
+                                                <Span Text="{Binding Price}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Image
+                                        x:Name="dessertpic"
+                                        Grid.Row="0"
+                                        Grid.RowSpan="4"
+                                        Grid.Column="1"
+                                        HorizontalOptions="Fill"
+                                        Source="{Binding FullImageURL}" />
 
-                                    </Grid>
-                                </Border>
-                           
+                                </Grid>
+                            </Border>
+
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                    <CollectionView.EmptyView>
-                        <StackLayout>
-                            <Label HorizontalOptions="CenterAndExpand" Text="No Desserts In Order." />
-                            <Image
-                                Aspect="AspectFit"
-                                HeightRequest="80"
-                                HorizontalOptions="CenterAndExpand"
-                                Source="sad.png"
-                                WidthRequest="80" />
-                        </StackLayout>
-                    </CollectionView.EmptyView>
+
                 </CollectionView>
+                <Label
+                    Grid.Row="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsEmpty}"
+                    Text="No dessert in order." />
+                <Image
+                    Grid.Row="3"
+                    Aspect="AspectFit"
+                    HeightRequest="80"
+                    HorizontalOptions="CenterAndExpand"
+                    IsVisible="{Binding IsEmpty}"
+                    Source="sad.png"
+                    WidthRequest="80" />
 
-                
+            </Grid>
 
 
-           
         </ScrollView>
     </RefreshView>
 </ContentPage>

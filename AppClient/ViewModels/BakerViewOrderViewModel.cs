@@ -74,11 +74,11 @@ namespace AppClient.ViewModels
                 }
 
             }
-            if (BakerOrderedDesserts != null)
+            if (BakerOrderedDesserts != null&&BakerOrderedDesserts.Count>0)
             {
-                isEmpty = false;
+                IsEmpty = false;
             }
-            else isEmpty = true;
+            else IsEmpty = true;
         }
 
 

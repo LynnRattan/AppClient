@@ -127,7 +127,7 @@ namespace AppClient.ViewModels
             LoggedInUser = ((App)Application.Current).LoggedInUser;
             orderedDessertsKeeper = new();
             UserOrderedDesserts = new();
-            isEmpty = true;
+            IsEmpty = true;
             FillUserDesserts();            
             DeleteDessertCommand = new Command(OnDeleteDessert);
             ChangeQuantityCommand = new Command(OnChangeQuantity);
@@ -169,9 +169,9 @@ namespace AppClient.ViewModels
             }
             if (UserOrderedDesserts != null)
             {
-                isEmpty = false;
+                IsEmpty = false;
             }
-            else isEmpty = true;
+            else IsEmpty = true;
             IsRefreshing = false;
         }
 
@@ -189,9 +189,9 @@ namespace AppClient.ViewModels
                 {
                     AppShell.Current.DisplayAlert("Dessert", "Something went wrong.\nPlease try again later", "Ok");
                 }
-                if (userOrderedDesserts == null)
+                if (userOrderedDesserts == null && userOrderedDesserts.Count>0)
                 {
-                    isEmpty = true;
+                    IsEmpty = true;
                 }
             }
         }
@@ -234,7 +234,7 @@ namespace AppClient.ViewModels
                     proxy.DeleteOD(od.OrderedDessertId);
                     
                 }
-                isEmpty = true;
+                IsEmpty = true;
             }
         }
 
@@ -285,7 +285,7 @@ namespace AppClient.ViewModels
                 {
                     string errorMsg = "Order has failed. Please try again.";
                     //If the registration failed, display an error message
-                    if (UserOrderedDesserts ==null)
+                    if (UserOrderedDesserts ==null || userOrderedDesserts.Count == 0)
                     {
                         errorMsg = "Your cart is empty.";
                     }

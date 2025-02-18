@@ -11,7 +11,7 @@
         <ScrollView x:Name="scrlview" Margin="10">
 
 
-            <Grid ColumnDefinitions="2*,2*,*,*" RowDefinitions="*,*,*,10*,*,*,*,*,*">
+            <Grid ColumnDefinitions="2*,2*,*,*" RowDefinitions="*,*,*,10*,*,*,*,*,*,*,*,*">
 
 
                 <Label
@@ -135,47 +135,49 @@
                             </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                    <CollectionView.EmptyView>
-                        <StackLayout>
-                            <Label HorizontalOptions="CenterAndExpand" Text="No pending confectioneries." />
-                            <Image
-                                Aspect="AspectFit"
-                                HeightRequest="80"
-                                HorizontalOptions="CenterAndExpand"
-                                Source="sad.png"
-                                WidthRequest="80" />
-                        </StackLayout>
-                    </CollectionView.EmptyView>
-                </CollectionView>
 
+                </CollectionView>
+                <Label
+                    Grid.Row="4"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsEmpty}"
+                    Text="No dessert in order." />
+                <Image
+                    Grid.Row="4"
+                    Aspect="AspectFit"
+                    HeightRequest="80"
+                    HorizontalOptions="CenterAndExpand"
+                    IsVisible="{Binding IsEmpty}"
+                    Source="sad.png"
+                    WidthRequest="80" />
                 <Label
                     x:Name="adress_lbl"
-                    Grid.Row="3"
+                    Grid.Row="5"
                     Grid.Column="0"
                     Margin="15"
                     Text="Adress" />
 
                 <Label
-                    Grid.Row="3"
+                    Grid.Row="5"
                     Grid.Column="1"
                     IsVisible="{Binding ShowAdressError}"
                     Text="{Binding AdressError}"
                     TextColor="Red" />
                 <Entry
-                    Grid.Row="3"
+                    Grid.Row="5"
                     Grid.RowSpan="1"
                     Grid.Column="1"
                     Placeholder="Enter city and street"
                     Text="{Binding Adress}" />
 
                 <Button
-                    Grid.Row="4"
+                    Grid.Row="6"
                     Grid.Column="1"
                     Command="{Binding DeleteAllCommand}"
                     HeightRequest="40"
                     Text="Delete" />
                 <Button
-                    Grid.Row="5"
+                    Grid.Row="6"
                     Grid.RowSpan="3"
                     Grid.Column="1"
                     Padding="10"

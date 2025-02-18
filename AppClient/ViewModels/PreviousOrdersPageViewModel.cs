@@ -56,11 +56,11 @@ namespace AppClient.ViewModels
                 if (o.UserId==LoggedInUser.UserId)
                     UserOrders.Add(o);
             }
-            if (UserOrders != null)
+            if (UserOrders != null && UserOrders.Count>0)
             {
-                isEmpty = false;
+                IsEmpty = false;
             }
-            else isEmpty = true;
+            else IsEmpty = true;
         }
 
         public async void OnView(Object obj)

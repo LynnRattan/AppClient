@@ -74,8 +74,8 @@ namespace AppClient.ViewModels
                 }
             }
             if (bakerDesserts.Count > 0)
-                isEmpty = false;
-            else isEmpty = true;
+                IsEmpty = false;
+            else IsEmpty = true;
             OnPropertyChanged("IsEmpty");
         }
 
@@ -106,8 +106,8 @@ namespace AppClient.ViewModels
             BakerDesserts.Clear();
             FillBakerDesserts();
             if (bakerDesserts.Count > 0)
-                isEmpty = false;
-            else isEmpty = true;
+                IsEmpty = false;
+            else IsEmpty = true;
             OnPropertyChanged("IsEmpty");
             OnPropertyChanged("LoggedInBaker");
             IsRefreshing = false;

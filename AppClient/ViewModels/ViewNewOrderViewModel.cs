@@ -75,8 +75,11 @@ namespace AppClient.ViewModels
                 await proxy.UpdateTotalPrice(SelectedOrder, newPrice);
                 
             }
-            if (BakerOrderedDesserts == null)
-                IsEmpty = true;
+            if (BakerOrderedDesserts != null && BakerOrderedDesserts.Count > 0)
+            {
+                IsEmpty = false;
+            }
+            else IsEmpty = true;
         }
 
         private async void OnDeclineOrder()
@@ -138,11 +141,11 @@ namespace AppClient.ViewModels
                 }
 
             }
-            if (BakerOrderedDesserts != null)
+            if (BakerOrderedDesserts != null&&BakerOrderedDesserts.Count>0)
             {
-                isEmpty = false;
+                IsEmpty = false;
             }
-            else isEmpty = true;
+            else IsEmpty = true;
         }
 
 

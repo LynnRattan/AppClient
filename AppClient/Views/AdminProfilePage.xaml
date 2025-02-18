@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppClient.Views.AdminProfilePage"
-             Title="AdminProfilePage">
+<ContentPage
+    x:Class="AppClient.Views.AdminProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+    Title="AdminProfilePage"
+    x:DataType="viewmodel:AdminProfilePageViewModel">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label
+            FontSize="Large"
+            HorizontalOptions="Center"
+            Text="{Binding LoggedInUser.ProfileName}"
+            VerticalOptions="Center" />
+        <Label
+            FontSize="Large"
+            HorizontalOptions="Center"
+            Text="Welcome back!"
+            VerticalOptions="Center" />
+
+        <Frame
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            Margin="10"
+            Padding="5"
+            BorderColor="White"
+            HorizontalOptions="Center">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    x:Name="heartpic"
+                    HeightRequest="150"
+                    Source="heart.png" />
+            </Grid>
+        </Frame>
     </VerticalStackLayout>
 </ContentPage>

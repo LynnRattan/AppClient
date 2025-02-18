@@ -52,17 +52,16 @@ namespace AppClient.ViewModels
         private async void FillPendingDesserts()
         {
             pendingDessertsKeeper = await proxy.GetDesserts();
-
             foreach (Dessert d in pendingDessertsKeeper)
             {
                 if (d.StatusCode == 1)
-                    pendingDesserts.Add(d);
+                    PendingDesserts.Add(d);
             }
-            if(pendingDesserts!=null)
+            if(PendingDesserts!=null&&PendingDesserts.Count>0)
             {
-                isEmpty = false;
+                IsEmpty = false;
             }
-            else isEmpty = true;
+            else IsEmpty = true;
         }
 
         public async void OnDecline(Object obj)
@@ -72,6 +71,11 @@ namespace AppClient.ViewModels
                 Dessert d = (Dessert)obj;
                 PendingDesserts.Remove(((Dessert)obj));
                 proxy.DeclineDes(d.DessertId);
+                if (PendingDesserts != null && PendingDesserts.Count > 0)
+                {
+                    IsEmpty = false;
+                }
+                else IsEmpty = true;
             }
         }
         public async void OnApprove(Object obj)
@@ -81,6 +85,11 @@ namespace AppClient.ViewModels
                 Dessert d = (Dessert)obj;
                 PendingDesserts.Remove(((Dessert)obj));
                 proxy.ApproveDes(d.DessertId);
+                if (PendingDesserts != null && PendingDesserts.Count > 0)
+                {
+                    IsEmpty = false;
+                }
+                else IsEmpty = true;
             }
         }
 
