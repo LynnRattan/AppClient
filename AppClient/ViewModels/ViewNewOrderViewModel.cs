@@ -67,9 +67,13 @@ namespace AppClient.ViewModels
         {
             if (await AppShell.Current.DisplayAlert("Dessert", "Would you like to decline the dessert?", "Yes", "Cancel"))
             {
+                double newPrice = SelectedOrder.TotalPrice;
                 OrderedDessert d = (OrderedDessert)obj;
                 BakerOrderedDesserts.Remove(((OrderedDessert)obj));
                 proxy.DeclineOrderedDes(d.OrderedDessertId);
+                newPrice -= d.Price;
+                await proxy.UpdateTotalPrice(SelectedOrder, newPrice);
+                
             }
             if (BakerOrderedDesserts == null)
                 IsEmpty = true;
@@ -109,6 +113,9 @@ namespace AppClient.ViewModels
                         if(d.StatusCode!=3)
                             proxy.ApproveOrderedDes(d.OrderedDessertId);
                     }
+                    LoggedInBaker.Profits += SelectedOrder.TotalPrice;
+                    proxy.UpdateProfits(LoggedInBaker);
+
                 }
                  ((App)Application.Current).MainPage.Navigation.PopAsync();
             }

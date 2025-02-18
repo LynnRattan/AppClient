@@ -277,7 +277,7 @@ namespace AppClient.ViewModels
                 if (newOrder != null)
                 {
                     InServerCall = false;
-                    proxy.UpdateProfits(newOrder.TheBaker, TotalPrice);
+                    
                     string successMsg = "Your order has been sent!";
                     await Application.Current.MainPage.DisplayAlert("Order", successMsg, "ok");
                 }

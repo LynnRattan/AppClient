@@ -967,10 +967,10 @@ namespace AppClient.Services
         }
 
 
-        public async void UpdateProfits(Baker b, double price)
+        public async void UpdateProfits(Baker b)
         {
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}UpdateProfits?price={price}";
+            string url = $"{this.baseUrl}UpdateProfits";
             try
             {
                 //Call the server API
@@ -1126,6 +1126,41 @@ namespace AppClient.Services
             catch (Exception ex)
             {
                 return;
+            }
+        }
+
+        public async Task<OrderedDessert?> UpdateTotalPrice(Order o, double newPrice)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}UpdateTotalPrice?newPrice={newPrice}";
+
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(o);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    OrderedDessert? result = JsonSerializer.Deserialize<OrderedDessert>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null; ;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
     }

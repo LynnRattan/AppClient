@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppClient.Views.BakerPreviousOrders"
-             Title="Previous Orders"
-             xmlns:Models="clr-namespace:AppClient.Models"
-             xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-   
+<ContentPage
+    x:Class="AppClient.Views.BakerPreviousOrders"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Models="clr-namespace:AppClient.Models"
+    xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+    Title="Previous Orders"
     x:DataType="viewmodel:BakerPreviousOrdersViewModel">
     <RefreshView Command="{Binding LoadBakerOrdersCommand}" IsRefreshing="{Binding IsRefreshing}">
 
         <ScrollView x:Name="scrlview" Margin="10">
 
 
-            <Grid ColumnDefinitions="3*,2*,*" RowDefinitions="1*,10*">
+            <Grid ColumnDefinitions="3*,2*,*" RowDefinitions="1*,10*,1*,1*">
 
 
 
@@ -87,19 +87,22 @@
                             </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
-                    <CollectionView.EmptyView>
-                        <StackLayout>
-                            <Label HorizontalOptions="CenterAndExpand" Text="No previous orders." />
-                            <Image
-                                Aspect="AspectFit"
-                                HeightRequest="80"
-                                HorizontalOptions="CenterAndExpand"
-                                Source="sad.png"
-                                WidthRequest="80" />
-                        </StackLayout>
-                    </CollectionView.EmptyView>
+
                 </CollectionView>
 
+                <Label
+                    Grid.Row="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsEmpty}"
+                    Text="No previous orders." />
+                <Image
+                    Grid.Row="3"
+                    Aspect="AspectFit"
+                    HeightRequest="80"
+                    HorizontalOptions="CenterAndExpand"
+                    IsVisible="{Binding IsEmpty}"
+                    Source="sad.png"
+                    WidthRequest="80" />
 
             </Grid>
         </ScrollView>
