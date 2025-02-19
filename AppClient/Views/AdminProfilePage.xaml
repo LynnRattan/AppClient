@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
     Title="AdminProfilePage"
-    x:DataType="viewmodel:AdminProfilePageViewModel">
+    x:DataType="viewmodel:AdminProfilePageViewModel"
+    BackgroundColor="LightPink"
+    Shell.BackgroundColor="LightPink">
     <VerticalStackLayout>
         <Label
             FontSize="Large"

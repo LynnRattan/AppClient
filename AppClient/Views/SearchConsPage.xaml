@@ -6,7 +6,9 @@
     xmlns:Models="clr-namespace:AppClient.Models"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
     Title="SearchConsPage"
-    x:DataType="viewmodel:SearchConsPageViewModel">
+    x:DataType="viewmodel:SearchConsPageViewModel"
+    BackgroundColor="LightPink"
+    Shell.BackgroundColor="LightPink">
     <RefreshView Command="{Binding LoadConfectioneriesCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView
             HorizontalOptions="Center"

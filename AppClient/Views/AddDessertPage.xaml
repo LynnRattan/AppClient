@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
     Title="AddDessertPage"
-    x:DataType="viewmodel:AddDessertPageViewModel">
+    x:DataType="viewmodel:AddDessertPageViewModel"
+    BackgroundColor="LightPink"
+    Shell.BackgroundColor="LightPink">
     <VerticalStackLayout>
         <ScrollView
             HorizontalScrollBarVisibility="Always"
@@ -16,23 +18,32 @@
 
 
                 <!--  תמונה של הקינוח  -->
-                <Frame Grid.ColumnSpan="2" HorizontalOptions="Center" BorderColor="Black" Padding="5" Margin="10">
+                <Frame
+                    Grid.ColumnSpan="2"
+                    Margin="10"
+                    Padding="5"
+                    BorderColor="Black"
+                    HorizontalOptions="Center">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Image x:Name="theImageBug" Source="{Binding PhotoURL}"  HeightRequest="150"/>
-                        <Label Grid.Row="1"
-Text="Click Here To Upload Photo!"
-TextColor="Blue"
-HorizontalOptions="Center"
-VerticalOptions="End">
+                        <Image
+                            x:Name="theImageBug"
+                            HeightRequest="150"
+                            Source="{Binding PhotoURL}" />
+                        <Label
+                            Grid.Row="1"
+                            HorizontalOptions="Center"
+                            Text="Click Here To Upload Photo!"
+                            TextColor="Blue"
+                            VerticalOptions="End">
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding UploadPhotoCommand}"/>
+                                <TapGestureRecognizer Command="{Binding UploadPhotoCommand}" />
                             </Label.GestureRecognizers>
                         </Label>
                     </Grid>
@@ -90,16 +101,16 @@ VerticalOptions="End">
                     Margin="15"
                     Text="Dessert Price" />
                 <Label
-    Grid.Row="3"
-    Grid.Column="1"
-    IsVisible="{Binding ShowPriceError}"
-    Text="{Binding PriceError}"
-    TextColor="Red" />
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    IsVisible="{Binding ShowPriceError}"
+                    Text="{Binding PriceError}"
+                    TextColor="Red" />
                 <Entry
-    Grid.Row="2"
-    Grid.Column="1"
-    Placeholder="Type Dessert Name"
-    Text="{Binding DessertName}" />
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Placeholder="Type Dessert Name"
+                    Text="{Binding DessertName}" />
 
                 <Entry
                     Grid.Row="3"

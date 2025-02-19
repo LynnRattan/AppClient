@@ -6,7 +6,9 @@
     xmlns:Models="clr-namespace:AppClient.Models"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
     Title="Pending Confectioneries"
-    x:DataType="viewmodel:PendingConfectioneriesPageViewModel">
+    x:DataType="viewmodel:PendingConfectioneriesPageViewModel"
+    BackgroundColor="LightPink"
+    Shell.BackgroundColor="LightPink">
     <RefreshView Command="{Binding LoadPendingConfectioneriesCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView x:Name="scrlview" Margin="10">
 

@@ -7,7 +7,10 @@
     Title="SignUpPage"
     x:DataType="viewmodel:SignUpPageViewModel"
     FlowDirection="LeftToRight">
-    <StackLayout VerticalOptions="FillAndExpand">
+    <StackLayout
+        BackgroundColor="LightPink"
+        Shell.BackgroundColor="LightPink"
+        VerticalOptions="FillAndExpand">
 
 
 

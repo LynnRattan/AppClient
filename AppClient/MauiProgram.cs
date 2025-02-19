@@ -29,7 +29,7 @@ namespace AppClient
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-
+            builder.ConfigureFonts(fonts => { fonts.AddFont("GladoliaDEMO-Regular.otf", "Font"); });
             return builder.Build();
         }
         public static MauiAppBuilder RegisterPages(this MauiAppBuilder builder)

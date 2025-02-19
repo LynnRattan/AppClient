@@ -1,54 +1,56 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppClient.Views.UserProfilePage"
-             Title="UserProfilePage"
+<ContentPage
+    x:Class="AppClient.Views.UserProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Models="clr-namespace:AppClient.Models"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-    
-    x:DataType="viewmodel:UserProfilePageViewModel">
+    Title="UserProfilePage"
+    x:DataType="viewmodel:UserProfilePageViewModel"
+    BackgroundColor="LightPink"
+    Shell.BackgroundColor="LightPink">
 
-            <VerticalStackLayout>
+    <VerticalStackLayout>
 
 
-                <Grid HorizontalOptions="Center" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*">
+        <Grid HorizontalOptions="Center" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*">
 
-                    <Label
-                        FontSize="Title"
-                        HorizontalOptions="Center"
-                        Text="{Binding LoggedInUser.ProfileName}" />
-                    <!--  תמונת פרופיל  -->
+            <Label
+                FontSize="Title"
+                HorizontalOptions="Center"
+                Text="{Binding LoggedInUser.ProfileName}" />
+            <!--  תמונת פרופיל  -->
 
-                    <Frame
-                        Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Margin="10"
-                        Padding="5"
-                        BorderColor="Black"
-                        HorizontalOptions="Center">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Image
-                                x:Name="profilepic"
-                                HeightRequest="150"
-                                Source="{Binding LoggedInUser.FullImageURL}" />
-                        </Grid>
-                    </Frame>
+            <Frame
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Margin="10"
+                Padding="5"
+                BorderColor="Black"
+                HorizontalOptions="Center">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image
+                        x:Name="profilepic"
+                        HeightRequest="150"
+                        Source="{Binding LoggedInUser.FullImageURL}" />
+                </Grid>
+            </Frame>
 
-                    <Label Grid.Row="2" Margin="3">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span FontAttributes="Bold" Text="Username: " />
-                                <Span Text="{Binding LoggedInUser.Username}" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+            <Label Grid.Row="2" Margin="3">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span FontAttributes="Bold" Text="Username: " />
+                        <Span Text="{Binding LoggedInUser.Username}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
             <Label Grid.Row="3" Margin="3">
                 <Label.FormattedText>
@@ -63,18 +65,18 @@
 
 
             <Button
-                        Grid.Row="5"
-                        FontSize="Title"
-                        Command="{Binding GoToShopCommand}"
-                        HorizontalOptions="Center"
-                        IsEnabled="{Binding NotInServerCall}"
-                        Text="Start shopping"
-                        VerticalOptions="Center" />
+                Grid.Row="5"
+                Command="{Binding GoToShopCommand}"
+                FontSize="Title"
+                HorizontalOptions="Center"
+                IsEnabled="{Binding NotInServerCall}"
+                Text="Start shopping"
+                VerticalOptions="Center" />
 
-                </Grid>
+        </Grid>
 
 
-            </VerticalStackLayout>
-       
+    </VerticalStackLayout>
+
 
 </ContentPage>

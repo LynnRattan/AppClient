@@ -22,6 +22,7 @@
                 <Grid HorizontalOptions="Center" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*">
 
                     <Label
+                        FontFamily="Font"
                         FontSize="Title"
                         HorizontalOptions="Center"
                         Text="{Binding LoggedInBaker.ConfectioneryName}" />

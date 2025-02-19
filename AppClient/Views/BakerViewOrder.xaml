@@ -6,7 +6,9 @@
     xmlns:Models="clr-namespace:AppClient.Models"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
     Title="BakerViewOrder"
-    x:DataType="viewmodel:BakerViewOrderViewModel">
+    x:DataType="viewmodel:BakerViewOrderViewModel"
+    BackgroundColor="LightPink"
+    Shell.BackgroundColor="LightPink">
     <RefreshView Command="{Binding LoadBakerDessertsCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView x:Name="scrlview" Margin="10">
 

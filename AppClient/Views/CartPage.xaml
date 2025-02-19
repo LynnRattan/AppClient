@@ -6,7 +6,9 @@
     xmlns:Models="clr-namespace:AppClient.Models"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
     Title="CartPage"
-    x:DataType="viewmodel:CartPageViewModel">
+    x:DataType="viewmodel:CartPageViewModel"
+    BackgroundColor="LightPink"
+    Shell.BackgroundColor="LightPink">
     <RefreshView Command="{Binding LoadUserDessertsCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView x:Name="scrlview" Margin="10">
 
