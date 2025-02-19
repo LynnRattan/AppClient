@@ -34,31 +34,6 @@
     </FlyoutItem>
 
     <FlyoutItem
-        x:Name="UserItems"
-        Title="UserItems"
-        FlyoutDisplayOptions="AsMultipleItems"
-        IsVisible="{Binding IsUser}"
-        Route="tabs">
-        <!--  Not Sure about the icon  -->
-        <ShellContent
-            Title="Profile"
-            ContentTemplate="{DataTemplate views:UserProfilePage}"
-            Route="UserProfile" />
-        <ShellContent
-            Title="Shop"
-            ContentTemplate="{DataTemplate views:SearchConsPage}"
-            Route="Shop" />
-        <ShellContent
-            Title="Previous Orderes"
-            ContentTemplate="{DataTemplate views:PreviousOrdersPage}"
-            Route="PreviousPurchases" />
-        <ShellContent
-            Title="Cart"
-            ContentTemplate="{DataTemplate views:CartPage}"
-            Route="Cart" />
-    </FlyoutItem>
-
-    <FlyoutItem
         x:Name="ConfectionerItems"
         Title="X=ConfectionerItems"
         FlyoutDisplayOptions="AsMultipleItems"
@@ -77,11 +52,45 @@
             ContentTemplate="{DataTemplate views:BakerPreviousOrders}"
             Route="PreviousOrders" />
         <!--<ShellContent
-            Title="Add Dessert"
-            ContentTemplate="{DataTemplate views:AddDessertPage}"
-            Route="AddDessert" />-->
+        Title="Add Dessert"
+        ContentTemplate="{DataTemplate views:AddDessertPage}"
+        Route="AddDessert" />-->
 
     </FlyoutItem>
+
+    <FlyoutItem
+        x:Name="UserItems"
+        Title="UserItems"
+        FlyoutDisplayOptions="AsMultipleItems"
+        IsVisible="{Binding IsUser}"
+        Route="tabs">
+        <!--  Not Sure about the icon  -->
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate views:UserProfilePage}"
+            Route="UserProfile" />
+    </FlyoutItem>
+    <FlyoutItem
+        x:Name="AllItems"
+        Title="AllItems"
+        FlyoutDisplayOptions="AsMultipleItems"
+        IsVisible="{Binding IsLoggedIn}"
+        Route="tabs">
+        <ShellContent
+            Title="Shop"
+            ContentTemplate="{DataTemplate views:SearchConsPage}"
+            Route="Shop" />
+        <ShellContent
+            Title="Previous Purchases"
+            ContentTemplate="{DataTemplate views:PreviousOrdersPage}"
+            Route="Previous Purchases" />
+        <ShellContent
+            Title="Cart"
+            ContentTemplate="{DataTemplate views:CartPage}"
+            Route="Cart" />
+    </FlyoutItem>
+
+
 
     <!--<FlyoutItem x:Name="MasterItems" FlyoutDisplayOptions="AsMultipleItems" Route="tabs" Title="MasterItems"  IsVisible="{Binding IsMaster}">
     -->

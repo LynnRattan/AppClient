@@ -17,6 +17,7 @@ namespace AppClient.ViewModels
             private bool isUser;
             private bool isConfectioner;
             private bool isAdmin;
+        private bool isLoggedIn;
            
             public AppShellViewModel(IServiceProvider serviceProvider)
             {
@@ -26,8 +27,21 @@ namespace AppClient.ViewModels
            
             //on pressing logout in the shell bar on the left
             public ICommand LogoutCommand { get; set; }
-           
-            public bool IsUser
+
+        public bool IsLoggedIn
+        {
+            get
+            {
+                if ((App)Application.Current == null)
+                    return true;
+                else if (((App)Application.Current).LoggedInUser!= null)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        public bool IsUser
             {
                 get
                 {
@@ -71,6 +85,7 @@ namespace AppClient.ViewModels
            
             public void OnLogout()
             {
+                ((App)Application.Current).LoggedInUser = null;
                 ((App)Application.Current).LoggedInBaker = null;
            
                 ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<LoginPage>());

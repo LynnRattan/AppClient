@@ -124,6 +124,7 @@ namespace AppClient.ViewModels
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
             isChanging = false;
+            TotalPrice = 0;
             LoggedInUser = ((App)Application.Current).LoggedInUser;
             orderedDessertsKeeper = new();
             UserOrderedDesserts = new();
@@ -153,6 +154,7 @@ namespace AppClient.ViewModels
         }
         private async void FillUserDesserts()
         {
+            this.TotalPrice = 0;
             UserOrderedDesserts.Clear();
             orderedDessertsKeeper.Clear();
             this.totalPrice = 0;
@@ -167,7 +169,7 @@ namespace AppClient.ViewModels
                 }
 
             }
-            if (UserOrderedDesserts != null)
+            if (UserOrderedDesserts != null&&UserOrderedDesserts.Count>0)
             {
                 IsEmpty = false;
             }
@@ -189,7 +191,7 @@ namespace AppClient.ViewModels
                 {
                     AppShell.Current.DisplayAlert("Dessert", "Something went wrong.\nPlease try again later", "Ok");
                 }
-                if (userOrderedDesserts == null && userOrderedDesserts.Count>0)
+                if (userOrderedDesserts == null || userOrderedDesserts.Count==0)
                 {
                     IsEmpty = true;
                 }
@@ -296,6 +298,7 @@ namespace AppClient.ViewModels
         private async void LoadUserDesserts()
         {
             IsChanging = false;
+            Adress = null;
             FillUserDesserts();
             
 

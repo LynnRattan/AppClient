@@ -141,7 +141,7 @@
                     Grid.Row="4"
                     HorizontalOptions="Center"
                     IsVisible="{Binding IsEmpty}"
-                    Text="No dessert in order." />
+                    Text="Your cart is empty." />
                 <Image
                     Grid.Row="4"
                     Aspect="AspectFit"
@@ -165,7 +165,6 @@
                     TextColor="Red" />
                 <Entry
                     Grid.Row="5"
-                    Grid.RowSpan="1"
                     Grid.Column="1"
                     Placeholder="Enter city and street"
                     Text="{Binding Adress}" />

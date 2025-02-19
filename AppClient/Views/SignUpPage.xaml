@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-             x:Class="AppClient.Views.SignUpPage"
-             Title="SignUpPage"
-             FlowDirection="LeftToRight"
-             x:DataType="viewmodel:SignUpPageViewModel">
+<ContentPage
+    x:Class="AppClient.Views.SignUpPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+    Title="SignUpPage"
+    x:DataType="viewmodel:SignUpPageViewModel"
+    FlowDirection="LeftToRight">
     <StackLayout VerticalOptions="FillAndExpand">
 
-       
+
 
         <ScrollView
             HorizontalScrollBarVisibility="Always"
@@ -18,56 +19,129 @@
             <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*">
 
 
-                <!-- תמונת פרופיל -->
+                <!--  תמונת פרופיל  -->
 
-                <Frame Grid.ColumnSpan="2" HorizontalOptions="Center" BorderColor="Black" Padding="5" Margin="10">
+                <Frame
+                    Grid.ColumnSpan="2"
+                    Margin="10"
+                    Padding="5"
+                    BorderColor="Black"
+                    HorizontalOptions="Center">
                     <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Image x:Name="theImageBug" Source="{Binding PhotoURL}"  HeightRequest="150"/>
-                            <Label Grid.Row="1"
-Text="Click Here To Upload Photo!"
-TextColor="Blue"
-HorizontalOptions="Center"
-VerticalOptions="End">
-                                <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding UploadPhotoCommand}"/>
-                                </Label.GestureRecognizers>
-                            </Label>
-                        </Grid>
-                    </Frame>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            x:Name="theImageBug"
+                            HeightRequest="150"
+                            Source="{Binding PhotoURL}" />
+                        <Label
+                            Grid.Row="1"
+                            HorizontalOptions="Center"
+                            Text="Click Here To Upload Photo!"
+                            TextColor="Blue"
+                            VerticalOptions="End">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding UploadPhotoCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Frame>
 
 
 
 
-                    <!--בחירת שם עמוד פרופיל-->
-                <Label HorizontalOptions="Center" Grid.Row="1" Text="Profile Name" Grid.Column="0" Style="{StaticResource labelProfileNameStyle}" />
-                <Label Grid.Row="1" TextColor="Red" Text="{Binding ProfileNameError}" IsVisible="{Binding ShowProfileNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
-                <Entry Grid.Row="1" Grid.Column="1" Placeholder="Type Profile Name" Text="{Binding ProfileName}" Style="{StaticResource entryStyle}" />
+                <!--  בחירת שם עמוד פרופיל  -->
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource labelProfileNameStyle}"
+                    Text="Profile Name" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    IsVisible="{Binding ShowProfileNameError}"
+                    Style="{StaticResource labelErrorStyle}"
+                    Text="{Binding ProfileNameError}"
+                    TextColor="Red" />
+                <Entry
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Placeholder="Type Profile Name"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding ProfileName}" />
 
-                <!--בחירת שם משתמש--> 
-                <Label HorizontalOptions="Center"  Grid.Row="2" Text="Username" Grid.Column="0" Style="{StaticResource labelUsernameStyle}" />
-                <Label  Grid.Row="2" TextColor="Red" Text="{Binding UsernameError}" IsVisible="{Binding ShowUsernameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
-                <Entry  Grid.Row="2"  Grid.Column="1" Placeholder="Type Username" Text="{Binding Username}" Style="{StaticResource entryStyle}" />
+                <!--  בחירת שם משתמש  -->
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource labelUsernameStyle}"
+                    Text="Username" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    IsVisible="{Binding ShowUsernameError}"
+                    Style="{StaticResource labelErrorStyle}"
+                    Text="{Binding UsernameError}"
+                    TextColor="Red" />
+                <Entry
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Placeholder="Type Username"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding Username}" />
 
 
-               
-                <!--בחירת מייל-->
-                <Label HorizontalOptions="Center" Grid.Row="3" Text="Mail" Grid.Column="0" Style="{StaticResource labelMailStyle}" />
-                <Label Grid.Row="3" TextColor="Red" Text="{Binding MailError}" IsVisible="{Binding ShowMailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
-                <Entry Grid.Row="3" Grid.Column="1"  Placeholder="Type Mail" Text="{Binding Mail}" Style="{StaticResource entryStyle}" />
 
-                <!--בחירת סיסמה-->
-                <Label  HorizontalOptions="Center" Grid.Row="4" Text="Password" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
-                <Label Grid.Row="4" TextColor="Red" Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
-                <Entry Grid.Row="4" Grid.Column="1" Placeholder="Type Password" Text="{Binding Password}" Style="{StaticResource entryStyle}" />
+                <!--  בחירת מייל  -->
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource labelMailStyle}"
+                    Text="Mail" />
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    IsVisible="{Binding ShowMailError}"
+                    Style="{StaticResource labelErrorStyle}"
+                    Text="{Binding MailError}"
+                    TextColor="Red" />
+                <Entry
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Placeholder="Type Mail"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding Mail}" />
 
-              
+                <!--  בחירת סיסמה  -->
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource labelNameStyle}"
+                    Text="Password" />
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    IsVisible="{Binding ShowPasswordError}"
+                    Style="{StaticResource labelErrorStyle}"
+                    Text="{Binding PasswordError}"
+                    TextColor="Red" />
+                <Entry
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Placeholder="Type Password"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding Password}" />
+
+
 
 
                 <!--  בחירת סוג משתמש  -->
@@ -90,76 +164,112 @@ VerticalOptions="End">
                     <!--  RadioButton לקונה  -->
                     <RadioButton
                         Content="regular user"
-                        IsChecked="True"
-                        GroupName="UserType"/>
+                        GroupName="UserType"
+                        IsChecked="True" />
                 </StackLayout>
 
-                <!--בחירת שם קודנטוריה-->
-                <Label IsVisible="{Binding IsConChecked}" HorizontalOptions="Center" Grid.Row="9" Text="Confectionery Name" Grid.Column="0" />
-                <Label Grid.Row="9" TextColor="Red" Text="{Binding ConfectioneryNameError}" IsVisible="{Binding ShowConfectioneryNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
-                <Entry IsVisible="{Binding IsConChecked}" Grid.Row="9" Grid.Column="1" Placeholder="Type Confectionery Name" Text="{Binding ConfectioneryName}" Style="{StaticResource entryStyle}" />
+                <!--  בחירת שם קודנטוריה  -->
+                <Label
+                    Grid.Row="9"
+                    Grid.Column="0"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsConChecked}"
+                    Text="Confectionery Name" />
+                <Label
+                    Grid.Row="9"
+                    Grid.Column="1"
+                    IsVisible="{Binding ShowConfectioneryNameError}"
+                    Style="{StaticResource labelErrorStyle}"
+                    Text="{Binding ConfectioneryNameError}"
+                    TextColor="Red" />
+                <Entry
+                    Grid.Row="9"
+                    Grid.Column="1"
+                    IsVisible="{Binding IsConChecked}"
+                    Placeholder="Type Confectionery Name"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding ConfectioneryName}" />
 
                 <Label
-                    IsVisible="{Binding IsConChecked}"
+                    x:Name="highestPrice_lbl"
                     Grid.Row="10"
                     Grid.Column="0"
-    x:Name="highestPrice_lbl"
-    Margin="15"
-    Text="Highest Price" />
-                <Label Grid.Row="10" TextColor="Red" Text="{Binding HighestPriceError}" IsVisible="{Binding ShowHighestPriceError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
-                <Entry
+                    Margin="15"
                     IsVisible="{Binding IsConChecked}"
+                    Text="Highest Price" />
+                <Label
                     Grid.Row="10"
-Grid.Column="1"
-    Placeholder="Enter your highest price"
-    Text="{Binding HighestPrice}" />
+                    Grid.Column="1"
+                    IsVisible="{Binding ShowHighestPriceError}"
+                    Style="{StaticResource labelErrorStyle}"
+                    Text="{Binding HighestPriceError}"
+                    TextColor="Red" />
+                <Entry
+                    Grid.Row="10"
+                    Grid.Column="1"
+                    IsVisible="{Binding IsConChecked}"
+                    Keyboard="Numeric"
+                    Placeholder="Enter your highest price"
+                    Text="{Binding HighestPrice}" />
 
-                
+
 
                 <Label
-                    IsVisible="{Binding IsConChecked}"
                     Grid.Row="11"
-Grid.Column="0"
-     Margin="15"
-     Text="Choose your confectionery type" />
+                    Grid.Column="0"
+                    Margin="15"
+                    IsVisible="{Binding IsConChecked}"
+                    Text="Choose your confectionery type" />
 
                 <StackLayout
-                    IsVisible="{Binding IsConChecked}"
                     Grid.Row="12"
-Grid.ColumnSpan="2"
-     HorizontalOptions="Center"
-     Orientation="Horizontal">
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding IsConChecked}"
+                    Orientation="Horizontal">
                     <!--  RadioButton למאפייה  -->
                     <RadioButton
-         Content="Bakery"
-         GroupName="ConType"
-         IsChecked="{Binding IsBakeryChecked}"/>
+                        Content="Bakery"
+                        GroupName="ConType"
+                        IsChecked="{Binding IsBakeryChecked}" />
 
                     <!--  RadioButton לפטיסרי  -->
                     <RadioButton
-         Content="Patisserie"
-         GroupName="ConType"
-         IsChecked="{Binding IsPatisserieChecked}"/>
-                    
+                        Content="Patisserie"
+                        GroupName="ConType"
+                        IsChecked="{Binding IsPatisserieChecked}" />
+
                     <!--  RadioButton לביתית  -->
                     <RadioButton
-         Content="Homemade"
-         GroupName="ConType"
-         IsChecked="{Binding IsHomemadeChecked}"/>
-                    
+                        Content="Homemade"
+                        GroupName="ConType"
+                        IsChecked="{Binding IsHomemadeChecked}" />
+
                     <!--  RadioButton להכל  -->
                     <RadioButton
-         Content="Everything"
-                        IsChecked="True"
-         GroupName="ConType"/>
+                        Content="Everything"
+                        GroupName="ConType"
+                        IsChecked="True" />
                 </StackLayout>
 
-                <!--כפתורי הרשמה וביטול-->
-                <Button Text="Sign Up" Command="{Binding SignUpCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Row="13" Grid.Column="1" Style="{StaticResource buttonStyle}" />
-                <Button Text="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Row="13" Grid.Column="0" Style="{StaticResource buttonStyle}"/>
-               
+                <!--  כפתורי הרשמה וביטול  -->
+                <Button
+                    Grid.Row="13"
+                    Grid.Column="1"
+                    Command="{Binding SignUpCommand}"
+                    IsEnabled="{Binding NotInServerCall}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Sign Up" />
+                <Button
+                    Grid.Row="13"
+                    Grid.Column="0"
+                    Command="{Binding CancelCommand}"
+                    IsEnabled="{Binding NotInServerCall}"
+                    Style="{StaticResource buttonStyle}"
+                    Text="Cancel" />
 
-                
+
+
 
             </Grid>
 

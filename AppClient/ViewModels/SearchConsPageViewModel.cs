@@ -43,6 +43,7 @@ namespace AppClient.ViewModels
         private bool isEmpty;
         public bool IsEmpty { get => isEmpty; set { isEmpty = value; OnPropertyChanged(); } }
 
+        public User? LoggedInUser { get; set; }
 
         public ICommand ViewConfectioneryCommand { get; private set; }
         public ICommand FilterCommand { get; private set; }
@@ -51,6 +52,7 @@ namespace AppClient.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
+            LoggedInUser = ((App)Application.Current).LoggedInUser;
             ConfectioneryTypes = ((App)Application.Current).ConfectioneryTypes;
             DessertTypes = ((App)Application.Current).DessertTypes;
             foundConfectioneriesKeeper = new();
@@ -74,7 +76,7 @@ namespace AppClient.ViewModels
             FoundConfectioneries.Clear();
             foreach (Baker b in foundConfectioneriesKeeper)
             {
-                if(b.StatusCode==2)
+                if(b.StatusCode==2 && b.BakerId!=LoggedInUser.UserId)
                 FoundConfectioneries.Add(b);
             }
             if (!string.IsNullOrEmpty(ConfectioneryName))

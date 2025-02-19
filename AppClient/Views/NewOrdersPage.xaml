@@ -45,8 +45,8 @@
                                         <Label Grid.Row="0" Margin="3">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span FontAttributes="Bold" Text="User Profile Name: " />
-                                                    <Span Text="{Binding TheUser.ProfileName}" />
+                                                    <Span FontAttributes="Bold" Text="User Mail: " />
+                                                    <Span Text="{Binding TheUser.Mail}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>

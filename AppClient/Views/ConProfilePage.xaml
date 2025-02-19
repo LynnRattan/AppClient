@@ -5,8 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Models="clr-namespace:AppClient.Models"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-    Title="ConProfilePage"
-    x:DataType="viewmodel:ConProfilePageViewModel">
+    Title=""
+    x:DataType="viewmodel:ConProfilePageViewModel"
+    BackgroundColor="LightPink"
+    Shell.BackgroundColor="LightPink">
 
     <RefreshView Command="{Binding LoadBakerDessertsCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView

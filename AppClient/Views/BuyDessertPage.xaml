@@ -92,6 +92,7 @@
                 <Entry
                     Grid.Row="3"
                     Grid.Column="1"
+                    Keyboard="Numeric"
                     Placeholder="Enter quantity"
                     Text="{Binding Quantity}" />
 

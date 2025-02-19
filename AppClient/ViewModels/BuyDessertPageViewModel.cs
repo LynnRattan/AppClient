@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace AppClient.ViewModels
 {
     [QueryProperty(nameof(SelectedDessert), "SelectedDessert")]
-    public class BuyDessertPageViewModel:ViewModelBase
+    public class BuyDessertPageViewModel : ViewModelBase
     {
         private IServiceProvider serviceProvider;
         private LMBWebApi proxy;
@@ -36,7 +36,7 @@ namespace AppClient.ViewModels
                 OnPropertyChanged();
             }
         }
-    public User? LoggedInUser { get; set; }
+        public User? LoggedInUser { get; set; }
 
         private bool isOneCon;
         public bool IsOneCon
@@ -59,15 +59,15 @@ namespace AppClient.ViewModels
             int bakerID = 0;
             List<OrderedDessert> UserDesserts = new List<OrderedDessert>();
             List<OrderedDessert> temp = await proxy.GetOrderedDesserts();
-            foreach(OrderedDessert d in temp)
+            foreach (OrderedDessert d in temp)
             {
-                if(d.UserId==LoggedInUser.UserId)
+                if (d.UserId == LoggedInUser.UserId && d.OrderId == null)
                 {
                     UserDesserts.Add(d);
                 }
             }
 
-            if(UserDesserts.Count>0 && SelectedDessert.BakerId != UserDesserts[0].BakerId)
+            if (UserDesserts.Count > 0 && SelectedDessert.BakerId != UserDesserts[0].BakerId)
             {
                 return false;
             }
@@ -91,10 +91,10 @@ namespace AppClient.ViewModels
             }
 
             if (UserDesserts.Count > 0)
-            { 
-                foreach(OrderedDessert d in UserDesserts)
-               if(SelectedDessert.DessertId == d.DessertId)
-                return false;
+            {
+                foreach (OrderedDessert d in UserDesserts)
+                    if (SelectedDessert.DessertId == d.DessertId)
+                        return false;
             }
             return true;
 
@@ -154,7 +154,7 @@ namespace AppClient.ViewModels
 
         #endregion
 
-        
+
 
 
 
@@ -199,40 +199,37 @@ namespace AppClient.ViewModels
                 }
                 else
                 {
-                    string errorMsg = "Adding a dessert to cart failed. Please try again.";
-                    //If the registration failed, display an error message
-                    if (IsOneCon = false)
-                    {
-                        errorMsg = "You cannot order from different confectioneries.";
-                    }
+                    string errorMsg = "Adding the dessert to cart has failed.Please try again.";
                     await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
                 }
-                // Navigate to the Baker profile View page for User
-                //ViewConfectioneryPage vcp = serviceProvider.GetService<ViewConfectioneryPage>();
-                ((App)Application.Current).MainPage.Navigation.PopAsync();
             }
-            if (!b1)
+            else
             {
-                string errorMsg = "You cannot order from different confectioneries.";
-                await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
-            }
-            else if (!b2)
-            {
-                string errorMsg = "You cannot order the same dessert twice.";
-                await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
-            }
+
+                if (!b1)
+                {
+                    string errorMsg = "You cannot order from different confectioneries.";
+                    await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
+                }
+                else if (!b2)
+                {
+                    string errorMsg = "You cannot order the same dessert twice.";
+                    await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
+                }
             
-        }
 
-
-
-
-        public void OnCancel()
-        {
-            // Navigate to the Baker profile View page
-            ((App)Application.Current).MainPage.Navigation.PopAsync();
+            }
+             ((App)Application.Current).MainPage.Navigation.PopAsync();
 
         }
+
+
+                public void OnCancel()
+                {
+                    // Navigate to the Baker profile View page
+                    ((App)Application.Current).MainPage.Navigation.PopAsync();
+
+                }
     }
 }
     

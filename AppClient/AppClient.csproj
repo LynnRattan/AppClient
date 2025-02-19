@@ -57,6 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Fonts\GladoliaDEMO-Regular.otf" />
     <None Remove="Resources\Images\approved.png" />
     <None Remove="Resources\Images\check.png" />
     <None Remove="Resources\Images\ex.png" />
