@@ -101,14 +101,19 @@
                 </CollectionView>
 
                 <Label
-                    Grid.Row="2"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3"
                     HorizontalOptions="Center"
+                    FontSize="Title"
+                    VerticalOptions="Center"
                     IsVisible="{Binding IsEmpty}"
                     Text="No pending confectioneries." />
                 <Image
-                    Grid.Row="3"
-                    Aspect="AspectFit"
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="3"
+                    Margin="0,0,0,50"
                     HeightRequest="80"
+                    VerticalOptions="Center"
                     HorizontalOptions="CenterAndExpand"
                     IsVisible="{Binding IsEmpty}"
                     Source="sad.png"

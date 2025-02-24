@@ -94,16 +94,18 @@
 
                 <Label
                     Grid.Row="1"
+                    Grid.RowSpan="3"
                     Grid.ColumnSpan="3"
                     FontSize="Title"
+                    VerticalOptions="CenterAndExpand"
                     HorizontalOptions="Center"
                     IsVisible="{Binding IsEmpty}"
                     Text="No previous orders." />
                 <Image
-                    Grid.Row="0"
+                    Grid.Row="1"
                     Grid.ColumnSpan="3"
-                    Aspect="AspectFit"
                     HeightRequest="80"
+                    VerticalOptions="CenterAndExpand"
                     HorizontalOptions="CenterAndExpand"
                     IsVisible="{Binding IsEmpty}"
                     Source="sad.png"

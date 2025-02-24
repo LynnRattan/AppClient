@@ -89,6 +89,7 @@
 
                     <Label
                         Grid.Row="6"
+                        FontFamily="Font"
                         FontSize="Title"
                         HorizontalOptions="Center"
                         Text="Menu" />
@@ -102,6 +103,7 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             Grid.ColumnSpan="3"
+                            BackgroundColor="Beige"
                             Margin="3"
                             ItemsSource="{Binding BakerDesserts}"
                             SelectedItem="{Binding SelectedBakerDessert}"

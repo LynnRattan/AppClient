@@ -244,7 +244,7 @@ namespace AppClient.ViewModels
         {
             ValidateNewQuantity();
             ValidateAdress();
-            if (!ShowNewQuantityError && !ShowAdressError&& UserOrderedDesserts != null)
+            if (!ShowNewQuantityError && !ShowAdressError&& UserOrderedDesserts != null && UserOrderedDesserts.Count>0)
             {
                 Baker b = UserOrderedDesserts[0].TheBaker;
                 //Create a new AppUser object with the data from the registration form
@@ -285,15 +285,22 @@ namespace AppClient.ViewModels
                 }
                 else
                 {
-                    string errorMsg = "Order has failed. Please try again.";
+                    string errorMsg1 = "Order has failed. Please try again.";
                     //If the registration failed, display an error message
                     if (UserOrderedDesserts ==null || userOrderedDesserts.Count == 0)
                     {
-                        errorMsg = "Your cart is empty.";
+                        errorMsg1 = "Your cart is empty.";
                     }
-                    await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
+                    await Application.Current.MainPage.DisplayAlert("Error", errorMsg1, "ok");
                 }
             }
+            string errorMsg = "Order has failed. Please try again.";
+            //If the registration failed, display an error message
+            if (UserOrderedDesserts == null || userOrderedDesserts.Count == 0)
+            {
+                errorMsg = "Your cart is empty.";
+            }
+            await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
         }
         private async void LoadUserDesserts()
         {

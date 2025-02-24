@@ -92,13 +92,17 @@
 
                 </CollectionView>
                 <Label
-                    Grid.Row="2"
+                    Grid.Row="1"
+                    Grid.RowSpan="3"
+                    Grid.ColumnSpan="3"
+                    FontSize="Title"
                     HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
                     IsVisible="{Binding IsEmpty}"
-                    Text="No previous orders." />
+                    Text="No previous purchases." />
                 <Image
-                    Grid.Row="3"
-                    Aspect="AspectFit"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3"
                     HeightRequest="80"
                     HorizontalOptions="CenterAndExpand"
                     IsVisible="{Binding IsEmpty}"

@@ -20,12 +20,12 @@
             Text="Welcome back!"
             VerticalOptions="Center" />
 
-        <Frame
+        <Border
             Grid.Row="1"
             Grid.ColumnSpan="2"
             Margin="10"
             Padding="5"
-            BorderColor="White"
+            Stroke="Transparent"
             HorizontalOptions="Center">
             <Grid>
                 <Grid.RowDefinitions>
@@ -40,6 +40,6 @@
                     HeightRequest="150"
                     Source="heart.png" />
             </Grid>
-        </Frame>
+        </Border>
     </VerticalStackLayout>
 </ContentPage>

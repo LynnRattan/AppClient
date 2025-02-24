@@ -80,7 +80,8 @@
                     Grid.Row="2"
                     Grid.Column="0"
                     HorizontalOptions="Center"
-                    Text="Dessert Name" />
+                    VerticalOptions="Center"
+                    Text="Dessert Name:" />
                 <Label
                     Grid.Row="2"
                     Grid.Column="1"
@@ -99,7 +100,9 @@
                     Grid.Row="3"
                     Grid.Column="0"
                     Margin="15"
-                    Text="Dessert Price" />
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Text="Dessert Price:" />
                 <Label
                     Grid.Row="3"
                     Grid.Column="1"
@@ -113,6 +116,7 @@
                     Text="{Binding DessertName}" />
 
                 <Entry
+                    Keyboard="Numeric"
                     Grid.Row="3"
                     Grid.Column="1"
                     Placeholder="Enter your dessert price"
@@ -123,8 +127,10 @@
                 <Label
                     Grid.Row="4"
                     Grid.Column="0"
+                    Grid.ColumnSpan="2"
                     Margin="15"
-                    Text="Choose your dessert type" />
+                    HorizontalOptions="Center"
+                    Text="Choose your dessert type:" />
 
                 <StackLayout
                     Grid.Row="5"

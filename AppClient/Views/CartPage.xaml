@@ -19,10 +19,14 @@
                 <Label
                     Grid.Row="0"
                     HorizontalOptions="Center"
+                    FontSize="20"
+                    FontAttributes="Bold"
                     Text="Total Price:" />
                 <Label
                     Grid.Row="0"
                     Grid.Column="1"
+                    FontSize="20"
+                    FontAttributes="Bold"
                     Text="{Binding TotalPrice}" />
 
                 <Label
@@ -131,7 +135,15 @@
                                             Grid.Column="1"
                                             HorizontalOptions="Fill"
                                             Source="{Binding FullImageURL}" />
-
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup>
+                                                <VisualState Name="Selected">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="BackgroundColor" Value="white" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
                                     </Grid>
                                 </Border>
                             </SwipeView>
@@ -140,24 +152,30 @@
 
                 </CollectionView>
                 <Label
-                    Grid.Row="4"
+                    Grid.Row="3"
+                    Grid.RowSpan="4"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="4"
+                    VerticalOptions="Center"
                     HorizontalOptions="Center"
+                    FontSize="Title"
                     IsVisible="{Binding IsEmpty}"
                     Text="Your cart is empty." />
                 <Image
-                    Grid.Row="4"
-                    Aspect="AspectFit"
+                    Grid.Row="3"
+                    Grid.Column="1"
                     HeightRequest="80"
                     HorizontalOptions="CenterAndExpand"
                     IsVisible="{Binding IsEmpty}"
                     Source="sad.png"
                     WidthRequest="80" />
                 <Label
+                    HorizontalOptions="Center"
                     x:Name="adress_lbl"
                     Grid.Row="5"
                     Grid.Column="0"
                     Margin="15"
-                    Text="Adress" />
+                    Text="Adress:" />
 
                 <Label
                     Grid.Row="5"
