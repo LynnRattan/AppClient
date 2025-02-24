@@ -10,19 +10,26 @@
     Shell.BackgroundColor="LightPink">
     <VerticalStackLayout>
         <Label
-            FontSize="Large"
+            FontFamily="Font"
+            FontSize="60"
             HorizontalOptions="Center"
             Text="{Binding LoggedInUser.ProfileName}"
             VerticalOptions="Center" />
         <Label
-            FontSize="Large"
+            FontFamily="Font"
+            FontSize="90"
             HorizontalOptions="Center"
-            Text="Welcome back!"
+            Text="Welcome"
+            VerticalOptions="Center" />
+        <Label
+            FontFamily="Font"
+            FontSize="90"
+            HorizontalOptions="Center"
+            Text="back!"
             VerticalOptions="Center" />
 
         <Border
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
+           
             Margin="10"
             Padding="5"
             Stroke="Transparent"

@@ -23,6 +23,7 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
+                    BackgroundColor="LightCoral"
                     Margin="3"
                     ItemsSource="{Binding BakerOrderedDesserts}"
                     SelectedItem="{Binding SelectedOrderedDessert}"
@@ -35,7 +36,7 @@
                                     <SwipeItem
                                         Command="{Binding Source={x:Reference collection}, Path=BindingContext.DeclineDessertCommand}"
                                         CommandParameter="{Binding .}"
-                                        Text="Delete" />
+                                        Text="Decline" />
                                 </SwipeView.RightItems>
                                 <Border
                                     Margin="4,5"

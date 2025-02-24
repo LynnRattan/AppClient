@@ -25,6 +25,7 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
+                    
                     Margin="3"
                     ItemsSource="{Binding BakerOrders}"
                     SelectedItem="{Binding SelectedOrder}"
@@ -39,7 +40,7 @@
                                         CommandParameter="{Binding .}"
                                         Text="View" />
                                 </SwipeView.RightItems>
-                                <Border
+                                <Border BackgroundColor="LightCoral"
                                     Margin="4,5"
                                     Padding="4"
                                     HeightRequest="200">

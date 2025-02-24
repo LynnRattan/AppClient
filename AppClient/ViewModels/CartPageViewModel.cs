@@ -244,7 +244,7 @@ namespace AppClient.ViewModels
         {
             ValidateNewQuantity();
             ValidateAdress();
-            if (!ShowNewQuantityError && !ShowAdressError&& UserOrderedDesserts != null && UserOrderedDesserts.Count>0)
+            if (!ShowNewQuantityError && !ShowAdressError && UserOrderedDesserts != null && UserOrderedDesserts.Count > 0)
             {
                 Baker b = UserOrderedDesserts[0].TheBaker;
                 //Create a new AppUser object with the data from the registration form
@@ -257,11 +257,11 @@ namespace AppClient.ViewModels
                     Adress = Adress,
                     TotalPrice = this.TotalPrice,
                     StatusCode = 1,
-                    TheBaker=b,
-                    TheUser=LoggedInUser
+                    TheBaker = b,
+                    TheUser = LoggedInUser
                 };
 
-                
+
 
                 //Call the Register method on the proxy to register the new user
                 InServerCall = true;
@@ -279,7 +279,7 @@ namespace AppClient.ViewModels
                 if (newOrder != null)
                 {
                     InServerCall = false;
-                    
+
                     string successMsg = "Your order has been sent!";
                     await Application.Current.MainPage.DisplayAlert("Order", successMsg, "ok");
                 }
@@ -287,20 +287,23 @@ namespace AppClient.ViewModels
                 {
                     string errorMsg1 = "Order has failed. Please try again.";
                     //If the registration failed, display an error message
-                    if (UserOrderedDesserts ==null || userOrderedDesserts.Count == 0)
+                    if (UserOrderedDesserts == null || userOrderedDesserts.Count == 0)
                     {
                         errorMsg1 = "Your cart is empty.";
                     }
                     await Application.Current.MainPage.DisplayAlert("Error", errorMsg1, "ok");
                 }
             }
-            string errorMsg = "Order has failed. Please try again.";
-            //If the registration failed, display an error message
-            if (UserOrderedDesserts == null || userOrderedDesserts.Count == 0)
+            else
             {
-                errorMsg = "Your cart is empty.";
+                string errorMsg = "Order has failed. Please try again.";
+                //If the registration failed, display an error message
+                if (UserOrderedDesserts == null || userOrderedDesserts.Count == 0)
+                {
+                    errorMsg = "Your cart is empty.";
+                }
+                await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
             }
-            await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
         }
         private async void LoadUserDesserts()
         {

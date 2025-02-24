@@ -25,6 +25,7 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
+                    
                     Margin="3"
                     ItemsSource="{Binding PendingDesserts}"
                     SelectedItem="{Binding SelectedPendingDessert}"
@@ -43,7 +44,7 @@
                                         CommandParameter="{Binding .}"
                                         IconImageSource="check.png" />
                                 </SwipeView.RightItems>
-                                <Border
+                                <Border BackgroundColor="LightCoral"
                                     Margin="4,5"
                                     Padding="4"
                                     HeightRequest="200">
@@ -95,18 +96,23 @@
 
                 </CollectionView>
                 <Label
-                    Grid.Row="2"
-                    HorizontalOptions="Center"
-                    IsVisible="{Binding IsEmpty}"
-                    Text="No pending desserts." />
+    Grid.Row="1"
+    Grid.ColumnSpan="3"
+    HorizontalOptions="Center"
+    FontSize="Title"
+    VerticalOptions="Center"
+    IsVisible="{Binding IsEmpty}"
+    Text="No pending desserts." />
                 <Image
-                    Grid.Row="3"
-                    Aspect="AspectFit"
-                    HeightRequest="80"
-                    HorizontalOptions="CenterAndExpand"
-                    IsVisible="{Binding IsEmpty}"
-                    Source="sad.png"
-                    WidthRequest="80" />
+    Grid.RowSpan="2"
+    Grid.ColumnSpan="3"
+    Margin="0,0,0,50"
+    HeightRequest="80"
+    VerticalOptions="Center"
+    HorizontalOptions="CenterAndExpand"
+    IsVisible="{Binding IsEmpty}"
+    Source="sad.png"
+    WidthRequest="80" />
 
             </Grid>
         </ScrollView>

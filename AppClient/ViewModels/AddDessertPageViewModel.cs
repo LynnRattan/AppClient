@@ -283,6 +283,20 @@ namespace AppClient.ViewModels
             ValidatePrice();
             if (!ShowDessertNameError && !ShowPriceError)
             {
+                if (double.Parse(this.Price) > LoggedInBaker.HighestPrice)
+                {
+                    if (await AppShell.Current.DisplayAlert("Dessert price is higher than your highest price.", "Would you like to change you highest price?", "Yes", "Cancel"))
+                    {
+                        LoggedInBaker.HighestPrice = double.Parse(this.price);
+                        proxy.UpdateHighestPrice(LoggedInBaker);
+                    }
+                    else
+                    {
+                        ((App)Application.Current).MainPage.Navigation.PopAsync();
+                        return;
+                    }
+
+                }
                 int dessertType;
 
                 if (IsCakeChecked)
@@ -334,17 +348,7 @@ namespace AppClient.ViewModels
 
                         string successMsg = "Adding a dessert succeeded!";
                         await Application.Current.MainPage.DisplayAlert("Adding a dessert", successMsg, "ok");
-                        if (double.Parse(this.Price) > LoggedInBaker.HighestPrice)
-                        {
-                            if (await AppShell.Current.DisplayAlert("Dessert price is higher than your highest price.", "Would you like to change you highest price?", "Yes", "Cancel"))
-                            {
-                                LoggedInBaker.HighestPrice = double.Parse(this.price);
-                                proxy.UpdateHighestPrice(LoggedInBaker);
-
-                            }
-                            else
-                                OnCancel();
-                        }
+                        
 
                     }
                     else

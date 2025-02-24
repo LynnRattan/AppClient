@@ -24,6 +24,7 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
+                    
                     Margin="3"
                     ItemsSource="{Binding PendingConfectioneries}"
                     SelectedItem="{Binding SelectedPendingConfectionery}"
@@ -42,7 +43,7 @@
                                         CommandParameter="{Binding .}"
                                         IconImageSource="check.png" />
                                 </SwipeView.RightItems>
-                                <Border
+                                <Border BackgroundColor="LightCoral"
                                     Margin="4,5"
                                     Padding="4"
                                     HeightRequest="200">
@@ -101,6 +102,7 @@
                 </CollectionView>
 
                 <Label
+                    
                     Grid.Row="1"
                     Grid.ColumnSpan="3"
                     HorizontalOptions="Center"
@@ -109,6 +111,7 @@
                     IsVisible="{Binding IsEmpty}"
                     Text="No pending confectioneries." />
                 <Image
+                   
                     Grid.RowSpan="2"
                     Grid.ColumnSpan="3"
                     Margin="0,0,0,50"

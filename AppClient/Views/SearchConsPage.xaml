@@ -19,28 +19,35 @@
 
             <Grid RowDefinitions="*,*,*,*,*,*">
                 <Label
+                    FontSize="18"
                     Grid.Row="0"
                     Grid.Column="0"
                     HorizontalOptions="Center"
                     Text="Search by Confectionery Name:" />
-                <SearchBar HorizontalOptions="Center" Text="{Binding ConfectioneryName}" />
+                <SearchBar VerticalOptions="Center" HorizontalOptions="Center" Text="{Binding ConfectioneryName}" />
                 <Label
+                   
+                    FontSize="18"
                     Grid.Row="1"
                     Grid.Column="0"
                     HorizontalOptions="Center"
                     Text="Price Range:  0-" />
                 <SearchBar
                     Grid.Row="1"
+                    
+                    VerticalOptions="Center"
                     HorizontalOptions="Center"
                     Keyboard="Numeric"
                     Text="{Binding HighestPrice}" />
                 <Picker
+                    FontSize="18"
                     Title="Choose a Confectionery Type"
                     Grid.Row="2"
                     Grid.Column="0"
                     ItemsSource="{Binding ConfectioneryTypes}"
                     SelectedItem="{Binding SelectedConfectioneryType}" />
                 <Picker
+                    FontSize="18"
                     Title="Choose a Dessert Type"
                     Grid.Row="3"
                     Grid.Column="0"
@@ -70,6 +77,7 @@
                     Grid.Row="5"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
+                    
                     Margin="3"
                     ItemsSource="{Binding FoundConfectioneries}"
                     SelectedItem="{Binding SelectedFoundConfectionery}"
@@ -84,7 +92,7 @@
                                         CommandParameter="{Binding .}"
                                         Text="View" />
                                 </SwipeView.RightItems>
-                                <Border Margin="4,5" Padding="4">
+                                <Border Margin="4,5" Padding="4" BackgroundColor="LightCoral">
                                     <Grid
                                         ColumnDefinitions="1*,1.5*"
                                         HeightRequest="200"

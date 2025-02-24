@@ -23,6 +23,7 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
+                    BackgroundColor="LightCoral"
                     Margin="3"
                     ItemsSource="{Binding BakerOrderedDesserts}"
                     SelectedItem="{Binding SelectedOrderedDessert}"

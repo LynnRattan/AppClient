@@ -68,6 +68,7 @@
                     Grid.Row="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
+                    
                     Margin="3"
                     ItemsSource="{Binding UserOrderedDesserts}"
                     SelectedItem="{Binding SelectedOrderedDessert}"
@@ -86,7 +87,7 @@
                                         CommandParameter="{Binding .}"
                                         Text="Change Quantity" />
                                 </SwipeView.RightItems>
-                                <Border
+                                <Border BackgroundColor="LightCoral"
                                     Margin="4,5"
                                     Padding="4"
                                     HeightRequest="200">
@@ -171,6 +172,7 @@
                     WidthRequest="80" />
                 <Label
                     HorizontalOptions="Center"
+                    FontSize="20"
                     x:Name="adress_lbl"
                     Grid.Row="5"
                     Grid.Column="0"
@@ -179,24 +181,32 @@
 
                 <Label
                     Grid.Row="5"
+                    FontSize="18"
+                    HorizontalOptions="Center"
                     Grid.Column="1"
+                    Grid.ColumnSpan="2"
                     IsVisible="{Binding ShowAdressError}"
                     Text="{Binding AdressError}"
                     TextColor="Red" />
                 <Entry
                     Grid.Row="5"
                     Grid.Column="1"
+                    Grid.ColumnSpan="2"
                     Placeholder="Enter city and street"
+                    HorizontalOptions="Center"
                     Text="{Binding Adress}" />
 
                 <Button
                     Grid.Row="6"
                     Grid.Column="1"
+                    Grid.RowSpan="2"
+                    VerticalOptions="Center"
+                    Padding="10"
                     Command="{Binding DeleteAllCommand}"
                     HeightRequest="40"
                     Text="Delete" />
                 <Button
-                    Grid.Row="6"
+                    Grid.Row="7"
                     Grid.RowSpan="3"
                     Grid.Column="1"
                     Padding="10"
