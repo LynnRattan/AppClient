@@ -20,7 +20,7 @@
         Route="tabs">
         <!--  Not Sure about the icon  -->
         <ShellContent
-            Title="Profile"
+            Title="Home"
             ContentTemplate="{DataTemplate views:AdminProfilePage}"
             Route="AdminProfile" />
         <ShellContent

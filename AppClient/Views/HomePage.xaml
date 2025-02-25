@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="AppClient.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
+    Title="HomePage"
+    x:DataType="viewmodel:HomePageViewModel"
+    BackgroundColor="HotPink"
+    NavigationPage.HasNavigationBar="False">
+    <VerticalStackLayout>
+        <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="5*,*,*">
+            <Label
+                Grid.ColumnSpan="4"
+                Margin="0,180,0,90"
+                CharacterSpacing="1"
+                FontFamily="Font"
+                FontSize="60"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Text="LET ME BAKE!"
+                TextColor="LightPink"
+                VerticalOptions="Center" />
+
+            <Button
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#b53cb5"
+                CharacterSpacing="2"
+                Command="{Binding GoToLoginCommand}"
+                FontSize="20"
+                HeightRequest="75"
+                HorizontalOptions="Center"
+                Text="Login"
+                TextColor="White"
+                VerticalOptions="Center"
+                WidthRequest="150" />
+
+            <Button
+                Grid.Row="1"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#b53cb5"
+                CharacterSpacing="2"
+                Command="{Binding GoToSignUpCommand}"
+                FontSize="20"
+                HeightRequest="75"
+                HorizontalOptions="Center"
+                Text="Sign Up"
+                TextColor="White"
+                VerticalOptions="Center"
+                WidthRequest="150" />
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

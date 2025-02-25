@@ -25,7 +25,7 @@ namespace AppClient
             LoggedInBaker = null;
             LoadBasicDataFromServer();
             //Start with the Login View
-            MainPage = new NavigationPage(serviceProvider.GetService<LoginPage>());
+            MainPage = new NavigationPage(serviceProvider.GetService<HomePage>());
         }
 
 
