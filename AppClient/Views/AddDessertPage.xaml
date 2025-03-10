@@ -165,6 +165,7 @@
                 </StackLayout>
                 <!--  כפתורי הוספה וביטול  -->
                 <Button
+                    BackgroundColor="#b54cb5"
                     Grid.Row="12"
                     Grid.Column="1"
                     Command="{Binding AddDessertCommand}"
@@ -172,6 +173,7 @@
                     Text="Add Dessert" />
 
                 <Button
+                    BackgroundColor="#b54cb5"
                     Grid.Row="12"
                     Grid.Column="0"
                     Command="{Binding CancelCommand}"

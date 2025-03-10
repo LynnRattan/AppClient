@@ -45,6 +45,7 @@
         </Frame>
         <Label Text="{Binding ErrorMsg}" TextColor="Red" HorizontalOptions="Center"></Label>
         <Button
+            BackgroundColor="#b52cb5"
             x:Name="LoginButton"
             Margin="0,20,0,0"
             Command="{Binding LoginCommand}"

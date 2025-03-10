@@ -103,6 +103,7 @@
 
                 <!--  כפתורי הוספה לסל וביטול  -->
                 <Button
+                    BackgroundColor="#b54cb5"
                     Grid.Row="12"
                     Grid.Column="1"
                     Command="{Binding AddToCartCommand}"
@@ -110,6 +111,7 @@
                     Text="Add To Cart" />
 
                 <Button
+                    BackgroundColor="#b54cb5"
                     Grid.Row="12"
                     Grid.Column="0"
                     Command="{Binding CancelCommand}"

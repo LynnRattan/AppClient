@@ -13,7 +13,7 @@
     <VerticalStackLayout>
 
 
-        <Grid HorizontalOptions="Center" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*">
+        <Grid HorizontalOptions="Center" RowDefinitions="*,*,*,*,*,*,*">
 
             <Label
                 FontSize="Title"
@@ -43,7 +43,7 @@
                 </Grid>
             </Frame>
 
-            <Label Grid.Row="2" Margin="3">
+            <Label Grid.Row="2" Margin="3" FontSize="20">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span FontAttributes="Bold" Text="Username: " />
@@ -52,7 +52,7 @@
                 </Label.FormattedText>
             </Label>
 
-            <Label Grid.Row="3" Margin="3">
+            <Label Grid.Row="3" Margin="3" FontSize="20">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span FontAttributes="Bold" Text="Mail: " />
@@ -65,7 +65,8 @@
 
 
             <Button
-                Grid.Row="5"
+                Grid.Row="6"
+                BackgroundColor="#b53cb5"
                 Command="{Binding GoToShopCommand}"
                 FontSize="Title"
                 HorizontalOptions="Center"

@@ -58,13 +58,13 @@
                     Grid.Row="4"
                     Grid.ColumnSpan="3"
                     Margin="1"
-                    BackgroundColor="White"
-                    BorderColor="Black"
+                    BackgroundColor="#b53cb5"
+                   
                     BorderWidth="3"
                     Command="{Binding FilterCommand}"
                     HorizontalOptions="Center"
                     Text="Search"
-                    TextColor="Black"
+                    TextColor="White"
                     WidthRequest="200" />
 
 

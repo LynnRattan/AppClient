@@ -257,6 +257,7 @@
 
                 <!--  כפתורי הרשמה וביטול  -->
                 <Button
+                    BackgroundColor="#b54cb5"
                     Grid.Row="13"
                     Grid.Column="1"
                     Command="{Binding SignUpCommand}"
@@ -264,6 +265,7 @@
                     Style="{StaticResource buttonStyle}"
                     Text="Sign Up" />
                 <Button
+                    BackgroundColor="#b54cb5"
                     Grid.Row="13"
                     Grid.Column="0"
                     Command="{Binding CancelCommand}"

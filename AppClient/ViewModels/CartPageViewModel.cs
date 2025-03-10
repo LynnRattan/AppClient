@@ -125,6 +125,7 @@ namespace AppClient.ViewModels
             this.proxy = proxy;
             isChanging = false;
             TotalPrice = 0;
+            NewQuantity = null;
             LoggedInUser = ((App)Application.Current).LoggedInUser;
             orderedDessertsKeeper = new();
             UserOrderedDesserts = new();
@@ -207,36 +208,52 @@ namespace AppClient.ViewModels
 
         public async void OnUpdateQuantity(Object obj)
         {
-            OrderedDessert d = (OrderedDessert)obj;
-            OrderedDessert o = new OrderedDessert();
-            o=await proxy.UpdateQuantity(d, int.Parse(NewQuantity));
-            if (o != null)
+            ValidateNewQuantity();
+            if (!ShowNewQuantityError)
             {
-                string successMsg = "Quantity was successfully changed!";
-                await Application.Current.MainPage.DisplayAlert("Changing Quantity", successMsg, "ok");
-                IsRefreshing = true;
+                OrderedDessert d = (OrderedDessert)obj;
+                OrderedDessert o = new OrderedDessert();
+                o = await proxy.UpdateQuantity(d, int.Parse(NewQuantity));
+                if (o != null)
+                {
+                    string successMsg = "Quantity was successfully changed!";
+                    await Application.Current.MainPage.DisplayAlert("Changing Quantity", successMsg, "ok");
+                    IsRefreshing = true;
+                }
+                else
+                {
+                    string errorMsg = "Changing the quantity has failed. Please try again.";
+                    await Application.Current.MainPage.DisplayAlert("Changing Quantity", errorMsg, "ok");
+                }
+                IsChanging = false;
             }
             else
             {
-                string errorMsg = "Changing the quantity has failed. Please try again.";
-                await Application.Current.MainPage.DisplayAlert("Changing Quantity", errorMsg, "ok");
+                this.NewQuantityError = "New quantity is required";
             }
-            IsChanging = false;
         }
 
         public async void OnDeleteAll()
         {
-            if (await AppShell.Current.DisplayAlert("Dessert", "Would you like to empty your cart?", "Yes", "Cancel"))
+            if (UserOrderedDesserts.Count > 0 && UserOrderedDesserts != null)
             {
-                List<OrderedDessert> temp = this.UserOrderedDesserts.ToList();
-                foreach (OrderedDessert d in temp)
+                if (await AppShell.Current.DisplayAlert("Dessert", "Would you like to empty your cart?", "Yes", "Cancel"))
                 {
-                    OrderedDessert od = d;
-                    UserOrderedDesserts.Remove(d);
-                    proxy.DeleteOD(od.OrderedDessertId);
-                    
+                    List<OrderedDessert> temp = this.UserOrderedDesserts.ToList();
+                    foreach (OrderedDessert d in temp)
+                    {
+                        OrderedDessert od = d;
+                        UserOrderedDesserts.Remove(d);
+                        proxy.DeleteOD(od.OrderedDessertId);
+
+                    }
+                    IsEmpty = true;
                 }
-                IsEmpty = true;
+            }
+            else
+            {
+                string  errorMsg = "Your cart is already empty.";
+                await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
             }
         }
 

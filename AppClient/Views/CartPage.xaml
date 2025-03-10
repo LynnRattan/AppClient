@@ -51,18 +51,22 @@
                     Placeholder="Enter quantity"
                     Text="{Binding NewQuantity}" />
                 <Button
+                    BackgroundColor="#b54cb5"
                     Grid.Row="1"
                     Grid.Column="2"
+                    FontSize="10"
                     Command="{Binding UpdateQuantityCommand}"
                     CommandParameter="{Binding SelectedOrderedDessert}"
                     IsVisible="{Binding IsChanging}"
-                    Text="Change" />
+                    Text="Done" />
                 <Button
+                    BackgroundColor="#b54cb5"
+                    FontSize="10.5"
                     Grid.Row="1"
                     Grid.Column="3"
                     Command="{Binding CancelCommand}"
                     IsVisible="{Binding IsChanging}"
-                    Text="Cancle" />
+                    Text="Cancel" />
                 <CollectionView
                     x:Name="collection"
                     Grid.Row="2"
@@ -197,6 +201,7 @@
                     Text="{Binding Adress}" />
 
                 <Button
+                    BackgroundColor="#b54cb5"
                     Grid.Row="6"
                     Grid.Column="1"
                     Grid.RowSpan="2"
@@ -206,6 +211,7 @@
                     HeightRequest="40"
                     Text="Delete" />
                 <Button
+                    BackgroundColor="#b54cb5"
                     Grid.Row="7"
                     Grid.RowSpan="3"
                     Grid.Column="1"
