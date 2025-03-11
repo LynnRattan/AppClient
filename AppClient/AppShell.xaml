@@ -9,6 +9,7 @@
     Title="AppClient"
     x:DataType="viewmodel:AppShellViewModel"
     Shell.FlyoutBehavior="Flyout"
+    Shell.TabBarBackgroundColor="LightPink"
     Shell.FlyoutIcon="hamburger">
 
 
@@ -20,10 +21,12 @@
         Route="tabs">
         <!--  Not Sure about the icon  -->
         <ShellContent
+            Icon="dotnet_bot.png"
             Title="Home"
             ContentTemplate="{DataTemplate views:AdminProfilePage}"
             Route="AdminProfile" />
         <ShellContent
+            Icon="heart"
             Title="Pending Confectioneries"
             ContentTemplate="{DataTemplate views:PendingConfectioneriesPage}"
             Route="PendingConfectioneries" />
@@ -77,6 +80,7 @@
         IsVisible="{Binding IsLoggedIn}"
         Route="tabs">
         <ShellContent
+            Icon="shop.png"
             Title="Shop"
             ContentTemplate="{DataTemplate views:SearchConsPage}"
             Route="Shop" />
@@ -85,6 +89,7 @@
             ContentTemplate="{DataTemplate views:PreviousOrdersPage}"
             Route="Previous Purchases" />
         <ShellContent
+            Icon="cart.png"
             Title="Cart"
             ContentTemplate="{DataTemplate views:CartPage}"
             Route="Cart" />

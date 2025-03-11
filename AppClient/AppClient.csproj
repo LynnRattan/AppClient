@@ -59,11 +59,13 @@
   <ItemGroup>
     <None Remove="Resources\Fonts\GladoliaDEMO-Regular.otf" />
     <None Remove="Resources\Images\approved.png" />
+    <None Remove="Resources\Images\cart.png" />
     <None Remove="Resources\Images\check.png" />
     <None Remove="Resources\Images\ex.png" />
     <None Remove="Resources\Images\heart.png" />
     <None Remove="Resources\Images\rejected.png" />
     <None Remove="Resources\Images\sad.png" />
+    <None Remove="Resources\Images\shop.png" />
   </ItemGroup>
 
   <ItemGroup>

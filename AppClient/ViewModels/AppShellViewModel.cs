@@ -88,7 +88,7 @@ namespace AppClient.ViewModels
                 ((App)Application.Current).LoggedInUser = null;
                 ((App)Application.Current).LoggedInBaker = null;
            
-                ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<LoginPage>());
+                ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<HomePage>());
             }
            
            

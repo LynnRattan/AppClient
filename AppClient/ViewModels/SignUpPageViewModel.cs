@@ -610,6 +610,9 @@ namespace AppClient.ViewModels
 
                     ((App)Application.Current).LoggedInUser = newUserBaker;
                     AppShell shell = serviceProvider.GetService<AppShell>();
+
+                    string successMsg = "Welcome to LET ME BAKE!";
+                    await Application.Current.MainPage.DisplayAlert("Sign Up Succeeded!", successMsg, "ok");
                     if (newUserBaker.UserTypeId == 1)
                         ((App)(Application.Current)).MainPage.Navigation.PushAsync(serviceProvider.GetService<UserProfilePage>());
                     else if (newUserBaker.UserTypeId == 2)

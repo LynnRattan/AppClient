@@ -197,6 +197,7 @@
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
                     Placeholder="Enter city and street"
+                    PlaceholderColor="#e339d2"
                     HorizontalOptions="Center"
                     Text="{Binding Adress}" />
 
