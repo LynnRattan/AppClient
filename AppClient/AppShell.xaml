@@ -21,16 +21,17 @@
         Route="tabs">
         <!--  Not Sure about the icon  -->
         <ShellContent
-            Icon="dotnet_bot.png"
+            Icon="profile.png"
             Title="Home"
             ContentTemplate="{DataTemplate views:AdminProfilePage}"
             Route="AdminProfile" />
         <ShellContent
-            Icon="heart"
+            Icon="pendconfectioneries"
             Title="Pending Confectioneries"
             ContentTemplate="{DataTemplate views:PendingConfectioneriesPage}"
             Route="PendingConfectioneries" />
         <ShellContent
+            Icon="penddesserts"
             Title="Pending Desserts"
             ContentTemplate="{DataTemplate views:PendingDessertsPage}"
             Route="PendingPastries" />
@@ -44,14 +45,17 @@
         Route="tabs">
         <ShellContent
             Title="Profile"
+            Icon="profile.png"
             ContentTemplate="{DataTemplate views:ConProfilePage}"
             Route="ConProfile" />
         <ShellContent
             Title="New Orders"
+            Icon="neworders.png"
             ContentTemplate="{DataTemplate views:NewOrdersPage}"
             Route="NewOrders" />
         <ShellContent
             Title="Previous Orders"
+            Icon="prevorders.png"
             ContentTemplate="{DataTemplate views:BakerPreviousOrders}"
             Route="PreviousOrders" />
         <!--<ShellContent
@@ -70,6 +74,7 @@
         <!--  Not Sure about the icon  -->
         <ShellContent
             Title="Profile"
+            Icon="profile.png"
             ContentTemplate="{DataTemplate views:UserProfilePage}"
             Route="UserProfile" />
     </FlyoutItem>
@@ -86,6 +91,7 @@
             Route="Shop" />
         <ShellContent
             Title="Previous Purchases"
+            Icon="prevpurchases.png"
             ContentTemplate="{DataTemplate views:PreviousOrdersPage}"
             Route="Previous Purchases" />
         <ShellContent
@@ -107,5 +113,5 @@
           Route="CheckPendingQuestions" />
     </FlyoutItem>-->
 
-    <MenuItem Command="{Binding LogoutCommand}" Text="Logout" />
+    <MenuItem Command="{Binding LogoutCommand}" Text="Logout" IconImageSource="logout.png"/>
 </Shell>

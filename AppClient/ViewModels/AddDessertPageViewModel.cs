@@ -292,7 +292,7 @@ namespace AppClient.ViewModels
                     }
                     else
                     {
-                        ((App)Application.Current).MainPage.Navigation.PopAsync();
+                        //((App)Application.Current).MainPage.Navigation.PopAsync();
                         return;
                     }
 
