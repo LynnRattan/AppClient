@@ -1163,6 +1163,33 @@ namespace AppClient.Services
                 return null;
             }
         }
+
+        public async Task<bool> DeleteFromMenu(int dessertId)
+        {
+            string parameterKey = "id";
+            string parameterValue = dessertId.ToString();
+            string url = $"{this.baseUrl}DeleteFromMenu?{parameterKey}={parameterValue}";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Extract the content as string
+                string resContent = await response.Content.ReadAsStringAsync();
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
 

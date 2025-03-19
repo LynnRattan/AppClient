@@ -74,6 +74,7 @@
                                                 <FormattedString>
                                                     <Span FontAttributes="Bold" Text="Total Price: " />
                                                     <Span Text="{Binding TotalPrice}" />
+                                                    <Span Text="₪" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>

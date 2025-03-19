@@ -48,7 +48,7 @@ namespace AppClient.ViewModels
             BakerDesserts = new();
             isEmpty = true;
             FillBakerDesserts();
-            DeleteDessertCommand = new Command(OnDelete);
+            DeleteDessertCommand = new Command(DeleteFromMenu);
             GoToAddDessertCommand = new Command(OnAddDessert);
             LoadBakerDessertsCommand = new Command(LoadBakerDesserts);
         }
@@ -70,14 +70,35 @@ namespace AppClient.ViewModels
             OnPropertyChanged("IsEmpty");
         }
 
-        public async void OnDelete(Object obj)
+        //public async void OnDelete(Object obj)
+        //{
+        //    if (await AppShell.Current.DisplayAlert("Dessert", "Would you like to take off the dessert from the menu?", "Yes", "Cancel"))
+        //    {
+        //        Dessert dessert = (Dessert)obj;
+        //        BakerDesserts.Remove(((Dessert)obj));
+        //        proxy.DeclineDes(dessert.DessertId);
+        //        BakerDesserts.Add(dessert);
+        //    }
+        //}
+
+        public async void DeleteFromMenu(Object obj)
         {
             if (await AppShell.Current.DisplayAlert("Dessert", "Would you like to take off the dessert from the menu?", "Yes", "Cancel"))
             {
-                Dessert dessert = (Dessert)obj;
-                BakerDesserts.Remove(((Dessert)obj));
-                proxy.DeclineDes(dessert.DessertId);
-                BakerDesserts.Add(dessert);
+                Dessert d = (Dessert)obj;
+                bool isDeleted = await proxy.DeleteOD(d.DessertId);
+                if (isDeleted)
+                {
+                    BakerDesserts.Remove(((Dessert)obj));
+                }
+                else
+                {
+                    AppShell.Current.DisplayAlert("Dessert", "Something went wrong.\nPlease try again later", "Ok");
+                }
+                if (BakerDesserts == null || BakerDesserts.Count == 0)
+                {
+                    IsEmpty = true;
+                }
             }
         }
         private void OnAddDessert()

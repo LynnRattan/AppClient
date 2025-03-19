@@ -23,7 +23,7 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
-                    BackgroundColor="LightCoral"
+                    BackgroundColor="Transparent"
                     Margin="3"
                     ItemsSource="{Binding BakerOrderedDesserts}"
                     SelectedItem="{Binding SelectedOrderedDessert}"
@@ -35,6 +35,7 @@
                             <Border
                                 Margin="4,5"
                                 Padding="4"
+                                BackgroundColor="LightCoral"
                                 HeightRequest="200">
                                 <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*">
                                     <Label Grid.Row="0" Margin="3">

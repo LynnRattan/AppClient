@@ -23,7 +23,6 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
-                    BackgroundColor="LightCoral"
                     Margin="3"
                     ItemsSource="{Binding BakerOrderedDesserts}"
                     SelectedItem="{Binding SelectedOrderedDessert}"
@@ -41,6 +40,7 @@
                                 <Border
                                     Margin="4,5"
                                     Padding="4"
+                                    BackgroundColor="LightCoral"
                                     HeightRequest="200">
                                     <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*">
                                         <Label Grid.Row="0" Margin="3">
@@ -106,6 +106,7 @@
                 <Button
                     Grid.Row="4"
                     Grid.Column="1"
+                    FontAttributes="Bold"
                     Command="{Binding DeclineOrderCommand}"
                     HeightRequest="40"
                     Text="Decline" />
@@ -114,9 +115,10 @@
                     Grid.RowSpan="3"
                     Grid.Column="1"
                     Padding="10"
+                    FontAttributes="Bold"
                     Command="{Binding ApproveOrderCommand}"
                     HeightRequest="40"
-                    Text="Aprrove" />
+                    Text="Approve" />
 
 
             </Grid>

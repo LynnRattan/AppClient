@@ -103,7 +103,6 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             Grid.ColumnSpan="3"
-                            BackgroundColor="LightCoral"
                             Margin="3"
                             ItemsSource="{Binding BakerDesserts}"
                             SelectedItem="{Binding SelectedBakerDessert}"
@@ -121,6 +120,7 @@
                                         <Border
                                             Margin="4,5"
                                             Padding="4"
+                                            BackgroundColor="LightCoral"
                                             HeightRequest="200">
                                             <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*,*">
                                                 <Image
