@@ -42,7 +42,7 @@ namespace AppClient.ViewModels
             FillBakerOrders();
             ViewOrderCommand = new Command(OnView);
             LoadBakerOrdersCommand = new Command(LoadBakerOrders);
-
+          
         }
 
 

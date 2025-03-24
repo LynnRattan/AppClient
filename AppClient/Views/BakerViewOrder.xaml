@@ -23,8 +23,8 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
-                    BackgroundColor="Transparent"
                     Margin="3"
+                    BackgroundColor="Transparent"
                     ItemsSource="{Binding BakerOrderedDesserts}"
                     SelectedItem="{Binding SelectedOrderedDessert}"
                     SelectionMode="Single">
@@ -69,9 +69,10 @@
                                     <Label Grid.Row="3" Margin="3">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span FontAttributes="Bold" Text="Price: " />
+                                                <Span FontAttributes="Bold" Text="Total price: " />
 
                                                 <Span Text="{Binding Price}" />
+                                                <Span Text="₪" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>

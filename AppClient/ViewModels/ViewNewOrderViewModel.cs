@@ -84,16 +84,24 @@ namespace AppClient.ViewModels
 
         private async void OnDeclineOrder()
         {
-            if (await AppShell.Current.DisplayAlert("Order", "Would you like to decline the order?", "Yes", "Cancel"))
+            if (BakerOrderedDesserts.Count == 0)
             {
-                Order o = SelectedOrder;
-                proxy.DeclineOrder(o.Id);
-                foreach(OrderedDessert d in BakerOrderedDesserts)
-                {
-                    proxy.DeclineOrderedDes(d.OrderedDessertId);
-                }
+                string errorMsg = "You cannot decline an empty order.";
+                await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
             }
+            else
+            {
+                if (await AppShell.Current.DisplayAlert("Order", "Would you like to decline the order?", "Yes", "Cancel"))
+                {
+                    Order o = SelectedOrder;
+                    proxy.DeclineOrder(o.Id);
+                    foreach (OrderedDessert d in BakerOrderedDesserts)
+                    {
+                        proxy.DeclineOrderedDes(d.OrderedDessertId);
+                    }
+                }
             ((App)Application.Current).MainPage.Navigation.PopAsync();
+            }
         }
 
         private async void OnApproveOrder()

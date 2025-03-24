@@ -9,7 +9,7 @@
     x:DataType="viewmodel:SearchConsPageViewModel"
     BackgroundColor="LightPink"
     Shell.BackgroundColor="LightPink">
-    <RefreshView Command="{Binding LoadConfectioneriesCommand}" IsRefreshing="{Binding IsRefreshing}"> 
+    <RefreshView Command="{Binding LoadConfectioneriesCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView
             HorizontalOptions="Center"
             HorizontalScrollBarVisibility="Always"
@@ -19,59 +19,64 @@
 
             <Grid RowDefinitions="70,50,50,50,100,*">
                 <Label
-                    FontSize="18"
                     Grid.Row="0"
                     Grid.Column="0"
+                    FontSize="18"
                     HorizontalOptions="Center"
-                    VerticalOptions="Start"
-                    Text="Search by Confectionery Name:" />
-                <SearchBar VerticalOptions="End" HorizontalOptions="Center" Text="{Binding ConfectioneryName}" FontSize="18" Margin="0,0,0,10"/>
+                    Text="Search by Confectionery Name:"
+                    VerticalOptions="Start" />
+                <SearchBar
+                    Margin="0,0,0,10"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    Text="{Binding ConfectioneryName}"
+                    VerticalOptions="End" />
                 <HorizontalStackLayout Grid.Row="3" HorizontalOptions="Center">
                     <Label
                         FontSize="18"
-                        VerticalOptions="Center"
                         HorizontalOptions="Center"
-                        Text="Price Range:  0 -" />
+                        Text="Price Range:  0 -"
+                        VerticalOptions="Center" />
                     <Entry
-                        FontSize="18"
                         Margin="0,2,0,0"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Center" 
-                        Keyboard="Numeric" 
-                        Text="{Binding HighestPrice}"/>
+                        FontSize="18"
+                        HorizontalOptions="Center"
+                        Keyboard="Numeric"
+                        Text="{Binding HighestPrice}"
+                        VerticalOptions="Center" />
                     <Label
                         FontSize="18"
-                        VerticalOptions="Center"
                         HorizontalOptions="Center"
-                        Text="₪" />
+                        Text="₪"
+                        VerticalOptions="Center" />
                     <!--<SearchBar
                         Grid.Row="1"
-                        
+
                         VerticalOptions="Center"
                         HorizontalOptions="Center"
                         Keyboard="Numeric"
                         Text="{Binding HighestPrice}" />-->
                 </HorizontalStackLayout>
                 <Picker
-                    FontSize="18"
-                    WidthRequest="250"
                     Title="Choose a Confectionery Type"
-                    HorizontalTextAlignment="Center"
-                    HeightRequest="50"
                     Grid.Row="1"
                     Grid.Column="0"
-                    ItemsSource="{Binding ConfectioneryTypes}"
-                    SelectedItem="{Binding SelectedConfectioneryType}" />
-                <Picker
                     FontSize="18"
-                    WidthRequest="250"
-                    HorizontalTextAlignment="Center"
-                    Title="Choose a Dessert Type"
                     HeightRequest="50"
+                    HorizontalTextAlignment="Center"
+                    ItemsSource="{Binding ConfectioneryTypes}"
+                    SelectedItem="{Binding SelectedConfectioneryType}"
+                    WidthRequest="250" />
+                <Picker
+                    Title="Choose a Dessert Type"
                     Grid.Row="2"
                     Grid.Column="0"
+                    FontSize="18"
+                    HeightRequest="50"
+                    HorizontalTextAlignment="Center"
                     ItemsSource="{Binding DessertTypes}"
-                    SelectedItem="{Binding SelectedDessertType}" />
+                    SelectedItem="{Binding SelectedDessertType}"
+                    WidthRequest="250" />
 
                 <Button
                     Grid.Row="4"
@@ -80,12 +85,12 @@
                     BackgroundColor="#b53cb5"
                     BorderWidth="3"
                     Command="{Binding FilterCommand}"
+                    FontAttributes="Bold"
+                    FontSize="30"
+                    HeightRequest="70"
                     HorizontalOptions="Center"
                     Text="Search"
-                    FontSize="30"
-                    FontAttributes="Bold"
                     TextColor="White"
-                    HeightRequest="70"
                     WidthRequest="150" />
 
 
@@ -98,7 +103,6 @@
                     Grid.Row="5"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    
                     Margin="3"
                     ItemsSource="{Binding FoundConfectioneries}"
                     SelectedItem="{Binding SelectedFoundConfectionery}"
@@ -113,7 +117,10 @@
                                         CommandParameter="{Binding .}"
                                         Text="View" />
                                 </SwipeView.RightItems>
-                                <Border Margin="4,5" Padding="4" BackgroundColor="LightCoral">
+                                <Border
+                                    Margin="4,5"
+                                    Padding="4"
+                                    BackgroundColor="LightCoral">
                                     <Grid
                                         ColumnDefinitions="1*,1.5*"
                                         HeightRequest="200"
@@ -155,6 +162,7 @@
                                                     <Span FontAttributes="Bold" Text="Price range: " />
                                                     <Span Text="0-" />
                                                     <Span Text="{Binding HighestPrice}" />
+                                                    <Span Text="₪" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
@@ -178,21 +186,21 @@
                 </CollectionView>
                 <Label
                     Grid.Row="9"
-                    FontSize="18"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
                     Margin="0,0,0,130"
+                    FontSize="18"
+                    HorizontalOptions="Center"
                     IsVisible="{Binding IsEmpty}"
-                    Text="No Confectioneries Found" />
+                    Text="No Confectioneries Found"
+                    VerticalOptions="Center" />
                 <Image
                     Grid.Row="8"
                     Margin="0,-20,0,0"
                     Aspect="AspectFit"
                     HeightRequest="80"
-                    VerticalOptions="Center"
                     HorizontalOptions="CenterAndExpand"
                     IsVisible="{Binding IsEmpty}"
                     Source="sad.png"
+                    VerticalOptions="Center"
                     WidthRequest="80" />
 
 

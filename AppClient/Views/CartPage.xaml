@@ -7,28 +7,37 @@
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
     Title="CartPage"
     x:DataType="viewmodel:CartPageViewModel"
-    BackgroundColor="LightPink" 
+    BackgroundColor="LightPink"
     Shell.BackgroundColor="LightPink">
-    <!--#ffc5d4-->
-    <!--#ecb6c4-->
+    <!--  #ffc5d4  -->
+    <!--  #ecb6c4  -->
     <RefreshView Command="{Binding LoadUserDessertsCommand}" IsRefreshing="{Binding IsRefreshing}">
         <ScrollView x:Name="scrlview" Margin="10">
 
 
             <Grid ColumnDefinitions="2*,2*,*,*" RowDefinitions="*,*,10*,*,2*">
-                <HorizontalStackLayout Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center">
+                <HorizontalStackLayout
+                    Grid.Column="0"
+                    Grid.ColumnSpan="4"
+                    HorizontalOptions="Center">
                     <Label
-                         Grid.Row="0"
-                         HorizontalOptions="Center"
-                         FontSize="20"
-                         FontAttributes="Bold"
-                         Text="Total Price: " />
+                        Grid.Row="0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        Text="Total Price: " />
                     <Label
-                         Grid.Row="0"
-                         Grid.Column="1"
-                         FontSize="20"
-                         FontAttributes="Bold"
-                         Text="{Binding TotalPrice}" />
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontAttributes="Bold"
+                        FontSize="20">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding TotalPrice}" />
+                                <Span Text="₪" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                 </HorizontalStackLayout>
                 <Label
                     x:Name="newQuantity_lbl"
@@ -52,26 +61,26 @@
                     Placeholder="Enter quantity"
                     Text="{Binding NewQuantity}" />
                 <Button
-                    BackgroundColor="#b54cb5"
                     Grid.Row="1"
+                    Grid.Column="2"
                     Margin="2"
                     Padding="0"
-                    Grid.Column="2"
-                    FontAttributes="Bold"
-                    FontSize="12"
+                    BackgroundColor="#b54cb5"
                     Command="{Binding UpdateQuantityCommand}"
                     CommandParameter="{Binding SelectedOrderedDessert}"
+                    FontAttributes="Bold"
+                    FontSize="12"
                     IsVisible="{Binding IsChanging}"
                     Text="Done" />
                 <Button
-                    BackgroundColor="#b54cb5"
-                    FontAttributes="Bold"
-                    Margin="2"
-                    Padding="0"
-                    FontSize="12"
                     Grid.Row="1"
                     Grid.Column="3"
+                    Margin="2"
+                    Padding="0"
+                    BackgroundColor="#b54cb5"
                     Command="{Binding CancelCommand}"
+                    FontAttributes="Bold"
+                    FontSize="12"
                     IsVisible="{Binding IsChanging}"
                     Text="Cancel" />
                 <CollectionView
@@ -79,7 +88,6 @@
                     Grid.Row="2"
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
-                    
                     Margin="3"
                     ItemsSource="{Binding UserOrderedDesserts}"
                     SelectedItem="{Binding SelectedOrderedDessert}"
@@ -96,12 +104,12 @@
                                     <SwipeItem
                                         Command="{Binding Source={x:Reference collection}, Path=BindingContext.ChangeQuantityCommand}"
                                         CommandParameter="{Binding .}"
-                                        
                                         Text="Change Quantity" />
                                 </SwipeView.RightItems>
-                                <Border BackgroundColor="LightCoral"
+                                <Border
                                     Margin="4,5"
                                     Padding="4"
+                                    BackgroundColor="LightCoral"
                                     HeightRequest="200">
                                     <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*">
                                         <Label Grid.Row="0" Margin="3">
@@ -135,9 +143,10 @@
                                         <Label Grid.Row="3" Margin="3">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span FontAttributes="Bold" Text="Price: " />
+                                                    <Span FontAttributes="Bold" Text="Total price: " />
 
                                                     <Span Text="{Binding Price}" />
+                                                    <Span Text="₪" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
@@ -169,11 +178,11 @@
                     Grid.RowSpan="4"
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
                     FontSize="Title"
+                    HorizontalOptions="Center"
                     IsVisible="{Binding IsEmpty}"
-                    Text="Your cart is empty." />
+                    Text="Your cart is empty."
+                    VerticalOptions="Center" />
                 <Image
                     Grid.Row="2"
                     Grid.Column="1"
@@ -183,62 +192,62 @@
                     Source="sad.png"
                     WidthRequest="80" />
                 <Label
-                    HorizontalOptions="Center"
-                    FontSize="20"
                     x:Name="adress_lbl"
                     Grid.Row="3"
                     Grid.Column="0"
                     Margin="15"
+                    FontSize="20"
+                    HorizontalOptions="Center"
                     Text="Adress:" />
 
                 <Label
                     Grid.Row="3"
-                    FontSize="18"
-                    Margin="0,0,0,40"
-                    HorizontalOptions="Center"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
+                    Margin="0,0,0,40"
+                    FontSize="18"
+                    HorizontalOptions="Center"
                     IsVisible="{Binding ShowAdressError}"
                     Text="{Binding AdressError}"
                     TextColor="Red" />
                 <Entry
-                    HeightRequest="50"
                     Grid.Row="3"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
                     FontAttributes="Bold"
+                    HeightRequest="50"
+                    HorizontalOptions="Center"
                     Placeholder="Enter city and street"
                     PlaceholderColor="#e339d2"
-                    VerticalOptions="End"
-                    HorizontalOptions="Center"
-                    Text="{Binding Adress}" />
+                    Text="{Binding Adress}"
+                    VerticalOptions="End" />
 
                 <Button
-                    BackgroundColor="#b54cb5"
-                    Margin="70,10,10,10"
                     Grid.Row="4"
-                    WidthRequest="100"
-                    Grid.Column="0"
-                    HorizontalOptions="Start"
-                    Grid.ColumnSpan="4"
-                    FontSize="18"
-                        FontAttributes="Bold"
                     Grid.RowSpan="2"
-                    Command="{Binding DeleteAllCommand}"
-                    Text="Delete" />
-                <Button
-                    BackgroundColor="#b54cb5"
-                    Grid.Row="4"
-                    Margin="10,10,70,10"
-                    WidthRequest="100"
-                    Grid.RowSpan="3"
-                    HorizontalOptions="End"
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
-                    FontSize="18"
+                    Margin="70,10,10,10"
+                    BackgroundColor="#b54cb5"
+                    Command="{Binding DeleteAllCommand}"
                     FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="Start"
+                    Text="Delete"
+                    WidthRequest="100" />
+                <Button
+                    Grid.Row="4"
+                    Grid.RowSpan="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="4"
+                    Margin="10,10,70,10"
+                    BackgroundColor="#b54cb5"
                     Command="{Binding OrderCommand}"
-                    Text="Order" />
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalOptions="End"
+                    Text="Order"
+                    WidthRequest="100" />
 
 
             </Grid>

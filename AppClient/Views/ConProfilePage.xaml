@@ -73,6 +73,7 @@
                                 <Span FontAttributes="Bold" Text="Price range: " />
                                 <Span Text="0-" />
                                 <Span Text="{Binding LoggedInBaker.HighestPrice}" />
+                                <Span Text="₪" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -83,6 +84,7 @@
                                 <Span FontAttributes="Bold" Text="Profits: " />
 
                                 <Span Text="{Binding LoggedInBaker.Profits}" />
+                                <Span Text="₪" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -168,6 +170,7 @@
                                                         <FormattedString>
                                                             <Span FontAttributes="Bold" Text="Price: " />
                                                             <Span Text="{Binding Price}" />
+                                                            <Span Text="₪" />
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>

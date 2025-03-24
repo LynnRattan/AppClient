@@ -86,7 +86,7 @@ namespace AppClient.ViewModels
             if (await AppShell.Current.DisplayAlert("Dessert", "Would you like to take off the dessert from the menu?", "Yes", "Cancel"))
             {
                 Dessert d = (Dessert)obj;
-                bool isDeleted = await proxy.DeleteOD(d.DessertId);
+                bool isDeleted = await proxy.DeleteFromMenu(d.DessertId);
                 if (isDeleted)
                 {
                     BakerDesserts.Remove(((Dessert)obj));

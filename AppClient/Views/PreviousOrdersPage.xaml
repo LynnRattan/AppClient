@@ -25,7 +25,6 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                    
                     Margin="3"
                     ItemsSource="{Binding UserOrders}"
                     SelectedItem="{Binding SelectedOrder}"
@@ -40,9 +39,10 @@
                                         CommandParameter="{Binding .}"
                                         Text="View" />
                                 </SwipeView.RightItems>
-                                <Border BackgroundColor="LightCoral"
+                                <Border
                                     Margin="4,5"
                                     Padding="4"
+                                    BackgroundColor="LightCoral"
                                     HeightRequest="200">
                                     <Grid RowDefinitions="*,*,*,*,*">
                                         <Label Grid.Row="0" Margin="3">
@@ -74,6 +74,7 @@
                                                 <FormattedString>
                                                     <Span FontAttributes="Bold" Text="Total Price: " />
                                                     <Span Text="{Binding TotalPrice}" />
+                                                    <Span Text="₪" />
                                                 </FormattedString>
                                             </Label.FormattedText>
                                         </Label>
@@ -98,9 +99,9 @@
                     Grid.ColumnSpan="3"
                     FontSize="Title"
                     HorizontalOptions="Center"
-                    VerticalOptions="CenterAndExpand"
                     IsVisible="{Binding IsEmpty}"
-                    Text="No previous purchases." />
+                    Text="No previous purchases."
+                    VerticalOptions="CenterAndExpand" />
                 <Image
                     Grid.Row="1"
                     Grid.ColumnSpan="3"
