@@ -190,6 +190,8 @@ namespace AppClient.ViewModels
             double d = 0;
             if ((string.IsNullOrEmpty(Price) || !double.TryParse(this.price, out d)))
             {
+                if (string.IsNullOrEmpty(Price))
+                    PriceError = "Dessert price is required";
                 this.ShowPriceError = true;
             }
             else

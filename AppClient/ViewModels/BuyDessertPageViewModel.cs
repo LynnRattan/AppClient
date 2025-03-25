@@ -1,6 +1,7 @@
 ﻿using AppClient.Models;
 using AppClient.Services;
 using AppClient.Views;
+using Java.Util.Functions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -133,6 +134,10 @@ namespace AppClient.ViewModels
             int d = 0;
             if ((string.IsNullOrEmpty(Quantity) || !int.TryParse(this.quantity, out d)))
             {
+                if (string.IsNullOrEmpty(Quantity))
+                {
+                    QuantityError = "Quantity is required.";
+                }
                 this.ShowQuantityError = true;
             }
             else

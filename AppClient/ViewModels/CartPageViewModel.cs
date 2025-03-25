@@ -195,6 +195,7 @@ namespace AppClient.ViewModels
                 if (userOrderedDesserts == null || userOrderedDesserts.Count==0)
                 {
                     IsEmpty = true;
+                    LoadUserDesserts();
                 }
             }
         }
@@ -216,16 +217,15 @@ namespace AppClient.ViewModels
                 o = await proxy.UpdateQuantity(d, int.Parse(NewQuantity));
                 if (o != null)
                 {
-                    string successMsg = "Quantity was successfully changed!";
+                    string successMsg = "Quantity was successfully changed! Please refresh.";
                     await Application.Current.MainPage.DisplayAlert("Changing Quantity", successMsg, "ok");
-                    IsRefreshing = true;
+                   
                 }
                 else
                 {
                     string errorMsg = "Changing the quantity has failed. Please try again.";
                     await Application.Current.MainPage.DisplayAlert("Changing Quantity", errorMsg, "ok");
                 }
-                IsChanging = false;
             }
             else
             {
@@ -248,6 +248,7 @@ namespace AppClient.ViewModels
 
                     }
                     IsEmpty = true;
+                    LoadUserDesserts();
                 }
             }
             else
@@ -299,6 +300,8 @@ namespace AppClient.ViewModels
 
                     string successMsg = "Your order has been sent!";
                     await Application.Current.MainPage.DisplayAlert("Order", successMsg, "ok");
+                    Adress = null;
+                    LoadUserDesserts();
                 }
                 else
                 {
@@ -325,7 +328,6 @@ namespace AppClient.ViewModels
         private async void LoadUserDesserts()
         {
             IsChanging = false;
-            Adress = null;
             FillUserDesserts();
             
 

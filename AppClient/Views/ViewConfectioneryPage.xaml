@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Models="clr-namespace:AppClient.Models"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-    Title="ViewConfectioneryPage"
+    Title="View Confectionery"
     x:DataType="viewmodel:ViewConfectioneryPageViewModel"
     BackgroundColor="LightPink"
     Shell.BackgroundColor="LightPink">

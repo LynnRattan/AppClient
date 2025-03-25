@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Models="clr-namespace:AppClient.Models"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-    Title="BakerViewOrder"
+    Title="View Order"
     x:DataType="viewmodel:BakerViewOrderViewModel"
     BackgroundColor="LightPink"
     Shell.BackgroundColor="LightPink">

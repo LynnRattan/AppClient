@@ -79,7 +79,14 @@ namespace AppClient.ViewModels
             {
                 IsEmpty = false;
             }
-            else IsEmpty = true;
+            else
+            {
+                IsEmpty = true;
+                await Application.Current.MainPage.DisplayAlert("Order declined", "Every dessert in the order has been declined", "ok");
+                Order o = SelectedOrder;
+                proxy.DeclineOrder(o.Id);
+                ((App)Application.Current).MainPage.Navigation.PopAsync();
+            }
         }
 
         private async void OnDeclineOrder()

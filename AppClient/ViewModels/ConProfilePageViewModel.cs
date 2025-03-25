@@ -47,60 +47,67 @@ namespace AppClient.ViewModels
             bakerDessertsKeeper = new();
             BakerDesserts = new();
             isEmpty = true;
-            FillBakerDesserts();
-            DeleteDessertCommand = new Command(DeleteFromMenu);
+            InItData();
+            DeleteDessertCommand = new Command(OnDelete);
             GoToAddDessertCommand = new Command(OnAddDessert);
-            LoadBakerDessertsCommand = new Command(LoadBakerDesserts);
+            LoadBakerDessertsCommand = new Command(async () => await LoadBakerDesserts());
         }
 
-        private async void FillBakerDesserts()
+        private async void InItData()
         {
+            await LoadBakerDesserts();
+        }
+        private async Task FillBakerDesserts()
+        {
+            bakerDessertsKeeper.Clear();
+
             bakerDessertsKeeper = await proxy.GetDesserts();
+
+            BakerDesserts.Clear();
 
             foreach (Dessert d in bakerDessertsKeeper)
             {
-                if (d.BakerId == LoggedInBaker.BakerId)
+                if (d.BakerId == LoggedInBaker.BakerId&& d.StatusCode!=3)
                 {
                     bakerDesserts.Add(d);
                 }
             }
             if (bakerDesserts!=null && bakerDesserts.Count>0)
-                isEmpty = false;
-            else isEmpty = true;
+                IsEmpty = false;
+            else IsEmpty = true;
             OnPropertyChanged("IsEmpty");
         }
 
-        //public async void OnDelete(Object obj)
-        //{
-        //    if (await AppShell.Current.DisplayAlert("Dessert", "Would you like to take off the dessert from the menu?", "Yes", "Cancel"))
-        //    {
-        //        Dessert dessert = (Dessert)obj;
-        //        BakerDesserts.Remove(((Dessert)obj));
-        //        proxy.DeclineDes(dessert.DessertId);
-        //        BakerDesserts.Add(dessert);
-        //    }
-        //}
-
-        public async void DeleteFromMenu(Object obj)
+        public async void OnDelete(Object obj)
         {
             if (await AppShell.Current.DisplayAlert("Dessert", "Would you like to take off the dessert from the menu?", "Yes", "Cancel"))
             {
-                Dessert d = (Dessert)obj;
-                bool isDeleted = await proxy.DeleteFromMenu(d.DessertId);
-                if (isDeleted)
-                {
-                    BakerDesserts.Remove(((Dessert)obj));
-                }
-                else
-                {
-                    AppShell.Current.DisplayAlert("Dessert", "Something went wrong.\nPlease try again later", "Ok");
-                }
-                if (BakerDesserts == null || BakerDesserts.Count == 0)
-                {
-                    IsEmpty = true;
-                }
+                Dessert dessert = (Dessert)obj;
+                BakerDesserts.Remove(((Dessert)obj));
+                proxy.DeclineDes(dessert.DessertId);
             }
         }
+
+        //public async void DeleteFromMenu(Object obj)
+        //{
+        //    if (await AppShell.Current.DisplayAlert("Dessert", "Would you like to take off the dessert from the menu?", "Yes", "Cancel"))
+        //    {
+        //        Dessert d = (Dessert)obj;
+        //        bool isDeleted = await proxy.DeleteFromMenu(d.DessertId);
+        //        if (isDeleted)
+        //        {
+        //            BakerDesserts.Remove(((Dessert)obj));
+        //        }
+        //        else
+        //        {
+        //            AppShell.Current.DisplayAlert("Dessert", "Something went wrong.\nPlease try again later", "Ok");
+        //        }
+        //        if (BakerDesserts == null || BakerDesserts.Count == 0)
+        //        {
+        //            IsEmpty = true;
+        //        }
+        //    }
+        //}
         private void OnAddDessert()
         {
             // Navigate to the AddDessert View page
@@ -109,7 +116,7 @@ namespace AppClient.ViewModels
            
         }
 
-        private async void LoadBakerDesserts()
+        public async Task LoadBakerDesserts()
         {
             IsRefreshing = true;
             BakerDesserts.Clear();

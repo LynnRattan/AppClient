@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Models="clr-namespace:AppClient.Models"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-    Title="ViewNewOrder"
+    Title="View New Order"
     x:DataType="viewmodel:ViewNewOrderViewModel"
     BackgroundColor="LightPink"
     Shell.BackgroundColor="LightPink">
@@ -98,7 +98,7 @@
                         FontSize="18"
                         HorizontalOptions="Center"
                         IsVisible="{Binding IsEmpty}"
-                        Text="No desserts in order." />
+                        Text="No pending desserts in order." />
                     <Image
                         Grid.Row="1"
                         Margin="0,10,0,0"

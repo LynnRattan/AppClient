@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Models="clr-namespace:AppClient.Models"
     xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
-    Title="SearchConsPage"
+    Title="Search For Confectioneries"
     x:DataType="viewmodel:SearchConsPageViewModel"
     BackgroundColor="LightPink"
     Shell.BackgroundColor="LightPink">
@@ -169,6 +169,26 @@
 
                                     </Grid>
                                 </Border>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup>
+                                        <VisualState
+                                            Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter 
+                                                    Property="BackgroundColor"
+                                                    Value="Transparent"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState
+                                            Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter 
+                                                    Property="BackgroundColor"
+                                                    Value="Transparent"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
                             </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

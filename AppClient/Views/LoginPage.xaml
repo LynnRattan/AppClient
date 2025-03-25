@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
              x:Class="AppClient.Views.LoginPage"
-             Title="LoginPage"
+             Title="Login"
              x:DataType="viewmodel:LoginPageViewModel">
    
     <VerticalStackLayout Padding="10" BackgroundColor="Pink">

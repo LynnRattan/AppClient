@@ -38,23 +38,31 @@ namespace AppClient.ViewModels
             LoggedInBaker = ((App)Application.Current).LoggedInBaker;
             bakerOrdersKeeper = new();
             BakerOrders = new();
+            bakerOrdersKeeper.Clear();
+            BakerOrders.Clear();
             IsEmpty = true;
-            FillBakerOrders();
+            InItData();
             ViewOrderCommand = new Command(OnView);
-            LoadBakerOrdersCommand = new Command(LoadBakerOrders);
+            LoadBakerOrdersCommand = new Command(async() => await LoadBakerOrders());
           
         }
 
 
-
-        private async void FillBakerOrders()
+        private async void InItData()
         {
+            await LoadBakerOrders();
+        }
+        private async Task FillBakerOrders()
+        {
+            bakerOrdersKeeper.Clear();
             bakerOrdersKeeper = await proxy.GetOrders();
+            BakerOrders.Clear();
 
-            foreach (Order o in bakerOrdersKeeper)
+            foreach (Order o in bakerOrdersKeeper.ToList())
             {
                 if (o.BakerId == LoggedInBaker.BakerId && o.StatusCode == 1)
                     BakerOrders.Add(o);
+                bakerOrdersKeeper.Remove(o);
             }
             if (BakerOrders != null && BakerOrders.Count>0)
             {
@@ -72,11 +80,10 @@ namespace AppClient.ViewModels
             SelectedOrder = null;
         }
 
-        private async void LoadBakerOrders()
+        public async Task LoadBakerOrders()
         {
             IsRefreshing = true;
-            BakerOrders.Clear();
-            FillBakerOrders();
+            await FillBakerOrders();
             IsRefreshing = false;
 
         }
