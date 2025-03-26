@@ -1,7 +1,6 @@
 ﻿using AppClient.Models;
 using AppClient.Services;
 using AppClient.Views;
-using Java.Util.Functions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +22,7 @@ namespace AppClient.ViewModels
             LoggedInUser = ((App)Application.Current).LoggedInUser;
             AddToCartCommand = new Command(OnAddToCart);
             CancelCommand = new Command(OnCancel);
-            QuantityError = "Quantity must be a number.";
+            QuantityError = "Quantity must be a positive number.";
 
         }
 
@@ -132,12 +131,12 @@ namespace AppClient.ViewModels
         private void ValidateQuantity()
         {
             int d = 0;
-            if ((string.IsNullOrEmpty(Quantity) || !int.TryParse(this.quantity, out d)))
+            if ((string.IsNullOrEmpty(Quantity) || !int.TryParse(this.quantity, out d)) || double.Parse(Quantity) < 0)
             {
                 if (string.IsNullOrEmpty(Quantity))
-                {
-                    QuantityError = "Quantity is required.";
-                }
+                    QuantityError = "Dessert Quantity is required";
+                else
+                    QuantityError = "Dessert Quantity must be a positive number.";
                 this.ShowQuantityError = true;
             }
             else

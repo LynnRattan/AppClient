@@ -16,6 +16,7 @@ public class LoginPageViewModel : ViewModelBase
         this.serviceProvider = serviceProvider;
         this.proxy = proxy;
         LoginCommand = new Command(OnLogin);
+        CancelCommand = new Command(OnCancel);
         GoToSignUpCommand = new Command(OnSignUp);
         mail = "";
         password = "";
@@ -26,6 +27,7 @@ public class LoginPageViewModel : ViewModelBase
     
 
     public ICommand LoginCommand { get; set; }
+    public ICommand CancelCommand { get; set; }
     public ICommand GoToSignUpCommand { get; set; }
     private string mail;
     private string password;
@@ -125,6 +127,14 @@ public class LoginPageViewModel : ViewModelBase
         Password = "";
         // Navigate to the Register View page
         ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<SignUpPage>());
+    }
+    private void OnCancel()
+    {
+        ErrorMsg = "";
+        Mail = "";
+        Password = "";
+        // Navigate to the Register View page
+        ((App)Application.Current).MainPage.Navigation.PopAsync();
     }
 
 

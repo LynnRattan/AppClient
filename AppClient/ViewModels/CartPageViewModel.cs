@@ -130,17 +130,22 @@ namespace AppClient.ViewModels
             orderedDessertsKeeper = new();
             UserOrderedDesserts = new();
             IsEmpty = true;
-            FillUserDesserts();            
+            InItData();            
             DeleteDessertCommand = new Command(OnDeleteDessert);
             ChangeQuantityCommand = new Command(OnChangeQuantity);
             UpdateQuantityCommand = new Command(OnUpdateQuantity);
             DeleteAllCommand = new Command(OnDeleteAll);
             OrderCommand = new Command(OnOrder);
             CancelCommand = new Command(OnCancel);
-            LoadUserDessertsCommand = new Command(LoadUserDesserts);
+            LoadUserDessertsCommand = new Command(async () => await LoadUserDesserts());
             NewQuantityError = "New quantity must be a number.";
             AdressError = "Adress Is Required.";
 
+        }
+
+        private async void InItData()
+        {
+            await LoadUserDesserts();
         }
 
         private void OnCancel()
@@ -153,13 +158,13 @@ namespace AppClient.ViewModels
         {
             orderedDessertsKeeper = await proxy.GetOrderedDesserts();
         }
-        private async void FillUserDesserts()
+        private async Task FillUserDesserts()
         {
             this.TotalPrice = 0;
-            UserOrderedDesserts.Clear();
+            
             orderedDessertsKeeper.Clear();
-            this.totalPrice = 0;
             orderedDessertsKeeper = await proxy.GetOrderedDesserts();
+            UserOrderedDesserts.Clear();
 
             foreach (OrderedDessert d in orderedDessertsKeeper)
             {
@@ -219,7 +224,7 @@ namespace AppClient.ViewModels
                 {
                     string successMsg = "Quantity was successfully changed! Please refresh.";
                     await Application.Current.MainPage.DisplayAlert("Changing Quantity", successMsg, "ok");
-                   
+                    LoadUserDesserts();
                 }
                 else
                 {
@@ -325,7 +330,7 @@ namespace AppClient.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
             }
         }
-        private async void LoadUserDesserts()
+        private async Task LoadUserDesserts()
         {
             IsChanging = false;
             FillUserDesserts();

@@ -29,7 +29,7 @@ namespace AppClient.ViewModels
             PhotoURL = proxy.GetDefaultDessertPhotoUrl();
             LocalPhotoPath = "";
             DessertNameError = "";
-            PriceError = "Price must be a number.";
+            PriceError = "Price must be a positive number.";
 
         }
 
@@ -188,10 +188,12 @@ namespace AppClient.ViewModels
         private void ValidatePrice()
         {
             double d = 0;
-            if ((string.IsNullOrEmpty(Price) || !double.TryParse(this.price, out d)))
+            if ((string.IsNullOrEmpty(Price) || !double.TryParse(this.price, out d)) || double.Parse(Price) < 0)
             {
                 if (string.IsNullOrEmpty(Price))
-                    PriceError = "Dessert price is required";
+                    PriceError = "Dessert Price is required";
+                else
+                    PriceError = "Dessert price must be a positive number.";
                 this.ShowPriceError = true;
             }
             else
@@ -245,7 +247,7 @@ namespace AppClient.ViewModels
         {
             try
             {
-                var result = await MediaPicker.Default.CapturePhotoAsync(new MediaPickerOptions
+                var result = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
                 {
                     Title = "Please select a photo",
                 });

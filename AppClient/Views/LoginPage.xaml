@@ -4,22 +4,26 @@
              xmlns:viewmodel="clr-namespace:AppClient.ViewModels"
              x:Class="AppClient.Views.LoginPage"
              Title="Login"
+             NavigationPage.HasNavigationBar="False"
              x:DataType="viewmodel:LoginPageViewModel">
    
     <VerticalStackLayout Padding="10" BackgroundColor="Pink">
-        <Label
-            HorizontalOptions="Center"
-            Padding="5"
-            FontAttributes="Bold"
-            FontFamily="Consolas"
-            FontSize="30"
-            Text="Login"
-            TextColor="Purple" />
+        <Grid>
+            <ImageButton Command="{Binding CancelCommand}" HorizontalOptions="Start" VerticalOptions="Start" BorderColor="Purple" BorderWidth="0" CornerRadius="10" HeightRequest="40" WidthRequest="40" Source="backarrow.png" Padding="5"/>
+            <Label
+                HorizontalOptions="Center"
+                Padding="5"
+                FontAttributes="Bold"
+                Margin="0,50,0,0"
+                FontFamily="Font"
+                FontSize="60"
+                Text="Login"
+                TextColor="Purple" />
+        </Grid>
 
-        <Label FontFamily="Consolas" Text="Mail" />
         <Frame
             BackgroundColor="NavajoWhite"
-            Margin="0,10,0,0"
+            Margin="0,30,0,0"
             Padding="3"
             CornerRadius="10">
             <Entry
@@ -29,10 +33,9 @@
                 Placeholder="Mail"
                 Text="{Binding Mail}" />
         </Frame>
-        <Label FontFamily="Consolas" Text="Password" />
         <Frame
             BackgroundColor="NavajoWhite"
-            Margin="0,10,0,0"
+            Margin="0,30,0,0"
             Padding="3"
             CornerRadius="10">
             <Entry

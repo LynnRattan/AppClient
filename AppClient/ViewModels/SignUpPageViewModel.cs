@@ -37,7 +37,7 @@ namespace AppClient.ViewModels
             MailError = "";
             PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
             ConfectioneryNameError= "Confectionery Name is required";
-            HighestPriceError = "Highest price must be a number.";
+            HighestPriceError = "Highest price must be a positive number.";
 
 
         }
@@ -324,7 +324,7 @@ namespace AppClient.ViewModels
         {
             try
             {
-                var result = await MediaPicker.Default.CapturePhotoAsync(new MediaPickerOptions
+                var result = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
                 {
                     Title = "Please select a photo",
                 });
@@ -494,8 +494,12 @@ namespace AppClient.ViewModels
             if (IsConChecked)
             {
 
-                if ((string.IsNullOrEmpty(HighestPrice) || !double.TryParse(this.highestPrice, out d)))
+                if ((string.IsNullOrEmpty(HighestPrice) || !double.TryParse(this.highestPrice, out d))||double.Parse(HighestPrice)<0)
                 {
+                    if (string.IsNullOrEmpty(HighestPrice))
+                        HighestPriceError = "Highest Price is required";
+                    else
+                        HighestPriceError = "Highest price must be a positive number.";
                     this.ShowHighestPriceError = true;
                 }
                 else
