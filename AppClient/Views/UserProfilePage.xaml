@@ -43,7 +43,7 @@
                 </Grid>
             </Frame>
 
-            <Label Grid.Row="2" Margin="3" FontSize="20">
+            <Label Grid.Row="2" Margin="3" FontSize="20" HorizontalOptions="Center">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span FontAttributes="Bold" Text="Username: " />
@@ -52,7 +52,7 @@
                 </Label.FormattedText>
             </Label>
 
-            <Label Grid.Row="3" Margin="3" FontSize="20">
+            <Label Grid.Row="3" Margin="3" FontSize="20" HorizontalOptions="Center">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span FontAttributes="Bold" Text="Mail: " />
@@ -64,15 +64,16 @@
 
 
 
-            <Button
-                Grid.Row="6"
+            <!--<Button
+                Grid.Row="4"
+                Grid.RowSpan="3"
                 BackgroundColor="#b53cb5"
                 Command="{Binding GoToShopCommand}"
                 FontSize="Title"
                 HorizontalOptions="Center"
                 IsEnabled="{Binding NotInServerCall}"
                 Text="Start shopping"
-                VerticalOptions="Center" />
+                VerticalOptions="Center" />-->
 
         </Grid>
 

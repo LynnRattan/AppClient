@@ -39,22 +39,27 @@ namespace AppClient.ViewModels
             PendingConfectioneries = new();
             isEmpty = true;
             //GetBakers();
-            FillPendingConfectioneries();
+            InItData();
             DeclineConfectioneryCommand = new Command(OnDecline);
             ApproveConfectioneryCommand = new Command(OnApprove);
-            LoadPendingConfectioneriesCommand = new Command(LoadPendingConfectioneries);
+            LoadPendingConfectioneriesCommand = new Command(async () => await LoadPendingConfectioneries());
         }
 
-       
+
+        private async void InItData()
+        {
+            await LoadPendingConfectioneries();
+        }
 
         private async void GetBakers()
         {
             pendingConfectioneriesKeeper = await proxy.GetBakers();
         }
-        private async void FillPendingConfectioneries()
+        private async Task FillPendingConfectioneries()
         {
+            pendingConfectioneriesKeeper.Clear();
             pendingConfectioneriesKeeper = await proxy.GetBakers();
-
+            PendingConfectioneries.Clear();
             foreach (Baker b in pendingConfectioneriesKeeper)
             {
                 if (b.StatusCode == 1)
@@ -96,10 +101,10 @@ namespace AppClient.ViewModels
             }
         }
 
-        private async void LoadPendingConfectioneries()
+        public async Task LoadPendingConfectioneries()
         {
             IsRefreshing = true;
-            PendingConfectioneries.Clear();
+            
             FillPendingConfectioneries();
              IsRefreshing = false;
         }

@@ -9,4 +9,15 @@ public partial class PendingDessertsPage : ContentPage
         this.BindingContext = vm;
         InitializeComponent();
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        PendingDessertsPageViewModel vm = (PendingDessertsPageViewModel)this.BindingContext;
+        LoadPendingDesserts(vm);
+    }
+    private async void LoadPendingDesserts(PendingDessertsPageViewModel vm)
+    {
+        await vm.LoadPendingDesserts();
+    }
 }

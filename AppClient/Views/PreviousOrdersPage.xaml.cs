@@ -9,4 +9,15 @@ public partial class PreviousOrdersPage : ContentPage
 		this.BindingContext = vm;
 		InitializeComponent();
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        PreviousOrdersPageViewModel vm = (PreviousOrdersPageViewModel)this.BindingContext;
+        LoadUserOrders(vm);
+    }
+    private async void LoadUserOrders(PreviousOrdersPageViewModel vm)
+    {
+        await vm.LoadUserOrders();
+    }
 }

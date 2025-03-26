@@ -39,17 +39,22 @@ namespace AppClient.ViewModels
             userOrdersKeeper = new();
             UserOrders = new();
             isEmpty = true;
-            FillUserOrders();
+            InItData();
             ViewOrderCommand = new Command(OnView);
-            LoadUserOrdersCommand = new Command(LoadUserOrders);
+            LoadUserOrdersCommand = new Command(async () => await LoadUserOrders());
 
         }
 
-
-       
-        private async void FillUserOrders()
+        private async void InItData()
         {
+            await LoadUserOrders();
+        }
+
+        private async Task FillUserOrders()
+        {
+            userOrdersKeeper.Clear();
             userOrdersKeeper = await proxy.GetOrders();
+            UserOrders.Clear();
 
             foreach (Order o in userOrdersKeeper)
             {
@@ -72,10 +77,9 @@ namespace AppClient.ViewModels
             SelectedOrder = null;
         }
        
-        private async void LoadUserOrders()
+        public async Task LoadUserOrders()
         {
             IsRefreshing = true;
-            UserOrders.Clear();
             FillUserOrders();
             IsRefreshing = false;
 

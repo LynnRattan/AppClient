@@ -9,4 +9,15 @@ public partial class BakerPreviousOrders : ContentPage
 		this.BindingContext = vm;
 		InitializeComponent();
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        BakerPreviousOrdersViewModel vm = (BakerPreviousOrdersViewModel)this.BindingContext;
+        LoadBakerOrders(vm);
+    }
+    private async void LoadBakerOrders(BakerPreviousOrdersViewModel vm)
+    {
+        await vm.LoadBakerOrders();
+    }
 }

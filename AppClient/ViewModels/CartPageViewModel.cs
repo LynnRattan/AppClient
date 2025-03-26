@@ -222,8 +222,10 @@ namespace AppClient.ViewModels
                 o = await proxy.UpdateQuantity(d, int.Parse(NewQuantity));
                 if (o != null)
                 {
-                    string successMsg = "Quantity was successfully changed! Please refresh.";
+                    string successMsg = "Quantity was successfully changed!";
                     await Application.Current.MainPage.DisplayAlert("Changing Quantity", successMsg, "ok");
+                    IsChanging = false;
+                    NewQuantity = null;
                     LoadUserDesserts();
                 }
                 else
@@ -330,7 +332,7 @@ namespace AppClient.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Error", errorMsg, "ok");
             }
         }
-        private async Task LoadUserDesserts()
+        public async Task LoadUserDesserts()
         {
             IsChanging = false;
             FillUserDesserts();

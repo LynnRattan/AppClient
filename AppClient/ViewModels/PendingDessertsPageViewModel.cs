@@ -37,21 +37,28 @@ namespace AppClient.ViewModels
             pendingDessertsKeeper = new();
             PendingDesserts = new();
             isEmpty = true;
-            FillPendingDesserts();
+            InItData();
             DeclineDessertCommand = new Command(OnDecline);
             ApproveDessertCommand = new Command(OnApprove);
-            LoadPendingDessertsCommand = new Command(LoadPendingDesserts);
+            LoadPendingDessertsCommand = new Command(async () => await LoadPendingDesserts());
 
         }
 
+        private async void InItData()
+        {
+            await LoadPendingDesserts();
+        }
 
         private async void GetDesserts()
         {
             pendingDessertsKeeper = await proxy.GetDesserts();
         }
-        private async void FillPendingDesserts()
+        private async Task FillPendingDesserts()
         {
+            pendingDessertsKeeper.Clear();
             pendingDessertsKeeper = await proxy.GetDesserts();
+            PendingDesserts.Clear();
+
             foreach (Dessert d in pendingDessertsKeeper)
             {
                 if (d.StatusCode == 1)
@@ -93,10 +100,9 @@ namespace AppClient.ViewModels
             }
         }
 
-        private async void LoadPendingDesserts()
+        public async Task LoadPendingDesserts()
         {
             IsRefreshing = true;
-            PendingDesserts.Clear();
             FillPendingDesserts();
             IsRefreshing = false;
 
